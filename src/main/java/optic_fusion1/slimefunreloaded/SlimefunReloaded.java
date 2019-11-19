@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
 import optic_fusion1.slimefunreloaded.updater.Updater;
 import static optic_fusion1.slimefunreloaded.updater.Updater.UpdateResult.UPDATE_AVAILABLE;
+import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Bukkit;
@@ -16,6 +17,11 @@ public class SlimefunReloaded extends JavaPlugin {
 
   private FileConfiguration config;
   private Logger logger;
+  private static final File DATA_FOLDER = new File("plugins/SlimefunReloaded");
+  private static final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
+  private static final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
+  private static final File DATABASE_FOLDER = new File(DATA_FOLDER, "Players");
+  private static final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
 
   @Override
   public void onEnable() {
@@ -38,6 +44,9 @@ public class SlimefunReloaded extends JavaPlugin {
     File configFile = new File(getDataFolder(), "config.yml");
     if (!configFile.exists()) {
       saveDefaultConfig();
+    }
+    if (!DATABASE_FOLDER.exists()) {
+      DATABASE_FOLDER.mkdirs();
     }
     config = getConfig();
     handleUpdate();
@@ -63,6 +72,22 @@ public class SlimefunReloaded extends JavaPlugin {
         logger.info("************************");
       }
     }
+  }
+
+  public static Config getResearchesConfig() {
+    return RESEARCHES_CONFIG;
+  }
+
+  public static Config getItemsConfig() {
+    return ITEMS_CONFIG;
+  }
+
+  public static File getDatabaseFolder() {
+    return DATABASE_FOLDER;
+  }
+
+  public static Config getWhitelistConfig() {
+    return WHITELIST_CONFIG;
   }
 
 }
