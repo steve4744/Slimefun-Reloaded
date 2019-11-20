@@ -3,6 +3,7 @@ package optic_fusion1.slimefunreloaded;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
 import optic_fusion1.slimefunreloaded.updater.Updater;
 import static optic_fusion1.slimefunreloaded.updater.Updater.UpdateResult.UPDATE_AVAILABLE;
@@ -22,6 +23,7 @@ public class SlimefunReloaded extends JavaPlugin {
   private final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
   private final File DATABASE_FOLDER = new File(DATA_FOLDER, "Players");
   private final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
+  private final CategoryManager CATEGORY_MANAGER = new CategoryManager();
 
   @Override
   public void onEnable() {
@@ -88,6 +90,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public Config getWhitelistConfig() {
     return WHITELIST_CONFIG;
+  }
+  
+  public CategoryManager getCategoryManager(){
+    return CATEGORY_MANAGER;
   }
 
 }

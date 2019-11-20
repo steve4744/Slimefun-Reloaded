@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
+import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.util.Config;
 
 public final class Slimefun {
@@ -21,20 +22,24 @@ public final class Slimefun {
     return plugin;
   }
 
-  public Config getResearchesConfig() {
+  public static Config getResearchesConfig() {
     return plugin.getResearchesConfig();
   }
 
-  public Config getItemsConfig() {
+  public static Config getItemsConfig() {
     return plugin.getItemsConfig();
   }
 
-  public File getDatabaseFolder() {
+  public static File getDatabaseFolder() {
     return plugin.getDatabaseFolder();
   }
 
-  public Config getWhitelistConfig() {
+  public static Config getWhitelistConfig() {
     return plugin.getWhitelistConfig();
+  }
+
+  public static CategoryManager getCategoryManager() {
+    return plugin.getCategoryManager();
   }
 
 }
