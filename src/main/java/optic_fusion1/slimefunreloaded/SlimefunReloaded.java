@@ -17,11 +17,11 @@ public class SlimefunReloaded extends JavaPlugin {
 
   private FileConfiguration config;
   private Logger logger;
-  private static final File DATA_FOLDER = new File("plugins/SlimefunReloaded");
-  private static final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
-  private static final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
-  private static final File DATABASE_FOLDER = new File(DATA_FOLDER, "Players");
-  private static final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
+  private final File DATA_FOLDER = new File("plugins/SlimefunReloaded");
+  private final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
+  private final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
+  private final File DATABASE_FOLDER = new File(DATA_FOLDER, "Players");
+  private final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
 
   @Override
   public void onEnable() {
@@ -74,19 +74,19 @@ public class SlimefunReloaded extends JavaPlugin {
     }
   }
 
-  public static Config getResearchesConfig() {
+  public Config getResearchesConfig() {
     return RESEARCHES_CONFIG;
   }
 
-  public static Config getItemsConfig() {
+  public Config getItemsConfig() {
     return ITEMS_CONFIG;
   }
 
-  public static File getDatabaseFolder() {
+  public File getDatabaseFolder() {
     return DATABASE_FOLDER;
   }
 
-  public static Config getWhitelistConfig() {
+  public Config getWhitelistConfig() {
     return WHITELIST_CONFIG;
   }
 

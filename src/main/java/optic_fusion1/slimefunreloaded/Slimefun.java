@@ -1,5 +1,8 @@
 package optic_fusion1.slimefunreloaded;
 
+import java.io.File;
+import optic_fusion1.slimefunreloaded.util.Config;
+
 public final class Slimefun {
 
   private Slimefun() {
@@ -16,6 +19,22 @@ public final class Slimefun {
 
   public static SlimefunReloaded getSlimefunReloaded() {
     return plugin;
+  }
+
+  public Config getResearchesConfig() {
+    return plugin.getResearchesConfig();
+  }
+
+  public Config getItemsConfig() {
+    return plugin.getItemsConfig();
+  }
+
+  public File getDatabaseFolder() {
+    return plugin.getDatabaseFolder();
+  }
+
+  public Config getWhitelistConfig() {
+    return plugin.getWhitelistConfig();
   }
 
 }
