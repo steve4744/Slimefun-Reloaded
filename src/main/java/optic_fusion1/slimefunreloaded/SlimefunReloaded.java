@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.category.CategoryRegistery;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
+import optic_fusion1.slimefunreloaded.research.ResearchManager;
+import optic_fusion1.slimefunreloaded.research.ResearchRegistery;
 import optic_fusion1.slimefunreloaded.updater.Updater;
 import static optic_fusion1.slimefunreloaded.updater.Updater.UpdateResult.UPDATE_AVAILABLE;
 import optic_fusion1.slimefunreloaded.util.Config;
@@ -25,6 +27,7 @@ public class SlimefunReloaded extends JavaPlugin {
   private final File DATABASE_FOLDER = new File(DATA_FOLDER, "Players");
   private final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
   private final CategoryManager CATEGORY_MANAGER = new CategoryManager();
+  private final ResearchManager RESEARCH_MANAGER = new ResearchManager();
 
   @Override
   public void onEnable() {
@@ -54,6 +57,7 @@ public class SlimefunReloaded extends JavaPlugin {
     config = getConfig();
     handleUpdate();
     new CategoryRegistery().registerCategories();
+    new ResearchRegistery().registerResearches();
   }
 
   @Override
@@ -93,9 +97,13 @@ public class SlimefunReloaded extends JavaPlugin {
   public Config getWhitelistConfig() {
     return WHITELIST_CONFIG;
   }
-  
-  public CategoryManager getCategoryManager(){
+
+  public CategoryManager getCategoryManager() {
     return CATEGORY_MANAGER;
+  }
+
+  public ResearchManager getResearchManager() {
+    return RESEARCH_MANAGER;
   }
 
 }

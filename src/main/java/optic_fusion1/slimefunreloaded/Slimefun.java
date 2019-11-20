@@ -2,6 +2,7 @@ package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
+import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.util.Config;
 
 public final class Slimefun {
@@ -40,6 +41,10 @@ public final class Slimefun {
 
   public static CategoryManager getCategoryManager() {
     return plugin.getCategoryManager();
+  }
+
+  public static ResearchManager getResearchManager() {
+    return plugin.getResearchManager();
   }
 
 }
