@@ -1,5 +1,8 @@
 package optic_fusion1.slimefunreloaded.category.type;
 
+import java.util.ArrayList;
+import java.util.List;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -8,7 +11,7 @@ public class Category {
 
   private String name;
   private ItemStack item;
-  //private List<SlimefunItem> items = new ArrayList<>();
+  private List<SlimefunReloadedItem> items = new ArrayList<>();
   private int tier;
   private boolean enabled = true;
 
@@ -25,18 +28,18 @@ public class Category {
     this.tier = tier;
   }
 
-//  public void add(SlimefunItem item){
-//    items.add(item);
-//  }
+  public void add(SlimefunReloadedItem item) {
+    items.add(item);
+  }
 
   public ItemStack getItem() {
     return item;
   }
 
-//  public List<SlimefunItem> getItems(){
-//    return items;
-//  }
-  
+  public List<SlimefunReloadedItem> getItems() {
+    return items;
+  }
+
   public int getTier() {
     return tier;
   }
@@ -47,7 +50,7 @@ public class Category {
 
   @Override
   public String toString() {
-    return "Slimefun Reloaded Category {" + item.getItemMeta().getDisplayName() + ",tier=" + tier + "}";
+    return "Slimefun Reloaded Category {name=" + name + ",itemdisplayname=" + item.getItemMeta().getDisplayName() + ",tier=" + tier + "}";
   }
 
   public boolean isEnabled() {
