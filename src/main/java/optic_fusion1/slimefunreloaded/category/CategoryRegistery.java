@@ -4,7 +4,6 @@ import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.builder.ItemStackBuilder;
 import optic_fusion1.slimefunreloaded.category.type.LockedCategory;
-import optic_fusion1.slimefunreloaded.category.type.SeasonalCategory;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
