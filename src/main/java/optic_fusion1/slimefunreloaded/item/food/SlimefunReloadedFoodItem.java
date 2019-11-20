@@ -20,6 +20,6 @@ public abstract class SlimefunReloadedFoodItem extends SlimefunReloadedItem {
     return saturation;
   }
   
-  public abstract void handle(ItemStack item, Player player);
+  public abstract void onConsume(ItemStack item, Player player);
 
 }

@@ -17,7 +17,7 @@ public class FortuneCookie extends SlimefunReloadedFoodItem {
   }
 
   @Override
-  public void handle(ItemStack item, Player player) {
+  public void onConsume(ItemStack item, Player player) {
     if (item.isSimilar(getItem())) {
       List<String> messages = I18n.getMessages("messages.fortune-cookie");
       String message = messages.get(random.nextInt(messages.size()));

@@ -14,7 +14,7 @@ public class DietCookie extends SlimefunReloadedFoodItem {
   }
 
   @Override
-  public void handle(ItemStack item, Player player) {
+  public void onConsume(ItemStack item, Player player) {
     if (item.isSimilar(getItem())) {
       player.sendMessage(ChatColor.YELLOW + "You feel so light...");
       player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
