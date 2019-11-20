@@ -2,6 +2,7 @@ package optic_fusion1.slimefunreloaded.item.machine;
 
 import java.util.ArrayList;
 import java.util.List;
+import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.StringUtils;
 import org.bukkit.inventory.ItemFlag;
@@ -10,6 +11,10 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class SlimefunReloadedMachine extends SlimefunReloadedItem {
+
+  public SlimefunReloadedMachine(Category category, ItemStack item, String id) {
+    super(category, item, id);
+  }
 
   public String getTimeLeft(int seconds) {
     String timeleft = "";

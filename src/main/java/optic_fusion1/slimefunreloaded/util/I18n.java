@@ -3,6 +3,7 @@ package optic_fusion1.slimefunreloaded.util;
 import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
@@ -88,5 +89,9 @@ public class I18n {
   public static String capitalCase(String input) {
     return input == null || input.length() == 0 ? input : input.toUpperCase(Locale.ENGLISH).charAt(0) + input.toLowerCase(Locale.ENGLISH).substring(1);
   }
-
+  
+  public static List<String> getMessages(String path){
+    return config.getStringList(path);
+  }
+  
 }
