@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
+import optic_fusion1.slimefunreloaded.category.CategoryRegistery;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
 import optic_fusion1.slimefunreloaded.updater.Updater;
 import static optic_fusion1.slimefunreloaded.updater.Updater.UpdateResult.UPDATE_AVAILABLE;
@@ -52,6 +53,7 @@ public class SlimefunReloaded extends JavaPlugin {
     }
     config = getConfig();
     handleUpdate();
+    new CategoryRegistery().registerCategories();
   }
 
   @Override
