@@ -1,0 +1,63 @@
+package optic_fusion1.slimefunreloaded.protection.modules;
+
+import java.util.Optional;
+import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
+import static optic_fusion1.slimefunreloaded.protection.ProtectableAction.ACCESS_INVENTORIES;
+import static optic_fusion1.slimefunreloaded.protection.ProtectableAction.BREAK_BLOCK;
+import static optic_fusion1.slimefunreloaded.protection.ProtectableAction.PLACE_BLOCK;
+import static optic_fusion1.slimefunreloaded.protection.ProtectableAction.PVP;
+import optic_fusion1.slimefunreloaded.protection.ProtectionModule;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
+import world.bentobox.bentobox.BentoBox;
+import world.bentobox.bentobox.api.flags.Flag;
+import world.bentobox.bentobox.api.user.User;
+import world.bentobox.bentobox.database.objects.Island;
+import world.bentobox.bentobox.lists.Flags;
+import world.bentobox.bentobox.managers.IslandsManager;
+
+
+
+public class BentoBoxProtectionModule implements ProtectionModule {
+
+  private IslandsManager manager;
+
+  @Override
+  public void load() {
+    manager = BentoBox.getInstance().getIslands();
+  }
+
+  @Override
+  public boolean hasPermission(OfflinePlayer p, Location l, ProtectableAction action) {
+    Optional<Island> island = manager.getIslandAt(l);
+    Flag flag = convert(action, l.getWorld());
+    return island.map(value -> value.isAllowed(User.getInstance(p), flag)).orElse(flag.isSetForWorld(l.getWorld()));
+  }
+
+  private Flag convert(ProtectableAction action, World world) {
+    switch (action) {
+      case ACCESS_INVENTORIES:
+        return Flags.CONTAINER;
+      case PVP:
+        if (world != null) {
+          if (world.getEnvironment() == World.Environment.NETHER) {
+            return Flags.PVP_NETHER;
+          } else if (world.getEnvironment() == World.Environment.THE_END) {
+            return Flags.PVP_END;
+          }
+        }
+        return Flags.PVP_OVERWORLD;
+      case BREAK_BLOCK:
+        return Flags.BREAK_BLOCKS;
+      case PLACE_BLOCK:
+      default:
+        return Flags.PLACE_BLOCKS;
+    }
+  }
+
+  @Override
+  public String getName() {
+    return "BentoBox";
+  }
+}
