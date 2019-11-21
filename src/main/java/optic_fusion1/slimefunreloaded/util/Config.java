@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -38,6 +40,7 @@ public class Config {
     Objects.requireNonNull(plugin);
     plugin.saveDefaultConfig();
     this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), "config.yml");
+    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }
@@ -45,6 +48,7 @@ public class Config {
   public Config(Plugin plugin, String name) {
     Utils.requireNonNull(plugin, name);
     this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), name);
+    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }
@@ -57,6 +61,7 @@ public class Config {
   public Config(File file) {
     Objects.requireNonNull(file);
     this.file = file;
+    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }
@@ -70,6 +75,7 @@ public class Config {
   public Config(File file, FileConfiguration config) {
     Utils.requireNonNull(file, config);
     this.file = file;
+    createFile();
     this.fileConfig = config;
     config.options().copyDefaults(true);
   }
@@ -82,6 +88,7 @@ public class Config {
   public Config(String path) {
     Objects.requireNonNull(path);
     this.file = new File(path);
+    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }
@@ -293,11 +300,13 @@ public class Config {
    */
   public boolean createFile() {
     try {
-      return this.file.createNewFile();
+      if (!file.exists()) {
+        return this.file.createNewFile();
+      }
     } catch (IOException e) {
       e.printStackTrace();
-      return false;
     }
+    return false;
   }
 
   /**
