@@ -2,34 +2,480 @@ package optic_fusion1.slimefunreloaded.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 public class Config {
 
   private File file;
-  private FileConfiguration config;
 
+  protected FileConfiguration fileConfig;
+
+  /**
+   * Creates a new Config Object for the config.yml File of the specified Plugin
+   *
+   * @param plugin The Instance of the Plugin, the config.yml is referring to
+   */
+  public Config(Plugin plugin) {
+    Objects.requireNonNull(plugin);
+    plugin.saveDefaultConfig();
+    this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), "config.yml");
+    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
+    fileConfig.options().copyDefaults(true);
+  }
+
+  public Config(Plugin plugin, String name) {
+    Utils.requireNonNull(plugin, name);
+    this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), name);
+    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
+    fileConfig.options().copyDefaults(true);
+  }
+
+  /**
+   * Creates a new Config Object for the specified File
+   *
+   * @param file The File for which the Config object is created for
+   */
   public Config(File file) {
+    Objects.requireNonNull(file);
     this.file = file;
-    if (!file.exists()) {
-      try {
-        file.createNewFile();
-      } catch (IOException ex) {
-        Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
+    fileConfig.options().copyDefaults(true);
+  }
+
+  /**
+   * Creates a new Config Object for the specified File and FileConfiguration
+   *
+   * @param file The File to save to
+   * @param config The FileConfiguration
+   */
+  public Config(File file, FileConfiguration config) {
+    Utils.requireNonNull(file, config);
+    this.file = file;
+    this.fileConfig = config;
+    config.options().copyDefaults(true);
+  }
+
+  /**
+   * Creates a new Config Object for the File with in the specified Location
+   *
+   * @param path The Path of the File which the Config object is created for
+   */
+  public Config(String path) {
+    Objects.requireNonNull(path);
+    this.file = new File(path);
+    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
+    fileConfig.options().copyDefaults(true);
+  }
+
+  /**
+   * Converts this Config Object into a plain FileConfiguration Object
+   *
+   * @return The converted FileConfiguration Object
+   */
+  public FileConfiguration getConfiguration() {
+    return this.fileConfig;
+  }
+
+  protected void store(String path, Object value) {
+    Objects.requireNonNull(path);
+    this.fileConfig.set(path, value);
+  }
+
+  /**
+   * Sets the Value for the specified Path
+   *
+   * @param path The path in the Config File
+   * @param value The Value for that Path
+   */
+  public void setValue(String path, Object value) {
+    Objects.requireNonNull(path);
+    if (value == null) {
+      this.store(path, value);
+    } else if (value instanceof Inventory) {
+      this.store(path + ".size", ((Inventory) value).getSize());
+      for (int i = 0; i < ((Inventory) value).getSize(); i++) {
+        this.store(path + "." + i, ((Inventory) value).getItem(i));
       }
+    } else if (value instanceof Date) {
+      this.store(path, String.valueOf(((Date) value).getTime()));
+    } else if (value instanceof Long) {
+      this.store(path, String.valueOf(value));
+    } else if (value instanceof UUID) {
+      this.store(path, value.toString());
+    } else if (value instanceof Sound) {
+      this.store(path, String.valueOf(value));
+    } else if (value instanceof Location) {
+      this.store(path + ".x", ((Location) value).getX());
+      this.store(path + ".y", ((Location) value).getY());
+      this.store(path + ".z", ((Location) value).getZ());
+      this.store(path + ".pitch", ((Location) value).getPitch());
+      this.store(path + ".yaw", ((Location) value).getYaw());
+      this.store(path + ".world", ((Location) value).getWorld().getName());
+    } else if (value instanceof Chunk) {
+      this.store(path + ".x", ((Chunk) value).getX());
+      this.store(path + ".z", ((Chunk) value).getZ());
+      this.store(path + ".world", ((Chunk) value).getWorld().getName());
+    } else if (value instanceof World) {
+      this.store(path, ((World) value).getName());
+    } else {
+      this.store(path, value);
     }
-    config = YamlConfiguration.loadConfiguration(file);
+  }
+
+  /**
+   * Saves the Config Object to its File
+   */
+  public void save() {
+    try {
+      fileConfig.save(file);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Saves the Config Object to a File
+   *
+   * @param file The File you are saving this Config to
+   */
+  public void save(File file) {
+    Objects.requireNonNull(file);
+    try {
+      fileConfig.save(file);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Sets the Value for the specified Path (IF the Path does not yet exist)
+   *
+   * @param path The path in the Config File
+   * @param value The Value for that Path
+   */
+  public void setDefaultValue(String path, Object value) {
+    Objects.requireNonNull(path);
+    if (!contains(path)) {
+      setValue(path, value);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  public <T> T getOrSetDefault(String path, T value) {
+    Objects.requireNonNull(path);
+    Object val = getValue(path);
+
+    if (value.getClass().isInstance(val)) {
+      return (T) val;
+    } else {
+      setValue(path, value);
+      return value;
+    }
+  }
+
+  /**
+   * Checks whether the Config contains the specified Path
+   *
+   * @param path The path in the Config File
+   * @return True/false
+   */
+  public boolean contains(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.contains(path);
+  }
+
+  /**
+   * Returns the Object at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Value at that Path
+   */
+  public Object getValue(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.get(path);
+  }
+
+  public <T> Optional<T> getValueAs(Class<T> c, String path) {
+    Utils.requireNonNull(c, path);
+    Object obj = getValue(path);
+    return c.isInstance(obj) ? Optional.of(c.cast(obj)) : Optional.empty();
+  }
+
+  /**
+   * Returns the ItemStack at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The ItemStack at that Path
+   */
+  public ItemStack getItem(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.getItemStack(path);
+  }
+
+  /**
+   * Returns the String at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The String at that Path
+   */
+  public String getString(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.getString(path);
+  }
+
+  /**
+   * Returns the Integer at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Integer at that Path
+   */
+  public int getInt(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.getInt(path);
+  }
+
+  /**
+   * Returns the Boolean at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Boolean at that Path
+   */
+  public boolean getBoolean(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.getBoolean(path);
+  }
+
+  /**
+   * Returns the StringList at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The StringList at that Path
+   */
+  public List<String> getStringList(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.getStringList(path);
+  }
+
+  /**
+   * Returns the IntegerList at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The IntegerList at that Path
+   */
+  public List<Integer> getIntList(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.getIntegerList(path);
+  }
+
+  /**
+   * Recreates the File of this Config
+   *
+   * @return Returns if the file was successfully created
+   */
+  public boolean createFile() {
+    try {
+      return this.file.createNewFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  /**
+   * Returns the Float at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Float at that Path
+   */
+  public float getFloat(String path) {
+    Objects.requireNonNull(path);
+    return Float.valueOf(String.valueOf(getValue(path)));
+  }
+
+  /**
+   * Returns the Long at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Long at that Path
+   */
+  public long getLong(String path) {
+    Objects.requireNonNull(path);
+    return Long.valueOf(String.valueOf(getValue(path)));
+  }
+
+  /**
+   * Returns the Sound at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Sound at that Path
+   */
+  public Sound getSound(String path) {
+    Objects.requireNonNull(path);
+    return Sound.valueOf(getString(path));
+  }
+
+  /**
+   * Returns the Date at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Date at that Path
+   */
+  public Date getDate(String path) {
+    Objects.requireNonNull(path);
+    return new Date(getLong(path));
+  }
+
+  /**
+   * Returns the Chunk at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Chunk at that Path
+   */
+  public Chunk getChunk(String path) {
+    Objects.requireNonNull(path);
+    return Bukkit.getWorld(getString(path + ".world")).getChunkAt(getInt(path + ".x"), getInt(path + ".z"));
+  }
+
+  /**
+   * Returns the UUID at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The UUID at that Path
+   */
+  public UUID getUUID(String path) {
+    Objects.requireNonNull(path);
+    return UUID.fromString(getString(path));
+  }
+
+  /**
+   * Returns the World at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The World at that Path
+   */
+  public World getWorld(String path) {
+    Objects.requireNonNull(path);
+    return Bukkit.getWorld(getString(path));
+  }
+
+  /**
+   * Returns the Double at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Double at that Path
+   */
+  public double getDouble(String path) {
+    Objects.requireNonNull(path);
+    return fileConfig.getDouble(path);
+  }
+
+  /**
+   * Returns the Location at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The Location at that Path
+   */
+  public Location getLocation(String path) {
+    Objects.requireNonNull(path);
+    return new Location(
+     Bukkit.getWorld(
+      getString(path + ".world")),
+     getDouble(path + ".x"),
+     getDouble(path + ".y"),
+     getDouble(path + ".z"),
+     getFloat(path + ".yaw"),
+     getFloat(path + ".pitch")
+    );
+  }
+
+  /**
+   * Gets the Contents of an Inventory at the specified Path
+   *
+   * @param path The path in the Config File
+   * @param size The Size of the Inventory
+   * @param title The Title of the Inventory
+   * @return The generated Inventory
+   */
+  public Inventory getInventory(String path, int size, String title) {
+    Utils.requireNonNull(path, size, title);
+    Inventory inventory = Bukkit.createInventory(null, size, ChatColor.translateAlternateColorCodes('&', title));
+    for (int i = 0; i < size; i++) {
+      inventory.setItem(i, getItem(path + "." + i));
+    }
+    return inventory;
+  }
+
+  /**
+   * Gets the Contents of an Inventory at the specified Path
+   *
+   * @param path The path in the Config File
+   * @param title The title of the inventory, this can accept &amp; for color codes.
+   * @return The generated Inventory
+   */
+  public Inventory getInventory(String path, String title) {
+    Utils.requireNonNull(path, title);
+    int size = getInt(path + ".size");
+    Inventory inventory = Bukkit.createInventory(null, size, ChatColor.translateAlternateColorCodes('&', title));
+
+    for (int i = 0; i < size; i++) {
+      inventory.setItem(i, getItem(path + "." + i));
+    }
+
+    return inventory;
+  }
+
+  /**
+   * Returns all Paths in this Config
+   *
+   * @return All Paths in this Config
+   */
+  public Set<String> getKeys() {
+    return fileConfig.getKeys(false);
+  }
+
+  /**
+   * Returns all Sub-Paths in this Config
+   *
+   * @param path The path in the Config File
+   * @return All Sub-Paths of the specified Path
+   */
+  public Set<String> getKeys(String path) {
+    Objects.requireNonNull(path);
+    ConfigurationSection section = fileConfig.getConfigurationSection(path);
+    return section == null ? new HashSet<>() : section.getKeys(false);
+  }
+
+  /**
+   * Reloads the Configuration File
+   */
+  public void reload() {
+    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
   }
 
   public File getFile() {
     return file;
   }
 
-  public FileConfiguration getConfig() {
-    return config;
+  public FileConfiguration getFileConfiguration() {
+    return fileConfig;
   }
-
 }

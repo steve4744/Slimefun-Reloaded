@@ -1,0 +1,110 @@
+package optic_fusion1.slimefunreloaded.util.database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import optic_fusion1.slimefunreloaded.util.database.DatabaseQuery.ImportantDatabaseQuery;
+import org.bukkit.plugin.Plugin;
+
+public abstract class SQLDatabase<T extends SQLDatabase<T>> implements Database {
+
+  protected Connection connection;
+  protected DatabaseLoader<T> callback;
+  protected Set<ImportantDatabaseQuery> queries;
+  protected String tablePrefix = "";
+  protected Plugin plugin;
+
+  protected SQLDatabase(Plugin plugin) {
+    this.plugin = plugin;
+  }
+
+  public Logger getLogger() {
+    return plugin.getLogger();
+  }
+
+  @Override
+  public void addSetupQuery(String sql) {
+    ImportantDatabaseQuery query = new ImportantDatabaseQuery(this, sql);
+    queries.add(query);
+    query.execute();
+  }
+
+  @Override
+  public String getTable(String table) {
+    return tablePrefix + table;
+  }
+
+  @Override
+  public boolean isConnected() {
+    try {
+      if (this.connection != null && this.connection.isValid(1)) {
+        for (ImportantDatabaseQuery query : queries) {
+          if (!query.hasFinished()) {
+            return false;
+          }
+        }
+
+        return true;
+      } else {
+        return false;
+      }
+    } catch (SQLException e) {
+      getLogger().log(Level.SEVERE, "An Exeption occured while connecting to a Database", e);
+      return false;
+    }
+  }
+
+  public void closeResources(ResultSet set, PreparedStatement statement) {
+    try {
+      if (set != null) {
+        set.close();
+      }
+      if (statement != null) {
+        statement.close();
+      }
+    } catch (Exception e) {
+      getLogger().log(Level.SEVERE, "An Exeption occured while closing a Database Connection", e);
+    }
+  }
+
+  @Override
+  public void closeConnection() throws SQLException {
+    if (!isConnected()) {
+      return;
+    }
+    this.connection.close();
+    this.connection = null;
+  }
+
+  @Override
+  public void update(String query) {
+    PreparedStatement statement = null;
+    try {
+      statement = getConnection().prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      getLogger().log(Level.SEVERE, "An Exeption occured while sending an update-query: " + query, e);
+    } finally {
+      closeResources(null, statement);
+    }
+  }
+
+  @Override
+  public String getTablePrefix(){
+    return tablePrefix;
+  }
+  
+  public void setTablePrefix(String tablePrefix){
+    this.tablePrefix = tablePrefix;
+  }
+
+  @Override
+  public Plugin getPlugin(){
+    return plugin;
+  }
+  
+}
