@@ -99,20 +99,20 @@ public abstract class SlimefunReloadedMachine extends SlimefunReloadedItem {
     return (short) ((item.getType().getMaxDurability() / max) * timeleft);
   }
 
-  public void updateProgressbar(BlockMenu menu, int slot, int timeleft, int time, ItemStack indicator) {
-    ItemStack item = indicator.clone();
-    ItemMeta im = item.getItemMeta();
-    im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-    ((Damageable) im).setDamage(getDurability(item, timeleft, time));
-    im.setDisplayName(" ");
-    List<String> lore = new ArrayList<>();
-    lore.add(getProgress(timeleft, time));
-    lore.add("");
-    lore.add(getTimeLeft(timeleft / 2));
-    im.setLore(lore);
-    item.setItemMeta(im);
-
-    menu.replaceExistingItem(slot, item);
-  }
+//  public void updateProgressbar(BlockMenu menu, int slot, int timeleft, int time, ItemStack indicator) {
+//    ItemStack item = indicator.clone();
+//    ItemMeta im = item.getItemMeta();
+//    im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+//    ((Damageable) im).setDamage(getDurability(item, timeleft, time));
+//    im.setDisplayName(" ");
+//    List<String> lore = new ArrayList<>();
+//    lore.add(getProgress(timeleft, time));
+//    lore.add("");
+//    lore.add(getTimeLeft(timeleft / 2));
+//    im.setLore(lore);
+//    item.setItemMeta(im);
+//
+//    menu.replaceExistingItem(slot, item);
+//  }
 
 }
