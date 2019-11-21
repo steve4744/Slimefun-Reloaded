@@ -15,7 +15,25 @@ public abstract class SlimefunReloadedItem {
   protected ItemStack recipeOutput;
   private Research research;
 
+  protected boolean usableInWorkbench = false;
   
+  /*
+	protected boolean enchantable = true;
+	protected boolean disenchantable = true;
+	protected boolean hidden = false;
+	protected boolean useableInWorkbench = false;
+	
+	private boolean addon = false;
+	private String permission = "";
+	private List<String> noPermissionTooltip;
+	private final Set<ItemHandler> itemhandlers = new HashSet<>();
+	private boolean ticking = false;
+	private BlockTicker blockTicker;
+	private EnergyTicker energyTicker;
+	private String[] keys;
+	private Object[] values;
+	private String wiki = null;
+   */
   public SlimefunReloadedItem(Category category, ItemStack item, String id) {
     this.category = category;
     this.item = item;
