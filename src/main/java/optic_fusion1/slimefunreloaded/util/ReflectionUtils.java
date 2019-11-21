@@ -1,13 +1,30 @@
 package optic_fusion1.slimefunreloaded.util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Bukkit;
 
 public final class ReflectionUtils {
 
-  private ReflectionUtils() {}
+  private static final Map<Class<?>, Class<?>> conversion = new HashMap<>();
+
+  static {
+    conversion.put(Byte.class, Byte.TYPE);
+    conversion.put(Short.class, Short.TYPE);
+    conversion.put(Integer.class, Integer.TYPE);
+    conversion.put(Long.class, Long.TYPE);
+    conversion.put(Character.class, Character.TYPE);
+    conversion.put(Float.class, Float.TYPE);
+    conversion.put(Double.class, Double.TYPE);
+    conversion.put(Boolean.class, Boolean.TYPE);
+  }
+
+  private ReflectionUtils() {
+  }
 
   public static Class<?> getNMSClass(String name) {
     return getClass("net.minecraft.server." + getVersion() + "." + name);
@@ -105,9 +122,9 @@ public final class ReflectionUtils {
       field.setAccessible(true);
       field.set(instance, value);
     } catch (IllegalAccessException
-        | IllegalArgumentException
-        | NoSuchFieldException
-        | SecurityException e) {
+     | IllegalArgumentException
+     | NoSuchFieldException
+     | SecurityException e) {
     }
   }
 
@@ -120,9 +137,9 @@ public final class ReflectionUtils {
       }
       return field.get(o);
     } catch (IllegalAccessException
-        | IllegalArgumentException
-        | NoSuchFieldException
-        | SecurityException e) {
+     | IllegalArgumentException
+     | NoSuchFieldException
+     | SecurityException e) {
       return null;
     }
   }
@@ -134,10 +151,10 @@ public final class ReflectionUtils {
       m.setAccessible(true);
       return m.invoke(object, params);
     } catch (IllegalAccessException
-        | IllegalArgumentException
-        | NoSuchMethodException
-        | SecurityException
-        | InvocationTargetException e) {
+     | IllegalArgumentException
+     | NoSuchMethodException
+     | SecurityException
+     | InvocationTargetException e) {
       return null;
     }
   }
@@ -158,5 +175,38 @@ public final class ReflectionUtils {
   public static Field getField(Field field) {
     field.setAccessible(true);
     return field;
+  }
+
+  public static <T> Constructor<T> getConstructor(Class<T> c, Class<?>... paramTypes) {
+    Class<?>[] t = toPrimitiveTypeArray(paramTypes);
+    for (Constructor<?> constructor : c.getConstructors()) {
+      Class<?>[] types = toPrimitiveTypeArray(constructor.getParameterTypes());
+
+      if (equalsTypeArray(types, t)) {
+        return (Constructor<T>) constructor;
+      }
+    }
+    return null;
+  }
+
+  private static boolean equalsTypeArray(Class<?>[] a, Class<?>... o) {
+    if (a.length != o.length) {
+      return false;
+    }
+    for (int i = 0; i < a.length; i++) {
+      if ((!a[i].equals(o[i])) && (!a[i].isAssignableFrom(o[i]))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public static Class<?>[] toPrimitiveTypeArray(Object... objects) {
+    int a = objects != null ? objects.length : 0;
+    Class<?>[] types = new Class[a];
+    for (int i = 0; i < a; i++) {
+      types[i] = conversion.containsKey(objects[i].getClass()) ? conversion.get(objects[i].getClass()) : objects[i].getClass();
+    }
+    return types;
   }
 }
