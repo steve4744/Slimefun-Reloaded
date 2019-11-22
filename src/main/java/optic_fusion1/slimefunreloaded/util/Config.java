@@ -40,7 +40,6 @@ public class Config {
     Objects.requireNonNull(plugin);
     plugin.saveDefaultConfig();
     this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), "config.yml");
-    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }
@@ -48,7 +47,6 @@ public class Config {
   public Config(Plugin plugin, String name) {
     Utils.requireNonNull(plugin, name);
     this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), name);
-    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }
@@ -61,7 +59,6 @@ public class Config {
   public Config(File file) {
     Objects.requireNonNull(file);
     this.file = file;
-    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }
@@ -75,7 +72,6 @@ public class Config {
   public Config(File file, FileConfiguration config) {
     Utils.requireNonNull(file, config);
     this.file = file;
-    createFile();
     this.fileConfig = config;
     config.options().copyDefaults(true);
   }
@@ -88,7 +84,6 @@ public class Config {
   public Config(String path) {
     Objects.requireNonNull(path);
     this.file = new File(path);
-    createFile();
     this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
     fileConfig.options().copyDefaults(true);
   }

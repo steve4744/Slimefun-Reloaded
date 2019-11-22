@@ -7,7 +7,6 @@ import optic_fusion1.slimefunreloaded.category.type.LockedCategory;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-//TODO: Clean this up better, possibly a "categories.yml" file and setting the information in that?
 public class CategoryRegistery {
 
   private static final CategoryManager CATEGORY_MANAGER = Slimefun.getCategoryManager();
@@ -50,7 +49,7 @@ public class CategoryRegistery {
     ItemStack tools = new ItemStackBuilder(Material.GOLDEN_PICKAXE).setDisplayName("&7Tools").addLore("").addLore(LORE).build();
     Category toolsCategory = new Category("Tools", tools, 1);
     register(toolsCategory);
-    	// Seasonal Categories
+    // Seasonal Categories
 //	public static final SeasonalCategory CHRISTMAS = new SeasonalCategory(12, 1, new CustomItem(Material.NETHER_STAR, Christmas.color("Christmas"), "", "&c> Click to help &aSanta"));
 //	public static final SeasonalCategory VALENTINES_DAY = new SeasonalCategory(2, 2, new CustomItem(Material.POPPY, "&dValentine's Day", "", "&d> Click to celebrate Love"));
 //	public static final SeasonalCategory EASTER = new SeasonalCategory(4, 2, new CustomItem(Material.EGG, "&6Easter", "", "&a> Click to paint some Eggs"));

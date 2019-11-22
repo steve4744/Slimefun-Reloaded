@@ -2,6 +2,7 @@ package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
+import optic_fusion1.slimefunreloaded.item.ItemManager;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.util.Config;
 
@@ -47,4 +48,8 @@ public final class Slimefun {
     return plugin.getResearchManager();
   }
 
+  public static ItemManager getItemManager(){
+    return plugin.getItemManager();
+  }
+  
 }
