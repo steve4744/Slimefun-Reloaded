@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.item.handler;
 
+import optic_fusion1.slimefunreloaded.event.ItemUseEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
