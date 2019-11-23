@@ -395,29 +395,6 @@ public class SlimefunReloaded extends JavaPlugin {
 //    }
 //  }
 //
-//  public Config getResearchesConfig() {
-//    return RESEARCHES_CONFIG;
-//  }
-//
-//  public Config getItemsConfig() {
-//    return ITEMS_CONFIG;
-//  }
-//
-//  public File getDatabaseFolder() {
-//    return DATABASE_FOLDER;
-//  }
-//
-//  public Config getWhitelistConfig() {
-//    return WHITELIST_CONFIG;
-//  }
-//
-//  public CategoryManager getCategoryManager() {
-//    return CATEGORY_MANAGER;
-//  }
-//
-//  public ResearchManager getResearchManager() {
-//    return RESEARCH_MANAGER;
-//  }
   @Override
   public void onDisable() {
   }
@@ -489,6 +466,30 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public ItemManager getItemManager() {
     return ITEM_MANAGER;
+  }
+
+  public Config getResearchesConfig() {
+    return RESEARCHES_CONFIG;
+  }
+
+  public Config getItemsConfig() {
+    return ITEMS_CONFIG;
+  }
+
+  public File getDatabaseFolder() {
+    return DATABASE_FOLDER;
+  }
+
+  public Config getWhitelistConfig() {
+    return WHITELIST_CONFIG;
+  }
+
+  public CategoryManager getCategoryManager() {
+    return CATEGORY_MANAGER;
+  }
+
+  public ResearchManager getResearchManager() {
+    return RESEARCH_MANAGER;
   }
 
 }

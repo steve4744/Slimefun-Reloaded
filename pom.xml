@@ -133,12 +133,6 @@
             <systemPath>${project.basedir}/lib/Factions.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
             <version>7.0.1</version>
@@ -254,6 +248,11 @@
             <version>1.6.9.5-U0.2.2</version>
             <type>jar</type>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.14.3-R0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
