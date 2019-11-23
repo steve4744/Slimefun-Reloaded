@@ -3,6 +3,8 @@ package optic_fusion1.slimefunreloaded.listener;
 import java.util.List;
 import nl.rutgerkok.blocklocker.profile.PlayerProfile;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.item.food.impl.Juice;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,28 +21,28 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class BackpackListener implements Listener {
 
-  public BackpackListener(SlimefunPlugin plugin) {
+  public BackpackListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
   @EventHandler
   public void onClose(InventoryCloseEvent e) {
-    if (SlimefunPlugin.getUtilities().enchanting.containsKey(e.getPlayer().getUniqueId())) {
-      SlimefunPlugin.getUtilities().enchanting.remove(e.getPlayer().getUniqueId());
+    if (SlimefunReloaded.getUtilities().enchanting.containsKey(e.getPlayer().getUniqueId())) {
+      SlimefunReloaded.getUtilities().enchanting.remove(e.getPlayer().getUniqueId());
     }
 
-    if (SlimefunPlugin.getUtilities().backpack.containsKey(e.getPlayer().getUniqueId())) {
+    if (SlimefunReloaded.getUtilities().backpack.containsKey(e.getPlayer().getUniqueId())) {
       ((Player) e.getPlayer()).playSound(e.getPlayer().getLocation(), Sound.ENTITY_HORSE_ARMOR, 1F, 1F);
-      PlayerProfile.getBackpack(SlimefunPlugin.getUtilities().backpack.get(e.getPlayer().getUniqueId())).markDirty();
-      SlimefunPlugin.getUtilities().backpack.remove(e.getPlayer().getUniqueId());
+      PlayerProfile.getBackpack(SlimefunReloaded.getUtilities().backpack.get(e.getPlayer().getUniqueId())).markDirty();
+      SlimefunReloaded.getUtilities().backpack.remove(e.getPlayer().getUniqueId());
     }
   }
 
   @EventHandler
   public void onItemDrop(PlayerDropItemEvent e) {
-    if (SlimefunPlugin.getUtilities().backpack.containsKey(e.getPlayer().getUniqueId())) {
+    if (SlimefunReloaded.getUtilities().backpack.containsKey(e.getPlayer().getUniqueId())) {
       ItemStack item = e.getItemDrop().getItemStack();
-      SlimefunItem sfItem = SlimefunItem.getByItem(item);
+      SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByItem(item);
       if (sfItem instanceof SlimefunBackpack) {
         e.setCancelled(true);
       }
@@ -49,18 +51,18 @@ public class BackpackListener implements Listener {
 
   @EventHandler
   public void onClick(InventoryClickEvent e) {
-    ItemStack item = SlimefunPlugin.getUtilities().backpack.get(e.getWhoClicked().getUniqueId());
+    ItemStack item = SlimefunReloaded.getUtilities().backpack.get(e.getWhoClicked().getUniqueId());
     if (item != null) {
       if (e.getClick() == ClickType.NUMBER_KEY) {
         ItemStack hotbarItem = e.getWhoClicked().getInventory().getItem(e.getHotbarButton());
-        SlimefunItem sfItem = SlimefunItem.getByItem(hotbarItem);
+        SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByItem(hotbarItem);
         if ((hotbarItem != null && hotbarItem.getType().toString().contains("SHULKER_BOX"))
          || sfItem instanceof SlimefunBackpack) {
           e.setCancelled(true);
         }
       } else if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
-        SlimefunItem sfItem = SlimefunItem.getByItem(e.getCurrentItem());
-        if ((SlimefunManager.isItemSimiliar(item, SlimefunItems.COOLER, false) && !(sfItem instanceof Juice))
+        SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByItem(e.getCurrentItem());
+        if ((SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.COOLER, false) && !(sfItem instanceof Juice))
          || e.getCurrentItem().getType().toString().contains("SHULKER_BOX")
          || sfItem instanceof SlimefunBackpack) {
           e.setCancelled(true);
@@ -77,7 +79,7 @@ public class BackpackListener implements Listener {
         }
       }
     } else {
-      SlimefunPlugin.getLocal().sendMessage(p, "backpack.no-stack", true);
+      SlimefunReloaded.getLocal().sendMessage(p, "backpack.no-stack", true);
     }
   }
 
@@ -92,13 +94,13 @@ public class BackpackListener implements Listener {
       }
     }
 
-    if (!SlimefunPlugin.getUtilities().backpack.containsValue(item)) {
+    if (!SlimefunReloaded.getUtilities().backpack.containsValue(item)) {
       p.playSound(p.getLocation(), Sound.ENTITY_HORSE_ARMOR, 1F, 1F);
-      SlimefunPlugin.getUtilities().backpack.put(p.getUniqueId(), item);
+      SlimefunReloaded.getUtilities().backpack.put(p.getUniqueId(), item);
 
       Slimefun.runSync(() -> PlayerProfile.getBackpack(item).open(p));
     } else {
-      SlimefunPlugin.getLocal().sendMessage(p, "backpack.already-open", true);
+      SlimefunReloaded.getLocal().sendMessage(p, "backpack.already-open", true);
     }
   }
 

@@ -2,6 +2,9 @@ package optic_fusion1.slimefunreloaded.listener;
 
 import java.util.logging.Level;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
+import optic_fusion1.slimefunreloaded.gps.Elevator;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,7 +16,7 @@ public class TeleporterListener implements Listener {
 
   private final BlockFace[] faces = {BlockFace.NORTH, BlockFace.NORTH_EAST, BlockFace.EAST, BlockFace.SOUTH_EAST, BlockFace.SOUTH, BlockFace.SOUTH_WEST, BlockFace.WEST, BlockFace.NORTH_WEST};
 
-  public TeleporterListener(SlimefunPlugin plugin) {
+  public TeleporterListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -29,7 +32,7 @@ public class TeleporterListener implements Listener {
     }
 
     if (id.equals("GPS_ACTIVATION_DEVICE_SHARED") || (id.equals("GPS_ACTIVATION_DEVICE_PERSONAL") && BlockStorage.getLocationInfo(e.getClickedBlock().getLocation(), "owner").equals(e.getPlayer().getUniqueId().toString()))) {
-      SlimefunItem teleporter = BlockStorage.check(e.getClickedBlock().getRelative(BlockFace.DOWN));
+      SlimefunReloadedItem teleporter = BlockStorage.check(e.getClickedBlock().getRelative(BlockFace.DOWN));
 
       if (teleporter instanceof Teleporter) {
         for (BlockFace face : faces) {

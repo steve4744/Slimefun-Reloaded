@@ -30,7 +30,7 @@ public class Research {
   }
 
   public boolean isEnabled() {
-    return /*SlimefunPlugin.getSettings().researchesEnabled &&*/ enabled;
+    return /*SlimefunReloaded.getSettings().researchesEnabled &&*/ enabled;
   }
 
   public void addItems(SlimefunReloadedItem... items) {

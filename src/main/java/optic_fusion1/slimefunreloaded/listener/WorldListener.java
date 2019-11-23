@@ -2,6 +2,7 @@ package optic_fusion1.slimefunreloaded.listener;
 
 import java.util.logging.Level;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
@@ -9,7 +10,7 @@ import org.bukkit.event.world.WorldUnloadEvent;
 
 public class WorldListener implements Listener {
 
-  public WorldListener(SlimefunPlugin plugin) {
+  public WorldListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -17,9 +18,9 @@ public class WorldListener implements Listener {
   public void onWorldLoad(WorldLoadEvent e) {
     BlockStorage.getForcedStorage(e.getWorld());
 
-    SlimefunPlugin.getWhitelist().setDefaultValue(e.getWorld().getName() + ".enabled", true);
-    SlimefunPlugin.getWhitelist().setDefaultValue(e.getWorld().getName() + ".enabled-items.SLIMEFUN_GUIDE", true);
-    SlimefunPlugin.getWhitelist().save();
+    Slimefun.getWhitelistConfig().setDefaultValue(e.getWorld().getName() + ".enabled", true);
+    Slimefun.getWhitelistConfig().setDefaultValue(e.getWorld().getName() + ".enabled-items.SLIMEFUN_GUIDE", true);
+    Slimefun.getWhitelistConfig().save();
   }
 
   @EventHandler
@@ -28,7 +29,7 @@ public class WorldListener implements Listener {
     if (storage != null) {
       storage.save(true);
     } else {
-      Slimefun.getLogger().log(Level.SEVERE, "Could not save Slimefun Blocks for World \"" + e.getWorld().getName() + "\"");
+      Slimefun.getSlimefunReloaded().getLogger().log(Level.SEVERE, "Could not save Slimefun Blocks for World \"" + e.getWorld().getName() + "\"");
     }
   }
 

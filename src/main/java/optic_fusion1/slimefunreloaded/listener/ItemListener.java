@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.swing.text.Utilities;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.event.ItemUseEvent;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.item.food.impl.Juice;
 import optic_fusion1.slimefunreloaded.item.handler.ItemConsumptionHandler;
 import optic_fusion1.slimefunreloaded.item.handler.ItemDropHandler;
@@ -50,9 +52,9 @@ public class ItemListener implements Listener {
 
   private Utilities utilities;
 
-  public ItemListener(SlimefunPlugin plugin) {
+  public ItemListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    utilities = SlimefunPlugin.getUtilities();
+    utilities = SlimefunReloaded.getUtilities();
   }
 
   @EventHandler
@@ -67,9 +69,9 @@ public class ItemListener implements Listener {
     if (e.getRawSlot() == 2 && e.getWhoClicked() instanceof Player && e.getInventory().getType() == InventoryType.GRINDSTONE) {
       ItemStack slot0 = e.getInventory().getContents()[0];
       ItemStack slot1 = e.getInventory().getContents()[1];
-      if (SlimefunItem.getByItem(slot0) != null && !SlimefunItem.isDisabled(slot0)) {
+      if (SlimefunReloadedItem.getByItem(slot0) != null && !SlimefunReloadedItem.isDisabled(slot0)) {
         e.setCancelled(true);
-      } else if (SlimefunItem.getByItem(slot1) != null && !SlimefunItem.isDisabled(slot1)) {
+      } else if (SlimefunReloadedItem.getByItem(slot1) != null && !SlimefunReloadedItem.isDisabled(slot1)) {
         e.setCancelled(true);
       }
 
@@ -110,7 +112,7 @@ public class ItemListener implements Listener {
 
     Player p = e.getPlayer();
 
-    if (SlimefunManager.isItemSimiliar(e.getItem(), SlimefunItems.DEBUG_FISH, true)) {
+    if (SlimefunManager.isItemSimiliar(e.getItem(), SlimefunReloadedItems.DEBUG_FISH, true)) {
       e.setCancelled(true);
       if (p.isOp()) {
         switch (e.getAction()) {
@@ -148,13 +150,13 @@ public class ItemListener implements Listener {
               if (BlockStorage.check(e.getClickedBlock()).isTicking()) {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&dTicking: " + "&2\u2714"));
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dAsync: &e" + (BlockStorage.check(e.getClickedBlock()).getBlockTicker().isSynchronized() ? "&4\u2718" : "&2\u2714")));
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dTimings: &e" + SlimefunPlugin.getTicker().getTimings(e.getClickedBlock()) + "ms"));
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dTotal Timings: &e" + SlimefunPlugin.getTicker().getTimings(BlockStorage.checkID(e.getClickedBlock())) + "ms"));
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dChunk Timings: &e" + SlimefunPlugin.getTicker().getTimings(e.getClickedBlock().getChunk()) + "ms"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dTimings: &e" + SlimefunReloaded.getTicker().getTimings(e.getClickedBlock()) + "ms"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dTotal Timings: &e" + SlimefunReloaded.getTicker().getTimings(BlockStorage.checkID(e.getClickedBlock())) + "ms"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dChunk Timings: &e" + SlimefunReloaded.getTicker().getTimings(e.getClickedBlock().getChunk()) + "ms"));
               } else if (BlockStorage.check(e.getClickedBlock()).getEnergyTicker() != null) {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&dTicking: " + "&b~ &3(Indirect)"));
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dTimings: &e" + SlimefunPlugin.getTicker().getTimings(e.getClickedBlock()) + "ms"));
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dChunk Timings: &e" + SlimefunPlugin.getTicker().getTimings(e.getClickedBlock().getChunk()) + "ms"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dTimings: &e" + SlimefunReloaded.getTicker().getTimings(e.getClickedBlock()) + "ms"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &dChunk Timings: &e" + SlimefunReloaded.getTicker().getTimings(e.getClickedBlock().getChunk()) + "ms"));
               } else {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&dTicking: " + "&4\u2718"));
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&dTicking: " + "&4\u2718"));
@@ -213,25 +215,25 @@ public class ItemListener implements Listener {
       } else {
         p.chat("/sf cheat");
       }
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.DEBUG_FISH, true)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.DEBUG_FISH, true)) {
       // Ignore the debug fish in here
     } else {
-      SlimefunItem slimefunItem = SlimefunItem.getByItem(item);
+      SlimefunReloadedItem SlimefunReloadedItem = SlimefunReloadedItem.getByItem(item);
 
-      if (slimefunItem != null) {
-        if (Slimefun.hasUnlocked(p, slimefunItem, true)) {
-          slimefunItem.callItemHandler(ItemInteractionHandler.class, handler
+      if (SlimefunReloadedItem != null) {
+        if (Slimefun.hasUnlocked(p, SlimefunReloadedItem, true)) {
+          SlimefunReloadedItem.callItemHandler(ItemInteractionHandler.class, handler
            -> handler.onRightClick(e, p, item)
           );
 
           // Open the Backpack (also includes Coolers)
-          if (slimefunItem instanceof SlimefunBackpack) {
+          if (SlimefunReloadedItem instanceof SlimefunBackpack) {
             e.setCancelled(true);
-            BackpackListener.openBackpack(p, item, (SlimefunBackpack) slimefunItem);
-          } else if (slimefunItem instanceof MultiTool) {
+            BackpackListener.openBackpack(p, item, (SlimefunBackpack) SlimefunReloadedItem);
+          } else if (SlimefunReloadedItem instanceof MultiTool) {
             e.setCancelled(true);
 
-            List<Integer> modes = ((MultiTool) slimefunItem).getModes();
+            List<Integer> modes = ((MultiTool) SlimefunReloadedItem).getModes();
             int index = utilities.mode.getOrDefault(p.getUniqueId(), 0);
 
             if (!p.isSneaking()) {
@@ -239,7 +241,7 @@ public class ItemListener implements Listener {
               float cost = 0.3F;
               if (charge >= cost) {
                 p.getEquipment().setItemInMainHand(ItemEnergy.chargeItem(item, -cost));
-                Bukkit.getPluginManager().callEvent(new ItemUseEvent(e.getParentEvent(), SlimefunItem.getByID((String) Slimefun.getItemValue(slimefunItem.getID(), "mode." + modes.get(index) + ".item")).getItem().clone(), e.getClickedBlock()));
+                Bukkit.getPluginManager().callEvent(new ItemUseEvent(e.getParentEvent(), SlimefunReloadedItem.getByID((String) Slimefun.getItemValue(SlimefunReloadedItem.getID(), "mode." + modes.get(index) + ".item")).getItem().clone(), e.getClickedBlock()));
               }
             } else {
               index++;
@@ -248,17 +250,17 @@ public class ItemListener implements Listener {
               }
 
               final int finalIndex = index;
-              SlimefunPlugin.getLocal().sendMessage(p, "messages.mode-change", true, msg -> msg.replace("%device%", "Multi Tool").replace("%mode%", (String) Slimefun.getItemValue(slimefunItem.getID(), "mode." + modes.get(finalIndex) + ".name")));
+              SlimefunReloaded.getLocal().sendMessage(p, "messages.mode-change", true, msg -> msg.replace("%device%", "Multi Tool").replace("%mode%", (String) Slimefun.getItemValue(SlimefunReloadedItem.getID(), "mode." + modes.get(finalIndex) + ".name")));
               utilities.mode.put(p.getUniqueId(), index);
             }
-          } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.HEAVY_CREAM, true)) {
+          } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.HEAVY_CREAM, true)) {
             e.setCancelled(true);
           }
         } else {
           e.setCancelled(true);
         }
       } else {
-        for (ItemHandler handler : SlimefunItem.getHandlers("ItemInteractionHandler")) {
+        for (ItemHandler handler : SlimefunReloadedItem.getHandlers("ItemInteractionHandler")) {
           if (((ItemInteractionHandler) handler).onRightClick(e, p, item)) {
             return;
           }
@@ -277,14 +279,14 @@ public class ItemListener implements Listener {
           if (menu.canOpen(e.getClickedBlock(), p)) {
             menu.open(p);
           } else {
-            SlimefunPlugin.getLocal().sendMessage(p, "inventory.no-access", true);
+            SlimefunReloaded.getLocal().sendMessage(p, "inventory.no-access", true);
           }
         } else if (storage.hasInventory(e.getClickedBlock().getLocation())) {
           BlockMenu menu = BlockStorage.getInventory(e.getClickedBlock().getLocation());
           if (menu.canOpen(e.getClickedBlock(), p)) {
             menu.open(p);
           } else {
-            SlimefunPlugin.getLocal().sendMessage(p, "inventory.no-access", true);
+            SlimefunReloaded.getLocal().sendMessage(p, "inventory.no-access", true);
           }
         }
       }
@@ -292,15 +294,15 @@ public class ItemListener implements Listener {
   }
 
   private boolean canPlaceCargoNodes(Player p, ItemStack item, Block b) {
-    if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunItems.CARGO_INPUT, true)) {
+    if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARGO_INPUT, true)) {
       return true;
-    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunItems.CARGO_OUTPUT, true)) {
+    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARGO_OUTPUT, true)) {
       return true;
-    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunItems.CARGO_OUTPUT_ADVANCED, true)) {
+    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARGO_OUTPUT_ADVANCED, true)) {
       return true;
-    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunItems.CT_IMPORT_BUS, true)) {
+    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CT_IMPORT_BUS, true)) {
       return true;
-    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunItems.CT_EXPORT_BUS, true)) {
+    } else if (canPlaceBlock(p, b) && SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CT_EXPORT_BUS, true)) {
       return true;
     } else {
       return false;
@@ -315,7 +317,7 @@ public class ItemListener implements Listener {
   public void onEat(PlayerItemConsumeEvent e) {
     final Player p = e.getPlayer();
     ItemStack item = e.getItem();
-    SlimefunItem sfItem = SlimefunItem.getByItem(item);
+    SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByItem(item);
 
     if (sfItem != null) {
       if (Slimefun.hasUnlocked(p, sfItem, true)) {
@@ -347,7 +349,7 @@ public class ItemListener implements Listener {
           // Remove the glass bottle once drunk
           final int m = mode;
 
-          Bukkit.getScheduler().scheduleSyncDelayedTask(SlimefunPlugin.instance, () -> {
+          Bukkit.getScheduler().scheduleSyncDelayedTask(SlimefunReloaded.instance, () -> {
             if (m == 0) {
               p.getEquipment().getItemInMainHand().setAmount(0);
             } else if (m == 1) {
@@ -370,10 +372,10 @@ public class ItemListener implements Listener {
   @EventHandler
   public void onCraft(CraftItemEvent e) {
     for (ItemStack item : e.getInventory().getContents()) {
-      SlimefunItem sfItem = SlimefunItem.getByItem(item);
+      SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByItem(item);
       if (sfItem != null && !sfItem.isUseableInWorkbench()) {
         e.setCancelled(true);
-        SlimefunPlugin.getLocal().sendMessage((Player) e.getWhoClicked(), "workbench.not-enhanced", true);
+        SlimefunReloaded.getLocal().sendMessage((Player) e.getWhoClicked(), "workbench.not-enhanced", true);
         break;
       }
     }
@@ -382,7 +384,7 @@ public class ItemListener implements Listener {
   @EventHandler
   public void onPrepareCraft(PrepareItemCraftEvent e) {
     for (ItemStack item : e.getInventory().getContents()) {
-      SlimefunItem sfItem = SlimefunItem.getByItem(item);
+      SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByItem(item);
       if (sfItem != null && !sfItem.isUseableInWorkbench()) {
         e.getInventory().setResult(null);
         break;
@@ -411,19 +413,19 @@ public class ItemListener implements Listener {
       ItemStack slot0 = e.getInventory().getContents()[0];
       ItemStack slot1 = e.getInventory().getContents()[1];
 
-      if (SlimefunManager.isItemSimiliar(slot0, SlimefunItems.ELYTRA, true)) {
+      if (SlimefunManager.isItemSimiliar(slot0, SlimefunReloadedItems.ELYTRA, true)) {
         return;
       }
 
-      if (SlimefunItem.getByItem(slot0) != null && !SlimefunItem.isDisabled(slot0)
-       || SlimefunItem.getByItem(slot1) != null && !SlimefunItem.isDisabled(slot1)
+      if (SlimefunReloadedItem.getByItem(slot0) != null && !SlimefunReloadedItem.isDisabled(slot0)
+       || SlimefunReloadedItem.getByItem(slot1) != null && !SlimefunReloadedItem.isDisabled(slot1)
        || SlimefunManager.isItemSimiliar(slot0, SlimefunGuide.getItem(SlimefunGuideLayout.BOOK), true)
        || SlimefunManager.isItemSimiliar(slot0, SlimefunGuide.getItem(SlimefunGuideLayout.CHEST), true)
        || SlimefunManager.isItemSimiliar(slot1, SlimefunGuide.getItem(SlimefunGuideLayout.BOOK), true)
        || SlimefunManager.isItemSimiliar(slot1, SlimefunGuide.getItem(SlimefunGuideLayout.CHEST), true)) {
 
         e.setCancelled(true);
-        SlimefunPlugin.getLocal().sendMessage((Player) e.getWhoClicked(), "anvil.not-working", true);
+        SlimefunReloaded.getLocal().sendMessage((Player) e.getWhoClicked(), "anvil.not-working", true);
       }
     }
   }
@@ -432,13 +434,13 @@ public class ItemListener implements Listener {
   public void onPreBrew(InventoryClickEvent e) {
     Inventory inventory = e.getInventory();
     if (inventory instanceof BrewerInventory && inventory.getHolder() instanceof BrewingStand && e.getRawSlot() < inventory.getSize()) {
-      e.setCancelled(SlimefunItem.getByItem(e.getCursor()) != null);
+      e.setCancelled(SlimefunReloadedItem.getByItem(e.getCursor()) != null);
     }
   }
 
   @EventHandler
   public void onItemDrop(PlayerDropItemEvent e) {
-    for (ItemHandler handler : SlimefunItem.getHandlers("ItemDropHandler")) {
+    for (ItemHandler handler : SlimefunReloadedItem.getHandlers("ItemDropHandler")) {
       if (((ItemDropHandler) handler).onItemDrop(e, e.getPlayer(), e.getItemDrop())) {
         return;
       }

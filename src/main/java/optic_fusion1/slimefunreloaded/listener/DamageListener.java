@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.item.handler.EntityKillHandler;
 import optic_fusion1.slimefunreloaded.item.handler.ItemHandler;
 import org.bukkit.Material;
@@ -20,7 +22,7 @@ public class DamageListener implements Listener {
 
   private SimpleDateFormat format = new SimpleDateFormat("(MMM d, yyyy @ hh:mm)");
 
-  public DamageListener(SlimefunPlugin plugin) {
+  public DamageListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -28,7 +30,7 @@ public class DamageListener implements Listener {
   public void onDamage(EntityDeathEvent e) {
     if (e.getEntity() instanceof Player) {
       Player p = (Player) e.getEntity();
-      if (p.getInventory().containsAtLeast(SlimefunItems.GPS_EMERGENCY_TRANSMITTER, 1)) {
+      if (p.getInventory().containsAtLeast(SlimefunReloadedItems.GPS_EMERGENCY_TRANSMITTER, 1)) {
         Slimefun.getGPSNetwork().addWaypoint(p, "&4Deathpoint &7" + format.format(new Date()), p.getLocation().getBlock().getLocation());
       }
 
@@ -54,8 +56,8 @@ public class DamageListener implements Listener {
       Player p = e.getEntity().getKiller();
       ItemStack item = p.getInventory().getItemInMainHand();
 
-      if (SlimefunPlugin.getUtilities().drops.containsKey(e.getEntity().getType())) {
-        for (ItemStack drop : SlimefunPlugin.getUtilities().drops.get(e.getEntity().getType())) {
+      if (SlimefunReloaded.getUtilities().drops.containsKey(e.getEntity().getType())) {
+        for (ItemStack drop : SlimefunReloaded.getUtilities().drops.get(e.getEntity().getType())) {
           if (Slimefun.hasUnlocked(p, drop, true)) {
             e.getDrops().add(drop);
           }
@@ -63,7 +65,7 @@ public class DamageListener implements Listener {
       }
 
       if (item != null && item.getType() != null && item.getType() != Material.AIR && Slimefun.hasUnlocked(p, item, true)) {
-        for (ItemHandler handler : SlimefunItem.getHandlers("EntityKillHandler")) {
+        for (ItemHandler handler : SlimefunReloadedItem.getHandlers("EntityKillHandler")) {
           if (((EntityKillHandler) handler).onKill(e, e.getEntity(), p, item)) {
             return;
           }
@@ -74,9 +76,9 @@ public class DamageListener implements Listener {
 
   @EventHandler
   public void onArrowHit(EntityDamageEvent e) {
-    if (e.getEntity() instanceof Player && e.getCause() == DamageCause.FALL && SlimefunPlugin.getUtilities().damage.contains(e.getEntity().getUniqueId())) {
+    if (e.getEntity() instanceof Player && e.getCause() == DamageCause.FALL && SlimefunReloaded.getUtilities().damage.contains(e.getEntity().getUniqueId())) {
       e.setCancelled(true);
-      SlimefunPlugin.getUtilities().damage.remove(e.getEntity().getUniqueId());
+      SlimefunReloaded.getUtilities().damage.remove(e.getEntity().getUniqueId());
     }
   }
 

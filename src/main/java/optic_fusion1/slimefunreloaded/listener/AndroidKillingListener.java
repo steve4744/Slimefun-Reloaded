@@ -3,6 +3,8 @@ package optic_fusion1.slimefunreloaded.listener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -22,7 +24,7 @@ public class AndroidKillingListener implements Listener {
 
   private final Random random = new Random();
 
-  public AndroidKillingListener(SlimefunPlugin plugin) {
+  public AndroidKillingListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -31,7 +33,7 @@ public class AndroidKillingListener implements Listener {
     if (e.getEntity().hasMetadata("android_killer")) {
       final AndroidObject obj = (AndroidObject) e.getEntity().getMetadata("android_killer").get(0).value();
 
-      Bukkit.getScheduler().scheduleSyncDelayedTask(SlimefunPlugin.instance, () -> {
+      Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
         List<ItemStack> items = new ArrayList<>();
 
         for (Entity n : e.getEntity().getNearbyEntities(0.5D, 0.5D, 0.5D)) {

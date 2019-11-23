@@ -1,7 +1,9 @@
 package optic_fusion1.slimefunreloaded.listener;
 
 import java.util.LinkedList;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.event.MultiBlockInteractEvent;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.item.handler.ItemHandler;
 import optic_fusion1.slimefunreloaded.item.handler.MultiBlockInteractionHandler;
 import org.bukkit.Bukkit;
@@ -22,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class BlockListener implements Listener {
 
-  public BlockListener(SlimefunPlugin plugin) {
+  public BlockListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -83,7 +85,7 @@ public class BlockListener implements Listener {
         e.setCancelled(true);
         MultiBlock multiblock = multiblocks.getLast();
 
-        for (ItemHandler handler : SlimefunItem.getHandlers("MultiBlockInteractionHandler")) {
+        for (ItemHandler handler : SlimefunReloadedItem.getHandlers("MultiBlockInteractionHandler")) {
           if (((MultiBlockInteractionHandler) handler).onInteract(p, multiblock, b)) {
             break;
           }

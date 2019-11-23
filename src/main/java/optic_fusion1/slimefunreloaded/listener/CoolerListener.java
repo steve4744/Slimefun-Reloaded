@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded.listener;
 
 import nl.rutgerkok.blocklocker.profile.PlayerProfile;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import org.bukkit.potion.PotionEffect;
 
 public class CoolerListener implements Listener {
 
-  public CoolerListener(SlimefunPlugin plugin) {
+  public CoolerListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -23,7 +24,7 @@ public class CoolerListener implements Listener {
     if (e.getFoodLevel() < ((Player) e.getEntity()).getFoodLevel()) {
       Player p = (Player) e.getEntity();
       for (ItemStack item : p.getInventory().getContents()) {
-        if (SlimefunManager.isItemSimiliar(item, SlimefunItems.COOLER, false)) {
+        if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.COOLER, false)) {
           BackpackInventory backpack = PlayerProfile.getBackpack(item);
           if (backpack != null) {
             Inventory inv = backpack.getInventory();

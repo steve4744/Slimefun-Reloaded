@@ -1,5 +1,7 @@
 package optic_fusion1.slimefunreloaded.listener;
 
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.item.handler.AutonomousMachineHandler;
 import optic_fusion1.slimefunreloaded.item.handler.ItemHandler;
 import org.bukkit.Material;
@@ -13,7 +15,7 @@ import org.bukkit.event.block.BlockDispenseEvent;
 
 public class AutonomousToolsListener implements Listener {
 
-  public AutonomousToolsListener(SlimefunPlugin plugin) {
+  public AutonomousToolsListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -27,10 +29,10 @@ public class AutonomousToolsListener implements Listener {
 
       Block block = dispenser.getRelative(face);
       Block chest = dispenser.getRelative(face.getOppositeFace());
-      SlimefunItem machine = BlockStorage.check(dispenser);
+      SlimefunReloadedItem machine = BlockStorage.check(dispenser);
 
       if (machine != null) {
-        for (ItemHandler handler : SlimefunItem.getHandlers("AutonomousMachineHandler")) {
+        for (ItemHandler handler : SlimefunReloadedItem.getHandlers("AutonomousMachineHandler")) {
           if (((AutonomousMachineHandler) handler).onBlockDispense(e, dispenser, d, block, chest, machine)) {
             break;
           }

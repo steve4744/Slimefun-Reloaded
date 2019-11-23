@@ -20,6 +20,7 @@ import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.FileConfigurationOptions;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SlimefunReloaded extends JavaPlugin {
@@ -149,7 +150,7 @@ public class SlimefunReloaded extends JavaPlugin {
 					new BlockStorage(world);
 				}
 
-				if (SlimefunItem.getByID("ANCIENT_ALTAR") != null) new AncientAltarListener((SlimefunPlugin) instance);
+				if (SlimefunReloadedItem.getByID("ANCIENT_ALTAR") != null) new AncientAltarListener((SlimefunReloaded) instance);
 			}, 0);
 			
 			SlimefunCommand command = new SlimefunCommand(this);
@@ -184,7 +185,7 @@ public class SlimefunReloaded extends JavaPlugin {
 			getLogger().log(Level.INFO, "Finished!");
 			hooks = new SlimefunHooks(this);
 			
-			utilities.oreWasherOutputs = new ItemStack[] {SlimefunItems.IRON_DUST, SlimefunItems.GOLD_DUST, SlimefunItems.ALUMINUM_DUST, SlimefunItems.COPPER_DUST, SlimefunItems.ZINC_DUST, SlimefunItems.TIN_DUST, SlimefunItems.LEAD_DUST, SlimefunItems.SILVER_DUST, SlimefunItems.MAGNESIUM_DUST};
+			utilities.oreWasherOutputs = new ItemStack[] {SlimefunReloadedItems.IRON_DUST, SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.ALUMINUM_DUST, SlimefunReloadedItems.COPPER_DUST, SlimefunReloadedItems.ZINC_DUST, SlimefunReloadedItems.TIN_DUST, SlimefunReloadedItems.LEAD_DUST, SlimefunReloadedItems.SILVER_DUST, SlimefunReloadedItems.MAGNESIUM_DUST};
 
 			// Do not show /sf elevator command in our Log, it could get quite spammy
 			CSCoreLib.getLib().filterLog("([A-Za-z0-9_]{3,16}) issued server command: /sf elevator (.{0,})");

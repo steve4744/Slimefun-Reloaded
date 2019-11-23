@@ -6,9 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import javax.swing.text.Utilities;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.item.NotPlaceable;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.item.UnregisterReason;
 import optic_fusion1.slimefunreloaded.item.handler.BlockBreakHandler;
 import optic_fusion1.slimefunreloaded.item.handler.BlockPlaceHandler;
@@ -36,9 +37,9 @@ public class ToolListener implements Listener {
   private final Random random = new Random();
   private final Utilities utilities;
 
-  public ToolListener(SlimefunPlugin plugin) {
+  public ToolListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    utilities = SlimefunPlugin.getUtilities();
+    utilities = SlimefunReloaded.getUtilities();
 
     sensitiveMaterials.add(Material.STONE_PRESSURE_PLATE);
     sensitiveMaterials.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
@@ -56,7 +57,7 @@ public class ToolListener implements Listener {
 
     ItemStack item = e.getItemInHand();
 
-    SlimefunItem sfItem = SlimefunItem.getByItem(item);
+    SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByItem(item);
     if (sfItem != null && !sfItem.isDisabled() && !(sfItem instanceof NotPlaceable)) {
       if (!Slimefun.hasUnlocked(e.getPlayer(), sfItem, true)) {
         e.setCancelled(true);
@@ -67,7 +68,7 @@ public class ToolListener implements Listener {
         if (blockHandler != null) {
           blockHandler.onPlace(e.getPlayer(), e.getBlock(), sfItem);
         } else {
-          for (ItemHandler handler : SlimefunItem.getHandlers("BlockPlaceHandler")) {
+          for (ItemHandler handler : SlimefunReloadedItem.getHandlers("BlockPlaceHandler")) {
             if (((BlockPlaceHandler) handler).onBlockPlace(e, item)) {
               break;
             }
@@ -75,7 +76,7 @@ public class ToolListener implements Listener {
         }
       }
     } else {
-      for (ItemHandler handler : SlimefunItem.getHandlers("BlockPlaceHandler")) {
+      for (ItemHandler handler : SlimefunReloadedItem.getHandlers("BlockPlaceHandler")) {
         if (((BlockPlaceHandler) handler).onBlockPlace(e, item)) {
           break;
         }
@@ -91,52 +92,52 @@ public class ToolListener implements Listener {
       e.setCancelled(true);
     }
 
-    if (SlimefunManager.isItemSimiliar(item, SlimefunItems.BASIC_CIRCUIT_BOARD, true)) {
+    if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, true)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.ADVANCED_CIRCUIT_BOARD, true)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.ADVANCED_CIRCUIT_BOARD, true)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.PORTABLE_CRAFTER, true)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.PORTABLE_CRAFTER, true)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.PORTABLE_DUSTBIN, true)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.PORTABLE_DUSTBIN, true)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.BACKPACK_SMALL, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.BACKPACK_SMALL, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.BACKPACK_MEDIUM, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.BACKPACK_MEDIUM, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.BACKPACK_LARGE, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.BACKPACK_LARGE, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.WOVEN_BACKPACK, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.WOVEN_BACKPACK, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.GILDED_BACKPACK, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.GILDED_BACKPACK, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.RADIANT_BACKPACK, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.RADIANT_BACKPACK, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.BOUND_BACKPACK, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.BOUND_BACKPACK, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.COOLER, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.COOLER, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.ENDER_BACKPACK, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.ENDER_BACKPACK, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.CARBON, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARBON, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.COMPRESSED_CARBON, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.COMPRESSED_CARBON, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.CARBON_CHUNK, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARBON_CHUNK, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.ANDROID_MEMORY_CORE, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.ANDROID_MEMORY_CORE, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.LAVA_CRYSTAL, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.LAVA_CRYSTAL, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.TINY_URANIUM, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.TINY_URANIUM, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.SMALL_URANIUM, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.SMALL_URANIUM, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.BROKEN_SPAWNER, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.BROKEN_SPAWNER, false)) {
       e.setCancelled(true);
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.GPS_MARKER_TOOL, true)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.GPS_MARKER_TOOL, true)) {
       e.setCancelled(true);
       Slimefun.getGPSNetwork().addWaypoint(e.getPlayer(), e.getBlock().getLocation());
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.CHRISTMAS_PRESENT, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CHRISTMAS_PRESENT, false)) {
       e.setCancelled(true);
 
       if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
@@ -146,37 +147,37 @@ public class ToolListener implements Listener {
       FireworkShow.launchRandom(e.getPlayer(), 3);
       List<ItemStack> gifts = new ArrayList<>();
 
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_HOT_CHOCOLATE, 1));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_CHOCOLATE_APPLE, 4));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_CARAMEL_APPLE, 4));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_CAKE, 4));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_COOKIE, 8));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_PRESENT, 1));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_EGG_NOG, 1));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_MILK, 1));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_APPLE_CIDER, 1));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_FRUIT_CAKE, 4));
-      gifts.add(new CustomItem(SlimefunItems.CHRISTMAS_APPLE_PIE, 4));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_HOT_CHOCOLATE, 1));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_CHOCOLATE_APPLE, 4));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_CARAMEL_APPLE, 4));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_CAKE, 4));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_COOKIE, 8));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_PRESENT, 1));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_EGG_NOG, 1));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_MILK, 1));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_APPLE_CIDER, 1));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_FRUIT_CAKE, 4));
+      gifts.add(new CustomItem(SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, 4));
       gifts.add(new ItemStack(Material.EMERALD));
 
       e.getBlockPlaced().getWorld().dropItemNaturally(e.getBlockPlaced().getLocation(), gifts.get(random.nextInt(gifts.size())));
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.CARGO_INPUT, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARGO_INPUT, false)) {
       if (e.getBlock().getY() != e.getBlockAgainst().getY()) {
-        SlimefunPlugin.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
+        SlimefunReloaded.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
         e.setCancelled(true);
       }
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.CARGO_OUTPUT, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARGO_OUTPUT, false)) {
       if (e.getBlock().getY() != e.getBlockAgainst().getY()) {
-        SlimefunPlugin.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
+        SlimefunReloaded.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
         e.setCancelled(true);
       }
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.CARGO_OUTPUT_ADVANCED, false)) {
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CARGO_OUTPUT_ADVANCED, false)) {
       if (e.getBlock().getY() != e.getBlockAgainst().getY()) {
-        SlimefunPlugin.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
+        SlimefunReloaded.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
         e.setCancelled(true);
       }
-    } else if (SlimefunManager.isItemSimiliar(item, SlimefunItems.CT_IMPORT_BUS, false) && e.getBlock().getY() != e.getBlockAgainst().getY()) {
-      SlimefunPlugin.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
+    } else if (SlimefunManager.isItemSimiliar(item, SlimefunReloadedItems.CT_IMPORT_BUS, false) && e.getBlock().getY() != e.getBlockAgainst().getY()) {
+      SlimefunReloaded.getLocal().sendMessage(e.getPlayer(), "machines.CARGO_NODES.must-be-placed", true);
       e.setCancelled(true);
     }
 
@@ -191,7 +192,7 @@ public class ToolListener implements Listener {
 
     Block block2 = e.getBlock().getRelative(BlockFace.UP);
     if (sensitiveMaterials.contains(block2.getType())) {
-      SlimefunItem sfItem = BlockStorage.check(e.getBlock().getRelative(BlockFace.UP));
+      SlimefunReloadedItem sfItem = BlockStorage.check(e.getBlock().getRelative(BlockFace.UP));
 
       if (sfItem != null && !(sfItem instanceof HandledBlock)) {
         SlimefunBlockHandler blockHandler = utilities.blockHandlers.get(sfItem.getID());
@@ -209,7 +210,7 @@ public class ToolListener implements Listener {
       }
     }
 
-    SlimefunItem sfItem = BlockStorage.check(e.getBlock());
+    SlimefunReloadedItem sfItem = BlockStorage.check(e.getBlock());
 
     if (sfItem != null && !(sfItem instanceof HandledBlock)) {
       SlimefunBlockHandler blockHandler = utilities.blockHandlers.get(sfItem.getID());
@@ -217,7 +218,7 @@ public class ToolListener implements Listener {
         allow = blockHandler.onBreak(e.getPlayer(), e.getBlock(), sfItem, UnregisterReason.PLAYER_BREAK);
       } else {
         // Walk over all registered block break handlers until one says that it'll handle it.
-        for (ItemHandler handler : SlimefunItem.getHandlers("BlockBreakHandler")) {
+        for (ItemHandler handler : SlimefunReloadedItem.getHandlers("BlockBreakHandler")) {
           if (((BlockBreakHandler) handler).onBlockBreak(e, item, fortune, drops)) {
             break;
           }
@@ -238,7 +239,7 @@ public class ToolListener implements Listener {
         fortune = (e.getBlock().getType() == Material.LAPIS_ORE ? 4 + random.nextInt(5) : 1) * (fortune + 1);
       }
 
-      for (ItemHandler handler : SlimefunItem.getHandlers("BlockBreakHandler")) {
+      for (ItemHandler handler : SlimefunReloadedItem.getHandlers("BlockBreakHandler")) {
         if (((BlockBreakHandler) handler).onBlockBreak(e, item, fortune, drops)) {
           break;
         }
@@ -269,7 +270,7 @@ public class ToolListener implements Listener {
         blocks.remove();
         if (!id.equalsIgnoreCase("HARDENED_GLASS") && !id.equalsIgnoreCase("WITHER_PROOF_OBSIDIAN") && !id.equalsIgnoreCase("WITHER_PROOF_GLASS") && !id.equalsIgnoreCase("FORCEFIELD_PROJECTOR") && !id.equalsIgnoreCase("FORCEFIELD_RELAY")) {
           boolean success = true;
-          SlimefunItem sfItem = SlimefunItem.getByID(id);
+          SlimefunReloadedItem sfItem = SlimefunReloadedItem.getByID(id);
 
           SlimefunBlockHandler blockHandler = utilities.blockHandlers.get(sfItem.getID());
           if (blockHandler != null) {

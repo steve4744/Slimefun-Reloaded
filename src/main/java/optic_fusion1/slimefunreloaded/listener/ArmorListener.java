@@ -2,6 +2,8 @@ package optic_fusion1.slimefunreloaded.listener;
 
 import java.util.Vector;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
+import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -24,7 +26,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class ArmorListener implements Listener {
 
-  public ArmorListener(SlimefunPlugin plugin) {
+  public ArmorListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -32,7 +34,7 @@ public class ArmorListener implements Listener {
   public void onDamage(EntityDamageEvent e) {
     if (e.getEntity() instanceof Player && !e.isCancelled()) {
       Player p = (Player) e.getEntity();
-      SlimefunItem item = SlimefunItem.getByItem(p.getInventory().getBoots());
+      SlimefunReloadedItem item = SlimefunReloadedItem.getByItem(p.getInventory().getBoots());
       if (item != null) {
         if (item.getID().equals("ENDER_BOOTS")
          && Slimefun.hasUnlocked(p, item, true)
@@ -54,7 +56,7 @@ public class ArmorListener implements Listener {
               n.setVelocity(n.getLocation().toVector().subtract(p.getLocation().toVector())
                .normalize().multiply(1.4));
               if (p.getWorld().getPVP()
-               && SlimefunPlugin.getProtectionManager()
+               && SlimefunReloaded.getProtectionManager()
                 .hasPermission(p, n.getLocation(), ProtectableAction.PVP)) {
                 EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(p, n,
                  DamageCause.ENTITY_ATTACK, e.getDamage() / 2);
@@ -85,7 +87,7 @@ public class ArmorListener implements Listener {
      && e.getClickedBlock() != null
      && e.getClickedBlock().getType() == Material.FARMLAND
      && SlimefunManager.isItemSimiliar(e.getPlayer().getInventory().getBoots(),
-      SlimefunItems.FARMER_SHOES, true)) {
+      SlimefunReloadedItems.FARMER_SHOES, true)) {
       e.setCancelled(true);
     }
   }

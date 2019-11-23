@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.listener;
 
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,7 +9,7 @@ import org.bukkit.event.inventory.InventoryPickupItemEvent;
 
 public class ItemPickupListener implements Listener {
 
-  public ItemPickupListener(SlimefunPlugin plugin) {
+  public ItemPickupListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 

@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded.listener;
 
 import com.google.common.graph.Network;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -9,7 +10,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 public class NetworkListener implements Listener {
 
-  public NetworkListener(SlimefunPlugin plugin) {
+  public NetworkListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 

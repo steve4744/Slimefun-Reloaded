@@ -1,5 +1,7 @@
 package optic_fusion1.slimefunreloaded.listener;
 
+import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -7,7 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class GuideOnJoinListener implements Listener {
 
-  public GuideOnJoinListener(SlimefunPlugin plugin) {
+  public GuideOnJoinListener(SlimefunReloaded plugin) {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
@@ -15,14 +17,14 @@ public class GuideOnJoinListener implements Listener {
   public void onJoin(PlayerJoinEvent e) {
     if (!e.getPlayer().hasPlayedBefore()) {
       Player p = e.getPlayer();
-      if (!SlimefunPlugin.getWhitelist().getBoolean(p.getWorld().getName() + ".enabled")) {
+      if (!Slimefun.getWhitelistConfig().getBoolean(p.getWorld().getName() + ".enabled")) {
         return;
       }
-      if (!SlimefunPlugin.getWhitelist().getBoolean(p.getWorld().getName() + ".enabled-items.SLIMEFUN_GUIDE")) {
+      if (!Slimefun.getWhitelistConfig().getBoolean(p.getWorld().getName() + ".enabled-items.SLIMEFUN_GUIDE")) {
         return;
       }
 
-      SlimefunGuideLayout type = SlimefunPlugin.getCfg().getBoolean("guide.default-view-book") ? SlimefunGuideLayout.BOOK : SlimefunGuideLayout.CHEST;
+      SlimefunGuideLayout type = SlimefunReloaded.getCfg().getBoolean("guide.default-view-book") ? SlimefunGuideLayout.BOOK : SlimefunGuideLayout.CHEST;
       p.getInventory().addItem(SlimefunGuide.getItem(type));
     }
   }
