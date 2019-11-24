@@ -13,11 +13,11 @@ public class ResearchManager {
   private List<UUID> researching = new ArrayList<>();
 
   public boolean researchWithKeyExists(String key) {
-    return researches.stream().anyMatch((research) -> (research.getNamespacedKey().getKey().equals(key)));
+    return researches.stream().anyMatch((research) -> (research.getKey().getKey().equals(key)));
   }
 
   public boolean researchWithNamespaceExists(String key) {
-    return researches.stream().anyMatch((research) -> (research.getNamespacedKey().getNamespace().equals(key)));
+    return researches.stream().anyMatch((research) -> (research.getKey().getNamespace().equals(key)));
   }
 
   public List<Research> getResearches() {
@@ -25,7 +25,7 @@ public class ResearchManager {
   }
 
   public void addResearch(Research research, SlimefunReloadedItem... items) {
-    NamespacedKey key = research.getNamespacedKey();
+    NamespacedKey key = research.getKey();
     if (!researchWithKeyExists(key.getKey()) && !researchWithNamespaceExists(key.getNamespace())) {
       for (SlimefunReloadedItem item : items) {
         research.addItems(item);
@@ -36,7 +36,7 @@ public class ResearchManager {
 
   public Research getResearchByKey(String key) {
     for (Research research : researches) {
-      if (research.getNamespacedKey().getKey().equals(key)) {
+      if (research.getKey().getKey().equals(key)) {
         return research;
       }
     }
@@ -45,7 +45,7 @@ public class ResearchManager {
 
   public Research getResearchByNamespace(String namespace) {
     for (Research research : researches) {
-      if (research.getNamespacedKey().getNamespace().equals(namespace)) {
+      if (research.getKey().getNamespace().equals(namespace)) {
         return research;
       }
     }
@@ -54,7 +54,7 @@ public class ResearchManager {
 
   public List<Research> getAllResearchesWithNamespace(String namespace) {
     List<Research> list = new ArrayList<>();
-    researches.stream().filter((research) -> (research.getNamespacedKey().getNamespace().equals(namespace))).forEachOrdered((research) -> {
+    researches.stream().filter((research) -> (research.getKey().getNamespace().equals(namespace))).forEachOrdered((research) -> {
       list.add(research);
     });
     return list;

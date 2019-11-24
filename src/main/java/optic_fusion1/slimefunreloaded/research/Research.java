@@ -2,9 +2,10 @@ package optic_fusion1.slimefunreloaded.research;
 
 import java.util.List;
 import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
+import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 
-public class Research {
+public class Research implements Keyed {
 
   private static final int[] research_progress = {23, 44, 57, 92};
   private NamespacedKey key;
@@ -15,10 +16,6 @@ public class Research {
   public Research(NamespacedKey key, int cost) {
     this.key = key;
     this.cost = cost;
-  }
-
-  public NamespacedKey getNamespacedKey() {
-    return key;
   }
 
   public int getCost() {
@@ -48,5 +45,10 @@ public class Research {
   @Override
   public String toString() {
     return "Research {" + key.getNamespace() + "," + key.getKey() + "}";
+  }
+
+  @Override
+  public NamespacedKey getKey() {
+    return key;
   }
 }
