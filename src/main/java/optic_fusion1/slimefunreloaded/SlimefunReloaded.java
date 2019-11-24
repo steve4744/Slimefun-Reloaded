@@ -493,4 +493,48 @@ public class SlimefunReloaded extends JavaPlugin {
     return RESEARCH_MANAGER;
   }
 
+  public boolean isPrintOutLoading() {
+    return printOutLoading;
+  }
+
+  public boolean isResearchesEnabled() {
+    return researchesEnabled;
+  }
+
+  public boolean isResearchesFreeInCreative() {
+    return researchesFreeInCreative;
+  }
+
+  public List<String> getResearchesTitles() {
+    return researchesTitles;
+  }
+
+  public int getBlocksAutoSaveDelay() {
+    return blocksAutoSaveDelay;
+  }
+
+  public boolean isGuideShowVanillaRecipes() {
+    return guideShowVanillaRecipes;
+  }
+
+  public int getEmeraldEnchantsLimit() {
+    return emeraldEnchantsLimit;
+  }
+
+  public boolean isLegacyDustWasher() {
+    return legacyDustWasher;
+  }
+
+  public boolean isLegacyOreGrinder() {
+    return legacyOreGrinder;
+  }
+
+  public boolean isLegacyOreWasher() {
+    return legacyOreWasher;
+  }
+
+  public int getSmelteryFireBreakChance() {
+    return smelteryFireBreakChance;
+  }
+
 }

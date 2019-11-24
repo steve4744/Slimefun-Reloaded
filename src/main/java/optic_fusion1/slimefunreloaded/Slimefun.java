@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
+import java.util.List;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.item.ItemManager;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
@@ -48,8 +49,52 @@ public final class Slimefun {
     return plugin.getResearchManager();
   }
 
-  public static ItemManager getItemManager(){
+  public static ItemManager getItemManager() {
     return plugin.getItemManager();
   }
-  
+
+  public static boolean isPrintOutLoading() {
+    return plugin.isPrintOutLoading();
+  }
+
+  public static boolean isResearchesEnabled() {
+    return plugin.isResearchesEnabled();
+  }
+
+  public static boolean isResearchesFreeInCreative() {
+    return plugin.isResearchesFreeInCreative();
+  }
+
+  public static List<String> getResearchesTitles() {
+    return plugin.getResearchesTitles();
+  }
+
+  public static int getBlocksAutoSaveDelay() {
+    return plugin.getBlocksAutoSaveDelay();
+  }
+
+  public static boolean isGuideShowVanillaRecipes() {
+    return plugin.isGuideShowVanillaRecipes();
+  }
+
+  public static int getEmeraldEnchantsLimit() {
+    return plugin.getEmeraldEnchantsLimit();
+  }
+
+  public static boolean isLegacyDustWasher() {
+    return plugin.isLegacyDustWasher();
+  }
+
+  public static boolean isLegacyOreGrinder() {
+    return plugin.isLegacyOreGrinder();
+  }
+
+  public static boolean isLegacyOreWasher() {
+    return plugin.isLegacyOreWasher();
+  }
+
+  public static int getSmelteryFireBreakChance() {
+    return plugin.getSmelteryFireBreakChance();
+  }
+
 }

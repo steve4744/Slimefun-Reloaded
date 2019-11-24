@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded.research;
 
 import java.util.List;
+import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
@@ -27,7 +28,7 @@ public class Research implements Keyed {
   }
 
   public boolean isEnabled() {
-    return /*SlimefunReloaded.getSettings().researchesEnabled &&*/ enabled;
+    return Slimefun.isResearchesEnabled() && enabled;
   }
 
   public void addItems(SlimefunReloadedItem... items) {
