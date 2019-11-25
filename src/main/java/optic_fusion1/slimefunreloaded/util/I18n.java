@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 public class I18n {
 
@@ -33,6 +34,14 @@ public class I18n {
 
   private static String translate(String string) {
     return config.getString(string);
+  }
+
+  public static void tl(Player player, String string) {
+    player.sendMessage(tl(string));
+  }
+
+  public static void tl(Player player, String string, Object... objects) {
+    player.sendMessage(tl(string, objects));
   }
 
   public static String tl(String string) {
@@ -89,9 +98,9 @@ public class I18n {
   public static String capitalCase(String input) {
     return input == null || input.length() == 0 ? input : input.toUpperCase(Locale.ENGLISH).charAt(0) + input.toLowerCase(Locale.ENGLISH).substring(1);
   }
-  
-  public static List<String> getMessages(String path){
+
+  public static List<String> getMessages(String path) {
     return config.getStringList(path);
   }
-  
+
 }

@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import org.bukkit.entity.Entity;
 
 /**
  * Represents an item component collectible in the player's inventory with which they may
@@ -60,5 +61,16 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param item the item
    */
   public void onBreak(Player player, ItemStack item) { }
+
+  
+  /**
+   * Called when a player kills an entity.
+   *
+   * @param player the player
+   * @param entity the entity killed
+   * @param item the item
+   */
+  public void onKill(Player player, Entity entity, ItemStack item) {}
+  
 
 }
