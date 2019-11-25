@@ -1,4 +1,4 @@
-package testing;
+package examples;
 
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
