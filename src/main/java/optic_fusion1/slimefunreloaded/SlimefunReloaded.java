@@ -4,24 +4,25 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.FileConfigurationOptions;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
+import optic_fusion1.slimefunreloaded.component.ComponentManager;
+import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
-import optic_fusion1.slimefunreloaded.item.ItemManager;
-import optic_fusion1.slimefunreloaded.item.ItemRegistery;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
 import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
 import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
-import optic_fusion1.slimefunreloaded.research.ResearchRegistery;
+import optic_fusion1.slimefunreloaded.research.ResearchRegistry;
 import optic_fusion1.slimefunreloaded.updater.Updater;
 import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.FileConfigurationOptions;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class SlimefunReloaded extends JavaPlugin {
 
@@ -36,6 +37,7 @@ public class SlimefunReloaded extends JavaPlugin {
   private final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
   private final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
   private final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
+  private final ComponentManager COMPONENT_MANAGER = new ComponentManager();
   private final CategoryManager CATEGORY_MANAGER = new CategoryManager();
   private final ResearchManager RESEARCH_MANAGER = new ResearchManager();
 
@@ -56,8 +58,6 @@ public class SlimefunReloaded extends JavaPlugin {
   private boolean legacyOreGrinder;
   private boolean legacyOreWasher;
   private int smelteryFireBreakChance;
-
-  private final ItemManager ITEM_MANAGER = new ItemManager();
 
   @Override
   public void onEnable() {
@@ -89,10 +89,9 @@ public class SlimefunReloaded extends JavaPlugin {
       updater.downloadUpdate();
     }
     createFiles();
-    ITEM_MANAGER.setupItemSettings();
-    new ItemRegistery().registerItems();
 //    MiscSetup.loadDescriptions();
-    new ResearchRegistery().registerResearches();
+    ResearchRegistry.registerResearches();
+    ComponentRegistry.registerComponents();
   }
 
   /*
@@ -465,10 +464,6 @@ public class SlimefunReloaded extends JavaPlugin {
     }
   }
 
-  public ItemManager getItemManager() {
-    return ITEM_MANAGER;
-  }
-
   public Config getResearchesConfig() {
     return RESEARCHES_CONFIG;
   }
@@ -483,6 +478,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public Config getWhitelistConfig() {
     return WHITELIST_CONFIG;
+  }
+
+  public ComponentManager getComponentManager() {
+    return COMPONENT_MANAGER;
   }
 
   public CategoryManager getCategoryManager() {

@@ -6,12 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
-import optic_fusion1.slimefunreloaded.Slimefun;
-import optic_fusion1.slimefunreloaded.SlimefunReloaded;
-import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
-import optic_fusion1.slimefunreloaded.util.Config;
-import optic_fusion1.slimefunreloaded.util.DoubleHandler;
-import optic_fusion1.slimefunreloaded.util.chat.ChatInput;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,6 +16,12 @@ import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
+import optic_fusion1.slimefunreloaded.util.Config;
+import optic_fusion1.slimefunreloaded.util.DoubleHandler;
+import optic_fusion1.slimefunreloaded.util.chat.ChatInput;
 
 public class GPSNetwork {
 
@@ -52,12 +53,7 @@ public class GPSNetwork {
     }
 
     int level = 0;
-    for (Location l : transmitters.get(uuid)) {
-      SlimefunReloadedItem sfi = BlockStorage.check(l);
-      if (sfi instanceof GPSTransmitter) {
-        level += ((GPSTransmitter) sfi).getMultiplier(l.getBlockY());
-      }
-    }
+    // TODO: Make use of GPSTransmitters here to calculate the level
 
     return level;
   }
@@ -103,10 +99,7 @@ public class GPSNetwork {
           break;
         }
 
-        SlimefunReloadedItem sfi = BlockStorage.check(l);
-        if (!(sfi instanceof GPSTransmitter)) {
-          continue;
-        }
+        // TODO: "continue" if a GPSTransmitter is present
 
         int slot = inventory[index];
 

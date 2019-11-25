@@ -2,16 +2,20 @@ package optic_fusion1.slimefunreloaded.category.type;
 
 import java.util.ArrayList;
 import java.util.List;
-import optic_fusion1.slimefunreloaded.item.SlimefunReloadedItem;
+
+import com.google.common.collect.ImmutableList;
+
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 
 public class Category {
 
   private String name;
   private ItemStack item;
-  private List<SlimefunReloadedItem> items = new ArrayList<>();
+  private List<SlimefunReloadedComponent> components = new ArrayList<>();
   private int tier;
   private boolean enabled = true;
 
@@ -28,16 +32,16 @@ public class Category {
     this.tier = tier;
   }
 
-  public void add(SlimefunReloadedItem item) {
-    items.add(item);
+  public void add(SlimefunReloadedComponent component) {
+    this.components.add(component);
   }
 
   public ItemStack getItem() {
     return item;
   }
 
-  public List<SlimefunReloadedItem> getItems() {
-    return items;
+  public List<SlimefunReloadedComponent> getComponents() {
+    return ImmutableList.copyOf(components);
   }
 
   public int getTier() {
