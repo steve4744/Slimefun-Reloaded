@@ -76,5 +76,13 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    */
   public void onKill(Player player, Entity entity, ItemStack item) {}
   
+  /**
+   * Called when a player breaks a block.
+   *
+   * @param player the player
+   * @param brokenBlock the block
+   * @param item the item
+   */
+  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock) {}
 
 }
