@@ -6,7 +6,9 @@ import org.bukkit.inventory.ItemStack;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.event.block.Action;
 
 /**
  * Represents an item component collectible in the player's inventory with which they may
@@ -25,10 +27,12 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    *
    * @param player the player
    * @param item the item
+   * @param action the action
+   * @param clickedBlock the clicked block
    *
    * @return true if success, false otherwise
    */
-  public boolean onInteract(Player player, ItemStack item) {
+  public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     return true;
   }
 

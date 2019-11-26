@@ -10,7 +10,9 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,7 +23,7 @@ public class WindStaff extends SlimefunReloadedItem {
   }
 
   @Override
-  public boolean onInteract(Player player, ItemStack item) {
+  public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     if (player.getFoodLevel() <= 2) {
       I18n.tl(player, "messages.hungry");
       return true;

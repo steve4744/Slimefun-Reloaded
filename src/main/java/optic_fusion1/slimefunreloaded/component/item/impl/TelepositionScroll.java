@@ -4,10 +4,12 @@ import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 
 public class TelepositionScroll extends SlimefunReloadedItem {
@@ -17,7 +19,7 @@ public class TelepositionScroll extends SlimefunReloadedItem {
   }
 
   @Override
-  public boolean onInteract(Player player, ItemStack item) {
+  public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     for (Entity entity : player.getNearbyEntities(10.0, 10.0, 10.0)) {
       if (entity instanceof LivingEntity && !(entity instanceof ArmorStand) && entity.getUniqueId().equals(player.getUniqueId())) {
         float yaw = entity.getLocation().getYaw() + 180.0F;
