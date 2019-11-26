@@ -22,23 +22,21 @@ public class WindStaff extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item) {
-    if (item.isSimilar(getItem())) {
-      if (player.getFoodLevel() <= 2) {
-        I18n.tl(player, "messages.hungry");
-        return true;
-      }
-      if (player.getInventory().getItemInMainHand().getType() == Material.SHEARS && player.getGameMode() == GameMode.CREATIVE) {
-        player.setVelocity(player.getEyeLocation().getDirection().multiply(4));
-        World playerWorld = player.getWorld();
-        playerWorld.playSound(player.getLocation(), Sound.ENTITY_TNT_PRIMED, 1, 1);
-        playerWorld.playEffect(player.getLocation(), Effect.SMOKE, 1);
-        player.setFallDistance(0F);
-        return true;
-      }
-      FoodLevelChangeEvent event = new FoodLevelChangeEvent(player, player.getFoodLevel() - 2);
-      Bukkit.getPluginManager().callEvent(event);
-      player.setFoodLevel(event.getFoodLevel());
+    if (player.getFoodLevel() <= 2) {
+      I18n.tl(player, "messages.hungry");
+      return true;
     }
+    if (player.getInventory().getItemInMainHand().getType() == Material.SHEARS && player.getGameMode() == GameMode.CREATIVE) {
+      player.setVelocity(player.getEyeLocation().getDirection().multiply(4));
+      World playerWorld = player.getWorld();
+      playerWorld.playSound(player.getLocation(), Sound.ENTITY_TNT_PRIMED, 1, 1);
+      playerWorld.playEffect(player.getLocation(), Effect.SMOKE, 1);
+      player.setFallDistance(0F);
+      return true;
+    }
+    FoodLevelChangeEvent event = new FoodLevelChangeEvent(player, player.getFoodLevel() - 2);
+    Bukkit.getPluginManager().callEvent(event);
+    player.setFoodLevel(event.getFoodLevel());
     return true;
   }
 

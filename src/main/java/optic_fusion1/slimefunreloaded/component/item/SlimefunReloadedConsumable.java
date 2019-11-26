@@ -12,7 +12,7 @@ public abstract class SlimefunReloadedConsumable extends SlimefunReloadedItem {
   }
 
   /**
-   * Called when a player picks up this item.
+   * Called when a player consumes this item.
    *
    * @param player the player
    * @param item the item

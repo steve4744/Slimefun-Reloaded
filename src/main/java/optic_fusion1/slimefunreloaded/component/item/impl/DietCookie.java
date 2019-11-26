@@ -17,14 +17,12 @@ public class DietCookie extends SlimefunReloadedConsumable {
 
   @Override
   public boolean onConsume(Player player, ItemStack item) {
-    if (item.isSimilar(getItem())) {
-      player.sendMessage(ChatColor.YELLOW + "You feel so light...");
-      player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
-      if (player.hasPotionEffect(PotionEffectType.LEVITATION)) {
-        player.removePotionEffect(PotionEffectType.LEVITATION);
-      }
-      player.addPotionEffect(PotionEffectType.LEVITATION.createEffect(60, 1));
+    player.sendMessage(ChatColor.YELLOW + "You feel so light...");
+    player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
+    if (player.hasPotionEffect(PotionEffectType.LEVITATION)) {
+      player.removePotionEffect(PotionEffectType.LEVITATION);
     }
+    player.addPotionEffect(PotionEffectType.LEVITATION.createEffect(60, 1));
     return true;
   }
 

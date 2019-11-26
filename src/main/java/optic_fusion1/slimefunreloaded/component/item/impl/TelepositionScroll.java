@@ -18,17 +18,15 @@ public class TelepositionScroll extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item) {
-    if (item.isSimilar(getItem())) {
-      for (Entity entity : player.getNearbyEntities(10.0, 10.0, 10.0)) {
-        if (entity instanceof LivingEntity && !(entity instanceof ArmorStand) && entity.getUniqueId().equals(player.getUniqueId())) {
-          float yaw = entity.getLocation().getYaw() + 180.0F;
-          if (yaw > 360.0F) {
-            yaw = yaw - 360.0F;
-          }
-          Location newLocation = entity.getLocation();
-          newLocation.setYaw(yaw);
-          entity.teleport(newLocation);
+    for (Entity entity : player.getNearbyEntities(10.0, 10.0, 10.0)) {
+      if (entity instanceof LivingEntity && !(entity instanceof ArmorStand) && entity.getUniqueId().equals(player.getUniqueId())) {
+        float yaw = entity.getLocation().getYaw() + 180.0F;
+        if (yaw > 360.0F) {
+          yaw = yaw - 360.0F;
         }
+        Location newLocation = entity.getLocation();
+        newLocation.setYaw(yaw);
+        entity.teleport(newLocation);
       }
     }
     return true;
