@@ -5,12 +5,6 @@ You own a Server which is not only minigame based and your players got bored of 
 Then you will absolutely love this Plugin! 
 It adds a whole new layer of survival to your server by adding more than 400+ new Items!
 
-<p align="center">
-  <a href="https://bstats.org/plugin/bukkit/SlimefunReloaded">
-    <img alt="bStats Servers" src="https://img.shields.io/bstats/servers/4574?color=%2344AD44&label=Servers%20using%20SlimefunReloaded4&logo=https%3A%2F%2Fimg.shields.io%2Fbstats%2Fservers%2F4574%3Fcolor%3D%252344AD44%26label%3DServers%2520using%2520SlimefunReloaded%2520right%2520now%26style%3Dfor-the-badge&style=for-the-badge">
-  </a>
-</p>
-
 Slimefun Reloaded is licensed under 
 [GNU GPLv3](https://github.com/OpticFusion1/Slimefun-Reloaded/blob/master/LICENSE)
 
