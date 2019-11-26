@@ -12,6 +12,11 @@ public class ItemStackBuilder {
   private ItemMeta itemMeta = itemStack.getItemMeta();
   private List<String> lore = new ArrayList<>();
 
+  public ItemStackBuilder(Material material, String displayName){
+    itemStack.setType(material);
+    itemMeta.setDisplayName(displayName);
+  }
+  
   public ItemStackBuilder(Material material) {
     itemStack.setType(material);
   }
