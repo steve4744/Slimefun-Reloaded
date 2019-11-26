@@ -19,7 +19,7 @@ You can find Slimefun Reloaded's community on Discord!
 Click the badge down below to join the server for suggestions/questions or other discussions about this plugin.
 <p align="center">
   <a href="https://discordapp.com/invite/cGvmws7">
-    <img src="https://img.shields.io/discord/565557184348422174?color=7289DA&label=Discord&style=for-the-badge" alt="Discord Invite"/>
+    <img src="https://img.shields.io/discord/560716027672002560?color=7289DA&label=Discord&style=for-the-badge" alt="Discord Invite"/>
   </a>
 </p>
 
