@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.component.item;
 
+import java.util.List;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -74,7 +75,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param entity the entity killed
    * @param item the item
    */
-  public void onKill(Player player, Entity entity, ItemStack item) {}
+  public void onKill(Player player, Entity entity, ItemStack item, List<ItemStack> drops) {}
   
   /**
    * Called when a player breaks a block.

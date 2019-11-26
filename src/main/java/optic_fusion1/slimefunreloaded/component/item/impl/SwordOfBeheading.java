@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.component.item.impl;
 
+import java.util.List;
 import java.util.Random;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class SwordOfBeheading extends SlimefunReloadedItem {
@@ -37,25 +37,25 @@ public class SwordOfBeheading extends SlimefunReloadedItem {
   }
 
   @Override
-  public void onKill(Player player, Entity entity, ItemStack item) {
+  public void onKill(Player player, Entity entity, ItemStack item, List<ItemStack> drops) {
     if (entity instanceof Zombie) {
       if (random.nextInt(100) < chanceZombie) {
-        //e.getDrops().add(new ItemStack(Material.ZOMBIE_HEAD));
+        drops.add(new ItemStack(Material.ZOMBIE_HEAD));
       }
     }
     if (entity instanceof WitherSkeleton) {
       if (random.nextInt(100) < chanceWitherSkeleton) {
-        //e.getDrops().add(new ItemStack(Material.WITHER_SKELETON_SKULL));
+        drops.add(new ItemStack(Material.WITHER_SKELETON_SKULL));
       }
     }
     if (entity instanceof Skeleton) {
       if (random.nextInt(100) < chanceSkeleton) {
-        //e.getDrops().add(new ItemStack(Material.SKELETON_SKULL));
+        drops.add(new ItemStack(Material.SKELETON_SKULL));
       }
     }
     if (entity instanceof Creeper) {
       if (random.nextInt(100) < chanceCreeper) {
-        //e.getDrops().add(new ItemStack(Material.CREEPER_HEAD));
+        drops.add(new ItemStack(Material.CREEPER_HEAD));
       }
     }
     if (entity instanceof Player) {
@@ -64,7 +64,7 @@ public class SwordOfBeheading extends SlimefunReloadedItem {
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
         meta.setOwningPlayer((Player) entity);
         skull.setItemMeta(meta);
-        //e.getDrops().add(skull);
+        drops.add(skull);
       }
     }
     return;
