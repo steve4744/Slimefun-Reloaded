@@ -12,8 +12,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.block.Action;
 
 /**
- * Represents an item component collectible in the player's inventory with which they may
- * interact and use.
+ * Represents an item component collectible in the player's inventory with which they may interact and use.
  *
  * @author Parker "Choco" Hawke
  */
@@ -43,7 +42,8 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param player the player
    * @param item the item
    */
-  public void onPickup(Player player, ItemStack item) { }
+  public void onPickup(Player player, ItemStack item) {
+  }
 
   /**
    * Called when a player drops this item.
@@ -58,16 +58,14 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
   }
 
   /**
-   * Called when a player breaks this item. Note that the item must be a durable type in
-   * order for this item to be called. For example, pickaxes and swords will have this
-   * method invoked when their durability reaches 0.
+   * Called when a player breaks this item. Note that the item must be a durable type in order for this item to be called. For example, pickaxes and swords will have this method invoked when their durability reaches 0.
    *
    * @param player the player
    * @param item the item
    */
-  public void onBreak(Player player, ItemStack item) { }
+  public void onBreak(Player player, ItemStack item) {
+  }
 
-  
   /**
    * Called when a player kills an entity.
    *
@@ -75,8 +73,9 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param entity the entity killed
    * @param item the item
    */
-  public void onKill(Player player, Entity entity, ItemStack item, List<ItemStack> drops) {}
-  
+  public void onKill(Player player, Entity entity, ItemStack item, List<ItemStack> drops) {
+  }
+
   /**
    * Called when a player breaks a block.
    *
@@ -84,14 +83,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param brokenBlock the block
    * @param item the item
    */
-  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock) {}
+  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock) {
+  }
 
-  /**
-   * Called when the player places this item
-   * 
-   * @param player the player
-   * @param item  the item
-   */
-  public void onPlace(Player player, ItemStack item) {}
-  
 }

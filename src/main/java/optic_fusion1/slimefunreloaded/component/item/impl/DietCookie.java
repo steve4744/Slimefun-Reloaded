@@ -1,7 +1,7 @@
 package optic_fusion1.slimefunreloaded.component.item.impl;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
-import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedConsumable;
+import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedConsumeable;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-public class DietCookie extends SlimefunReloadedConsumable {
+public class DietCookie extends SlimefunReloadedConsumeable {
 
   public DietCookie(NamespacedKey key, Category category, ItemStack item) {
     super(key, category, item);

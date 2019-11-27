@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Random;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.Category;
-import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedConsumable;
+import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedConsumeable;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class FortuneCookie extends SlimefunReloadedConsumable {
+public class FortuneCookie extends SlimefunReloadedConsumeable {
 
   private static final Random random = new Random();
   

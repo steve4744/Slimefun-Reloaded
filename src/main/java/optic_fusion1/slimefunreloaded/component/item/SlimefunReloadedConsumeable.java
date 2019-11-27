@@ -5,9 +5,9 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public abstract class SlimefunReloadedConsumable extends SlimefunReloadedItem {
+public abstract class SlimefunReloadedConsumeable extends SlimefunReloadedItem {
 
-  public SlimefunReloadedConsumable(NamespacedKey key, Category category, ItemStack item) {
+  public SlimefunReloadedConsumeable(NamespacedKey key, Category category, ItemStack item) {
     super(key, category, item);
   }
 
