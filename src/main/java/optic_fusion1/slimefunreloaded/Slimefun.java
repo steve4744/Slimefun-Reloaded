@@ -2,6 +2,7 @@ package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
 import java.util.List;
+import java.util.logging.Logger;
 
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
@@ -96,6 +97,10 @@ public final class Slimefun {
 
   public static int getSmelteryFireBreakChance() {
     return plugin.getSmelteryFireBreakChance();
+  }
+
+  public static Logger getLogger() {
+    return plugin.getLogger();
   }
 
 }

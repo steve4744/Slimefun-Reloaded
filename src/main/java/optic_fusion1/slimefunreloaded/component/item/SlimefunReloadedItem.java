@@ -86,4 +86,12 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    */
   public void onBlockBreak(Player player, ItemStack item, Block brokenBlock) {}
 
+  /**
+   * Called when the player places this item
+   * 
+   * @param player the player
+   * @param item  the item
+   */
+  public void onPlace(Player player, ItemStack item) {}
+  
 }
