@@ -12,11 +12,11 @@ public class ItemStackBuilder {
   private ItemMeta itemMeta = itemStack.getItemMeta();
   private List<String> lore = new ArrayList<>();
 
-  public ItemStackBuilder(Material material, String displayName){
+  public ItemStackBuilder(Material material, String displayName) {
     itemStack.setType(material);
     itemMeta.setDisplayName(displayName);
   }
-  
+
   public ItemStackBuilder(Material material) {
     itemStack.setType(material);
   }
@@ -35,6 +35,13 @@ public class ItemStackBuilder {
     list.forEach((string) -> {
       addLore(string);
     });
+    return this;
+  }
+
+  public ItemStackBuilder addLore(String[] list) {
+    for(String string : list){
+      addLore(string);
+    }
     return this;
   }
 
