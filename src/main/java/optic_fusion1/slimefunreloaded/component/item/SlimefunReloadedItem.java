@@ -83,7 +83,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param brokenBlock the block
    * @param item the item
    */
-  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock) {
+  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock, List<ItemStack> drops) {
   }
 
 }
