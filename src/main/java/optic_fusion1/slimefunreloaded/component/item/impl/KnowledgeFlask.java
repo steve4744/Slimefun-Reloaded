@@ -23,10 +23,9 @@ public class KnowledgeFlask extends SlimefunReloadedItem {
     if (player.getLevel() >= 1) {
       if (clickedBlock == null || !(clickedBlock.getState() instanceof Container)) {
         player.setLevel(player.getLevel() - 1);
-        player.getInventory().addItem(new ItemStackBuilder(Material.EXPERIENCE_BOTTLE, "&aFlask of Knowledge").build());
-
+        player.getInventory().addItem(new ItemStackBuilder(Material.EXPERIENCE_BOTTLE)
+         .setName("&aFlask of Knowledge").asBukkitItemStack());
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 0.5F);
-
         item.setAmount(item.getAmount() - 1);
       }
     }
