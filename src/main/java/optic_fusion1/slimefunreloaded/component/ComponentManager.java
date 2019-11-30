@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.base.Preconditions;
+import java.util.Iterator;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
 
 public class ComponentManager {
 
@@ -35,6 +37,33 @@ public class ComponentManager {
   public SlimefunReloadedComponent getComponent(String key) {
     Preconditions.checkArgument(key != null, "Expected namespaced key, received null");
     return components.get(key);
+  }
+
+  public SlimefunReloadedComponent getComponentByItem(ItemStack item) {
+    Preconditions.checkArgument(item != null, "Expected ItemStack, received null");
+    Iterator it = components.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry pair = (Map.Entry) it.next();
+      SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
+      if (item.isSimilar(component.getItem())) {
+        return component;
+      }
+      it.remove();
+    }
+    return null;
+  }
+
+  public SlimefunReloadedComponent getComponentByNamespace(String nameSpace) {
+    Iterator it = components.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry pair = (Map.Entry) it.next();
+      SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
+      if(component.getKey().getNamespace().equals(nameSpace)){
+        return component;
+      }
+      it.remove();
+    }
+    return null;
   }
 
   public void unregisterAllComponents() {

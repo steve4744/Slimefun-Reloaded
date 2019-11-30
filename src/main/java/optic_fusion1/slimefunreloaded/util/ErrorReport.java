@@ -12,6 +12,7 @@ import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.IntStream;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -21,7 +22,8 @@ import org.bukkit.plugin.Plugin;
 public class ErrorReport {
 
   private File file;
-
+  private static final ComponentManager COMPONENT_MANAGER = Slimefun.getComponentManager();
+  
   public ErrorReport(Throwable throwable, Consumer<PrintStream> printer) {
     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
       String path = "plugins/SlimefunReloaded/error-reports/" + new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date());
@@ -127,27 +129,27 @@ public class ErrorReport {
       stream.println();
       stream.println("Item in Main Hand:");
       stream.println(p.getInventory().getItemInMainHand());
-      stream.println(SlimefunItem.getByItem(p.getInventory().getItemInMainHand()));
+      stream.println(COMPONENT_MANAGER.getComponentByItem(p.getInventory().getItemInMainHand()));
       stream.println();
       stream.println("Item in Off Hand:");
       stream.println(p.getInventory().getItemInOffHand());
-      stream.println(SlimefunItem.getByItem(p.getInventory().getItemInOffHand()));
+      stream.println(COMPONENT_MANAGER.getComponentByItem(p.getInventory().getItemInOffHand()));
       stream.println();
       stream.println("Helmet:");
       stream.println(p.getInventory().getHelmet());
-      stream.println(SlimefunItem.getByItem(p.getInventory().getHelmet()));
+      stream.println(COMPONENT_MANAGER.getComponentByItem(p.getInventory().getHelmet()));
       stream.println();
       stream.println("Chestplate:");
       stream.println(p.getInventory().getChestplate());
-      stream.println(SlimefunItem.getByItem(p.getInventory().getChestplate()));
+      stream.println(COMPONENT_MANAGER.getComponentByItem(p.getInventory().getChestplate()));
       stream.println();
       stream.println("Leggings:");
       stream.println(p.getInventory().getLeggings());
-      stream.println(SlimefunItem.getByItem(p.getInventory().getLeggings()));
+      stream.println(COMPONENT_MANAGER.getComponentByItem(p.getInventory().getLeggings()));
       stream.println();
       stream.println("Boots:");
       stream.println(p.getInventory().getBoots());
-      stream.println(SlimefunItem.getByItem(p.getInventory().getBoots()));
+      stream.println(COMPONENT_MANAGER.getComponentByItem(p.getInventory().getBoots()));
       stream.println();
     });
   }

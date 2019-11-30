@@ -27,6 +27,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.component.ComponentManager;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 
 public class BlockStorage {
@@ -38,6 +40,7 @@ public class BlockStorage {
   private Map<Location, Config> storage = new HashMap<>();
   private Map<Location, BlockMenu> inventories = new HashMap<>();
   private Map<String, Config> blocksCache = new HashMap<>();
+  private static final ComponentManager COMPONENT_MANAGER = Slimefun.getComponentManager();
 
   public static BlockStorage getStorage(World world) {
     return Slimefun.getWorlds().get(world.getName());
@@ -293,9 +296,9 @@ public class BlockStorage {
   }
 
   public static void store(Block block, ItemStack item) {
-    SlimefunReloadedItem sfitem = SlimefunReloadedItem.getByItem(item);
-    if (sfitem != null) {
-      addBlockInfo(block, "id", sfitem.getID(), true);
+    SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByItem(item);
+    if (component != null) {
+      addBlockInfo(block, "id", component.getID(), true);
     }
   }
 
@@ -315,7 +318,7 @@ public class BlockStorage {
     if (!hasBlockInfo(block)) {
       return null;
     } else {
-      final SlimefunReloadedItem item = SlimefunReloadedItem.getByID(getLocationInfo(block.getLocation(), "id"));
+      final SlimefunReloadedComponent item = COMPONENT_MANAGER.getComponentByNamespace(getLocationInfo(block.getLocation(), "id"));
       clearBlockInfo(block);
       if (item == null) {
         return null;
@@ -557,7 +560,7 @@ public class BlockStorage {
     cfg.setValue(serializeLocation(l), value);
 
     if (updateTicker) {
-      SlimefunReloadedItem item = SlimefunReloadedItem.getByID(key);
+      SlimefunReloadedItem item = COMPONENT_MANAGER.getComponentByNamespace(key);
       if (item != null && item.isTicking()) {
         String chunkString = locationToChunkString(l);
         if (value != null) {
