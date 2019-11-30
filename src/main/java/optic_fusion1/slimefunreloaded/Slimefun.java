@@ -103,4 +103,8 @@ public final class Slimefun {
     return plugin.getLogger();
   }
 
+  public static int getBlocksInfoLoadingDelay() {
+    return plugin.getBlocksInfoLoadingDelay();
+  }
+
 }

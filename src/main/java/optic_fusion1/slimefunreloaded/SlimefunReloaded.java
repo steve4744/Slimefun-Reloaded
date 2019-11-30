@@ -536,4 +536,8 @@ public class SlimefunReloaded extends JavaPlugin {
     return smelteryFireBreakChance;
   }
 
+  public int getBlocksInfoLoadingDelay() {
+    return blocksInfoLoadingDelay;
+  }
+
 }
