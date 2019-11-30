@@ -84,11 +84,11 @@ public class ErrorReport {
         Slimefun.getLogger().log(Level.WARNING, "");
         Slimefun.getLogger().log(Level.WARNING, "An Error occured! It has been saved as: ");
         Slimefun.getLogger().log(Level.WARNING, "/plugins/SlimefunReloaded/error-reports/" + file.getName());
-        Slimefun.getLogger().log(Level.WARNING, "Please consider sending this File to the developer(s) of Slimefun, this message does not have to be included.");
-        Slimefun.getLogger().log(Level.WARNING, "You can put the file on Pastebin and then post it here: https://github.com/TheBusyBiscuit/Slimefun4/issues");
+        Slimefun.getLogger().log(Level.WARNING, "Please consider sending this File to the developer(s) of Slimefun Reloaded, this message does not have to be included.");
+        Slimefun.getLogger().log(Level.WARNING, "You can put the file on Pastebin and then post it here: https://github.com/OpticFusion1/Slimefun-Reloaded/issues");
         Slimefun.getLogger().log(Level.WARNING, "");
       } catch (FileNotFoundException x) {
-        Slimefun.getLogger().log(Level.SEVERE, "An Error occured while saving an Error-Report for Slimefun " + Slimefun.getVersion(), x);
+        Slimefun.getLogger().log(Level.SEVERE, "An Error occured while saving an Error-Report for Slimefun Reloaded " + Slimefun.getVersion(), x);
       }
     });
   }

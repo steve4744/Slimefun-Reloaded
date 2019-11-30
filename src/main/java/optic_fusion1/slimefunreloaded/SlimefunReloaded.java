@@ -6,8 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nl.rutgerkok.blocklocker.profile.PlayerProfile;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -76,6 +78,7 @@ public class SlimefunReloaded extends JavaPlugin {
   private final Map<String, BlockInfoConfig> mapChunks = new HashMap<>();
   private final Map<String, UniversalBlockMenu> universalInventories = new HashMap<>();
   private String version;
+  public final Map<UUID, PlayerProfile> profiles = new HashMap<>();
 
   @Override
   public void onEnable() {
@@ -300,6 +303,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public String getVersion() {
     return version;
+  }
+
+  public Map<UUID, PlayerProfile> getProfiles() {
+    return profiles;
   }
 
 }
