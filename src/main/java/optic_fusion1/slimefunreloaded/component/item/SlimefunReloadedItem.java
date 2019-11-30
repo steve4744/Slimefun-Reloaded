@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
+import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -18,8 +19,8 @@ import org.bukkit.event.block.Action;
  */
 public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
 
-  protected SlimefunReloadedItem(NamespacedKey key, Category category, ItemStack item) {
-    super(key, category, item);
+  protected SlimefunReloadedItem(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    super(key, category, item, recipeType, recipe);
   }
 
   /**

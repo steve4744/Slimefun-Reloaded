@@ -3,6 +3,7 @@ package optic_fusion1.slimefunreloaded.component.item.impl;
 import java.util.List;
 import java.util.Random;
 import optic_fusion1.slimefunreloaded.category.type.Category;
+import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -25,8 +26,8 @@ public class SwordOfBeheading extends SlimefunReloadedItem {
   private int chanceWitherSkeleton;
   private int chancePlayer;
 
-  public SwordOfBeheading(NamespacedKey key, Category category, ItemStack item) {
-    super(key, category, item);
+  public SwordOfBeheading(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    super(key, category, item, recipeType, recipe);
     /*
     chanceZombie = (int) Slimefun.getItemValue(getID(), "chance.ZOMBIE");
 		chanceSkeleton = (int) Slimefun.getItemValue(getID(), "chance.SKELETON");

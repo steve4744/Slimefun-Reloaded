@@ -8,12 +8,12 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
+import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.machine.MachineState;
 
 /**
- * Represents a machine component capable of performing tasks in the world and storing
- * a state with which the player may interact.
+ * Represents a machine component capable of performing tasks in the world and storing a state with which the player may interact.
  *
  * @param <T> the type of {@link MachineState} created by this machine
  *
@@ -21,8 +21,8 @@ import optic_fusion1.slimefunreloaded.machine.MachineState;
  */
 public abstract class SlimefunReloadedMachine<T extends MachineState> extends SlimefunReloadedComponent {
 
-  protected SlimefunReloadedMachine(NamespacedKey key, Category category, ItemStack item) {
-    super(key, category, item);
+  protected SlimefunReloadedMachine(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    super(key, category, item, recipeType, recipe);
   }
 
   /**
@@ -31,7 +31,8 @@ public abstract class SlimefunReloadedMachine<T extends MachineState> extends Sl
    * @param state the state to init
    * @param player the player that placed the state
    */
-  public void initState(T state, Player player) { }
+  public void initState(T state, Player player) {
+  }
 
   /**
    * Called when a player interacts with this machine.
@@ -68,7 +69,8 @@ public abstract class SlimefunReloadedMachine<T extends MachineState> extends Sl
    * @param item the item used to destroy the machine
    * @param face the face on which the destruction took place
    */
-  public void onDestroy(T state, Player player, ItemStack item, BlockFace face) { }
+  public void onDestroy(T state, Player player, ItemStack item, BlockFace face) {
+  }
 
   /**
    * Create a new state for this machine. Cannot return null.

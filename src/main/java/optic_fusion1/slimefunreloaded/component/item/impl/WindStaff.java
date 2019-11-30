@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded.component.item.impl;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
+import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import org.bukkit.Bukkit;
@@ -18,8 +19,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class WindStaff extends SlimefunReloadedItem {
 
-  public WindStaff(NamespacedKey key, Category category, ItemStack item) {
-    super(key, category, item);
+  public WindStaff(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    super(key, category, item, recipeType, recipe);
   }
 
   @Override

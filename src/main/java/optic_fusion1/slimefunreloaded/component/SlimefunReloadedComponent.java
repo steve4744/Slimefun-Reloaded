@@ -10,8 +10,7 @@ import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.research.Research;
 
 /**
- * Represents a base for all slimefun components in the mod including items, blocks and
- * multiblocks.
+ * Represents a base for all slimefun components in the mod including items, blocks and multiblocks.
  *
  * @author Parker "Choco" Hawke
  */
@@ -20,13 +19,17 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   private final NamespacedKey key;
   private final Category category;
   private final ItemStack item;
-
+  private RecipeType recipeType;
+  private ItemStack[] recipe;
+  private boolean ticking = false;
   private Research research;
 
-  protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item) {
+  protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     this.key = key;
     this.category = category;
     this.item = item.clone();
+    this.recipeType = recipeType;
+    this.recipe = recipe.clone();
   }
 
   @Override
@@ -53,8 +56,7 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   }
 
   /**
-   * Set the research required in order to discover this item. If set to null, the research
-   * will be removed.
+   * Set the research required in order to discover this item. If set to null, the research will be removed.
    *
    * @param research the research to set. null to remove
    */
@@ -94,4 +96,20 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     return Objects.equals(key, other.key) && Objects.equals(category, other.category);
   }
 
+  public RecipeType getRecipeType() {
+    return recipeType;
+  }
+
+  public ItemStack[] getRecipe() {
+    return recipe;
+  }
+
+  public boolean isTicking(){
+    return ticking;
+  }
+  
+  public String getID(){
+    return key.getNamespace();
+  }
+  
 }
