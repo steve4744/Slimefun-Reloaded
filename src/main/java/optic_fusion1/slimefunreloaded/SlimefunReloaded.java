@@ -24,6 +24,7 @@ import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.research.ResearchRegistry;
 import optic_fusion1.slimefunreloaded.updater.Updater;
+import optic_fusion1.slimefunreloaded.util.BlockInfoConfig;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.I18n;
@@ -39,6 +40,10 @@ public class SlimefunReloaded extends JavaPlugin {
 //    private TickerTask ticker;
   private final File DATA_FOLDER = new File("plugins/SlimefunReloaded");
   private final File DATABASE_FOLDER = new File(DATA_FOLDER, "data-storage/Players");
+  private final File PATH_BLOCKS = new File(DATA_FOLDER, "data-storage/stored-blocks");
+  private final File PATH_CHUNKS = new File(DATA_FOLDER, "data-storage/stored-chunks");
+  private final File STORED_INVENTORIES = new File(DATA_FOLDER, "data-storage/stored-inventories");
+  private final File UNIVERSAL_INVENTORIES = new File(DATA_FOLDER, "data-storage/universal-inventories");
   private Config CONFIG;
   private final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
   private final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
@@ -70,9 +75,11 @@ public class SlimefunReloaded extends JavaPlugin {
   private final Set<String> loadedTickers = new HashSet<>();
   private final Map<String, BlockInfoConfig> mapChunks = new HashMap<>();
   private final Map<String, UniversalBlockMenu> universalInventories = new HashMap<>();
+  private String version;
 
   @Override
   public void onEnable() {
+    version = getDescription().getVersion();
     logger = getLogger();
     String version = ReflectionUtils.getVersion();
     if (!version.startsWith("v1_14")) {
@@ -106,307 +113,6 @@ public class SlimefunReloaded extends JavaPlugin {
     ComponentRegistry.registerComponents();
   }
 
-  /*
-			MiscSetup.setupMisc();
-			WikiSetup.addWikiPages(this);
-			textureService.setup(utilities.allItems);
-
-			getLogger().log(Level.INFO, "Loading World Generators...");
-
-			// Generating Oil as an OreGenResource (its a cool API)
-			OreGenSystem.registerResource(new OilResource());
-			OreGenSystem.registerResource(new NetherIceResource());
-			OreGenSystem.registerResource(new UraniumResource());
-
-			// Setting up GitHub Connectors...
-
-			GitHubSetup.setup();
-
-			// All Slimefun Listeners
-			new ArmorListener(this);
-			new ItemListener(this);
-			new BlockListener(this);
-			new GearListener(this);
-			new AutonomousToolsListener(this);
-			new DamageListener(this);
-			new BowListener(this);
-			new ToolListener(this);
-			new FurnaceListener(this);
-			new TeleporterListener(this);
-			new AndroidKillingListener(this);
-			new NetworkListener(this);
-			new ItemPickupListener(this);
-
-			// Toggleable Listeners for performance
-			if (config.getBoolean("items.talismans")) new TalismanListener(this);
-			if (config.getBoolean("items.backpacks")) new BackpackListener(this);
-			if (config.getBoolean("items.coolers")) new CoolerListener(this);
-
-			// Handle Slimefun Guide being given on Join
-			if (config.getBoolean("options.give-guide-on-first-join")) new GuideOnJoinListener(this);
-
-			// Load/Unload Worlds in Slimefun
-			new WorldListener(this);
-
-			// Clear the Slimefun Guide History upon Player Leaving
-			new PlayerQuitListener(this);
-
-			// Initiating various Stuff and all Items with a slightly delay (0ms after the Server finished loading)
-			getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
-				recipeSnapshot = new RecipeSnapshot(this);
-				protections = new ProtectionManager(getServer());
-				MiscSetup.loadItems(settings);
-
-				for (World world: Bukkit.getWorlds()) {
-					new BlockStorage(world);
-				}
-
-				if (SlimefunReloadedItem.getByID("ANCIENT_ALTAR") != null) new AncientAltarListener((SlimefunReloaded) instance);
-			}, 0);
-			
-			SlimefunCommand command = new SlimefunCommand(this);
-
-			getCommand("slimefun").setExecutor(command);
-			getCommand("slimefun").setTabCompleter(new SlimefunTabCompleter(command));
-
-			// Armor Update Task
-			if (config.getBoolean("options.enable-armor-effects")) {
-				getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorTask(), 0L, config.getInt("options.armor-update-interval") * 20L);
-			}
-
-			ticker = new TickerTask();
-
-			getServer().getScheduler().runTaskTimer(this, new PlayerAutoSaver(), 2000L, settings.blocksAutoSaveDelay * 60L * 20L);
-
-			// Starting all ASYNC Tasks
-			getServer().getScheduler().runTaskTimerAsynchronously(this, new BlockAutoSaver(), 2000L, settings.blocksAutoSaveDelay * 60L * 20L);
-			getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
-				try {
-					ticker.run();
-				}
-				catch(Throwable x) {
-					getLogger().log(Level.SEVERE, "An Exception was caught while ticking the Block Tickers Task for Slimefun v" + Slimefun.getVersion(), x);
-					ticker.abortTick();
-				}
-			}, 100L, config.getInt("URID.custom-ticker-delay"));
-
-			getServer().getScheduler().runTaskTimerAsynchronously(this, () -> utilities.connectors.forEach(GitHubConnector::pullFile), 80L, 60 * 60 * 20L);
-
-			// Hooray!
-			getLogger().log(Level.INFO, "Finished!");
-			hooks = new SlimefunHooks(this);
-			
-			utilities.oreWasherOutputs = new ItemStack[] {SlimefunReloadedItems.IRON_DUST, SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.ALUMINUM_DUST, SlimefunReloadedItems.COPPER_DUST, SlimefunReloadedItems.ZINC_DUST, SlimefunReloadedItems.TIN_DUST, SlimefunReloadedItems.LEAD_DUST, SlimefunReloadedItems.SILVER_DUST, SlimefunReloadedItems.MAGNESIUM_DUST};
-
-			// Do not show /sf elevator command in our Log, it could get quite spammy
-			CSCoreLib.getLib().filterLog("([A-Za-z0-9_]{3,16}) issued server command: /sf elevator (.{0,})");
-		}
-		else {
-			getCommand("slimefun").setExecutor((sender, cmd, label, args) -> {
-				sender.sendMessage("You have forgotten to install CS-CoreLib! Slimefun is disabled.");
-				sender.sendMessage("https://dev.bukkit.org/projects/cs-corelib");
-				return true;
-			});
-		}
-	}
-
-	@Override
-	public void onDisable() {
-		// CS-CoreLib wasn't loaded, just disabling
-		if (instance == null) return;
-		
-		Bukkit.getScheduler().cancelTasks(this);
-
-		if (ticker != null) {
-			// Finishes all started movements/removals of block data
-			ticker.halt();
-			ticker.run();
-		}
-		
-		PlayerProfile.iterator().forEachRemaining(profile -> {
-			if (profile.isDirty()) profile.save();
-		});
-		
-		for (World world: Bukkit.getWorlds()) {
-			try {
-				BlockStorage storage = BlockStorage.getStorage(world);
-				
-				if (storage != null) {
-					storage.save(true);
-				}
-				else {
-					getLogger().log(Level.SEVERE, "Could not save Slimefun Blocks for World \"" + world.getName() + "\"");
-				}
-			} catch (Exception x) {
-				getLogger().log(Level.SEVERE, "An Error occured while saving Slimefun-Blocks in World '" + world.getName() + "' for Slimefun " + Slimefun.getVersion());
-			}
-		}
-		
-		for (UniversalBlockMenu menu: utilities.universalInventories.values()) {
-			menu.save();
-		}
-		
-		SlimefunBackup.start();
-
-		// Prevent Memory Leaks
-		AContainer.processing = null;
-		AContainer.progress = null;
-		
-		AGenerator.processing = null;
-		AGenerator.progress = null;
-		
-		AReactor.processing = null;
-		AReactor.progress = null;
-
-		instance = null;
-
-		for (Player p: Bukkit.getOnlinePlayers()) {
-			p.closeInventory();
-		}
-	}
-
-	private void createDir(String path) {
-		File file = new File(path);
-		if (!file.exists()) file.mkdirs();
-	}
-
-	public static Config getCfg() {
-		return instance.config;
-	}
-
-	public static Config getResearchCfg() {
-		return instance.researches;
-	}
-
-	public static Config getItemCfg() {
-		return instance.items;
-	}
-
-	public static Config getWhitelist() {
-		return instance.whitelist;
-	}
-
-	@Deprecated
-	public static int randomize(int max) {
-		if (max < 1) return 0;
-		return CSCoreLib.randomizer().nextInt(max);
-	}
-
-	@Deprecated
-	public static boolean chance(int max, int percentage) {
-		if (max < 1) return false;
-		return CSCoreLib.randomizer().nextInt(max) <= percentage;
-	}
-
-	public GPSNetwork getGPS() {
-		return gps;
-	}
-
-	public static SlimefunHooks getHooks() {
-		return instance.hooks;
-	}
-	
-	public static Utilities getUtilities() {
-		return instance.utilities;
-	}
-	
-	public static Settings getSettings() {
-		return instance.settings;
-	}
-	
-	public static TickerTask getTicker() {
-		return instance.ticker;
-	}
-	
-	public static boolean isActive() {
-		return instance != null;
-	}
-
-	public static ProtectionManager getProtectionManager() {
-		return instance.protections;
-	}
-
-	public static SlimefunLocalization getLocal() {
-		return instance.local;
-	}
-	
-	public static RecipeSnapshot getMinecraftRecipes() {
-		return instance.recipeSnapshot;
-	}
-	
-	public static CustomItemDataService getItemDataService() {
-		return instance.itemDataService;
-	}
-	
-	public static CustomTextureService getItemTextureService() {
-		return instance.textureService;
-	}
-
-}
-   */
-//  private FileConfiguration config;
-//  private Logger logger;
-//  private final File DATA_FOLDER = new File("plugins/SlimefunReloaded");
-//  private final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
-//  private final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
-//  private final File DATABASE_FOLDER = new File(DATA_FOLDER, "Players");
-//  private final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
-//  private final CategoryManager CATEGORY_MANAGER = new CategoryManager();
-//  private final ResearchManager RESEARCH_MANAGER = new ResearchManager();
-//
-//  @Override
-//  public void onEnable() {
-//    String version = ReflectionUtils.getVersion();
-//    if (!version.startsWith("v1_14")) {
-//      logger.severe("Slimefun Reloaded was not installed correctly!");
-//      logger.severe("You are using the wrong version of Minecraft!");
-//      logger.log(Level.SEVERE, "You are using Minecraft {0}", version);
-//      logger.log(Level.SEVERE, "but Slimefun Reloaded v{0} requires you to be using", getDescription().getVersion());
-//      logger.severe("Minecraft 1.14");
-//      logger.severe("Please use an older version of Slimefun or Slimefun Reloaded and disable auto-updating");
-//      logger.severe("or consider updating your server software");
-//      Bukkit.getPluginManager().disablePlugin(this);
-//      return;
-//    }
-//    Slimefun.setSlimefunReloaded(this);
-//    logger = getLogger();
-//    new I18n();
-//    new MetricsLite(this);
-//    File configFile = new File(getDataFolder(), "config.yml");
-//    if (!configFile.exists()) {
-//      saveDefaultConfig();
-//    }
-//    if (!DATABASE_FOLDER.exists()) {
-//      DATABASE_FOLDER.mkdirs();
-//    }
-//    config = getConfig();
-//    handleUpdate();
-//    new CategoryRegistery().registerCategories();
-//    new ResearchRegistery().registerResearches();
-//  }
-//
-//  @Override
-//  public void onDisable() {
-//  }
-//
-//  private void handleUpdate() {
-//    //TODO: Replace with a valid resource id, this requires the resource to be uploaded to spigot
-//    Updater updater = new Updater(this, -1, false);
-//    if (updater.getResult() == UPDATE_AVAILABLE) {
-//      if (config.getBoolean("options.auto-update")) {
-//        updater.downloadUpdate();
-//      } else {
-//        logger.info("************************");
-//        logger.info("This build of Slimefun Reloaded outdated");
-//        logger.log(Level.INFO, "{0}Current Version:  New Version: {1}",
-//         new Object[]{updater.getOldVersion(), updater.getVersion()});
-//        //TODO: replace with valid link, this requires the resource to be uploaded to spigot
-//        logger.info("You can get the latest build here: <insert link here>");
-//        logger.info("************************");
-//      }
-//    }
-//  }
-//
   @Override
   public void onDisable() {
   }
@@ -466,9 +172,25 @@ public class SlimefunReloaded extends JavaPlugin {
     if (items.exists() && !ITEMS_CONFIG.getFile().exists()) {
       items.renameTo(ITEMS_CONFIG.getFile());
     }
-    File database = new File("data-storage/Slimefun/Players");
-    if (database.exists() && !DATABASE_FOLDER.exists()) {
-      database.renameTo(DATABASE_FOLDER);
+    File playerDatabase = new File("data-storage/Slimefun/Players");
+    if (playerDatabase.exists() && !DATABASE_FOLDER.exists()) {
+      playerDatabase.renameTo(DATABASE_FOLDER);
+    }
+    File storedBlocks = new File("data-storage/Slimefun/stored-blocks");
+    if (storedBlocks.exists() && !PATH_BLOCKS.exists()) {
+      storedBlocks.renameTo(PATH_BLOCKS);
+    }
+    File storedChunks = new File("data-storage/Slimefun/stored-chunks");
+    if (storedChunks.exists() && !PATH_CHUNKS.exists()) {
+      storedChunks.renameTo(PATH_CHUNKS);
+    }
+    File storedInventories = new File("data-storage/Slimefun/stored-inventories");
+    if (storedInventories.exists() && !STORED_INVENTORIES.exists()) {
+      storedInventories.renameTo(STORED_INVENTORIES);
+    }
+    File universalInventories = new File("data-storage/Slimefun/universal-inventories");
+    if (universalInventories.exists() && !UNIVERSAL_INVENTORIES.exists()) {
+      universalInventories.renameTo(UNIVERSAL_INVENTORIES);
     }
     File whitelist = new File("plugins/Slimefun/whitelist.yml");
     if (whitelist.exists() && !WHITELIST_CONFIG.getFile().exists()) {
@@ -574,6 +296,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public Map<String, UniversalBlockMenu> getUniversalInventories() {
     return universalInventories;
+  }
+
+  public String getVersion() {
+    return version;
   }
 
 }

@@ -31,8 +31,8 @@ import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 
 public class BlockStorage {
 
-  private static final String path_blocks = "data-storage/Slimefun/stored-blocks/";
-  private static final String path_chunks = "data-storage/Slimefun/stored-chunks/";
+  private static final String path_blocks = "plugins/SlimefunReloaded/data-storage/stored-blocks/";
+  private static final String path_chunks = "plugins/SlimefunReloaded/data-storage/stored-chunks/";
 
   private World world;
   private Map<Location, Config> storage = new HashMap<>();
@@ -172,8 +172,7 @@ public class BlockStorage {
     }
 
     Slimefun.getWorlds().put(world.getName(), this);
-
-    for (File file : new File("data-storage/Slimefun/stored-inventories").listFiles()) {
+    for (File file : new File("plugins/SlimefunReloaded/data-storage-stored-inventories").listFiles()) {
       if (file.getName().startsWith(w.getName()) && file.getName().endsWith(".sfi")) {
         Location l = deserializeLocation(file.getName().replace(".sfi", ""));
         Config cfg = new Config(file);
@@ -193,7 +192,7 @@ public class BlockStorage {
       }
     }
 
-    for (File file : new File("data-storage/Slimefun/universal-inventories").listFiles()) {
+    for (File file : new File("data-storage/SlimefunReloaded/universal-inventories").listFiles()) {
       if (file.getName().endsWith(".sfi")) {
         Config cfg = new Config(file);
         BlockMenuPreset preset = BlockMenuPreset.getPreset(cfg.getString("preset"));
@@ -216,7 +215,7 @@ public class BlockStorage {
       changes += entry.getValue().getUnsavedChanges();
     }
 
-    Map<String, UniversalBlockMenu> universalInventories2 = new HashMap<>(SlimefunPlugin.getUtilities().universalInventories);
+    Map<String, UniversalBlockMenu> universalInventories2 = new HashMap<>(Slimefun.getUniversalInventories());
     for (Map.Entry<String, UniversalBlockMenu> entry : universalInventories2.entrySet()) {
       changes += entry.getValue().getUnsavedChanges();
     }
@@ -440,7 +439,7 @@ public class BlockStorage {
           storage.loadUniversalInventory(BlockMenuPreset.getPreset(cfg.getString("id")));
         }
       } else if (!storage.hasInventory(l)) {
-        File file = new File("data-storage/Slimefun/stored-inventories/" + serializeLocation(l) + ".sfi");
+        File file = new File("plugins/SlimefunReloaded/data-storage/stored-inventories/" + serializeLocation(l) + "/sfi");
 
         if (file.exists()) {
           storage.inventories.put(l, new BlockMenu(BlockMenuPreset.getPreset(cfg.getString("id")), l, new Config(file)));
@@ -672,7 +671,7 @@ public class BlockStorage {
   }
 
   public boolean hasUniversalInventory(String id) {
-    return SlimefunPlugin.getUtilities().universalInventories.containsKey(id);
+    return Slimefun.getUniversalInventories().containsKey(id);
   }
 
   public UniversalBlockMenu getUniversalInventory(Block block) {

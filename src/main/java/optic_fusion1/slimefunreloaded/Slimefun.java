@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
+import optic_fusion1.slimefunreloaded.util.BlockInfoConfig;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
 import org.bukkit.Location;
@@ -135,4 +136,8 @@ public final class Slimefun {
     return plugin.getUniversalInventories();
   }
 
+   public static String getVersion(){
+     return plugin.getVersion();
+   }
+   
 }
