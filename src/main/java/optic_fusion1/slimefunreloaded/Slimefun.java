@@ -2,11 +2,13 @@ package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
+import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
 
 public final class Slimefun {
@@ -105,6 +107,10 @@ public final class Slimefun {
 
   public static int getBlocksInfoLoadingDelay() {
     return plugin.getBlocksInfoLoadingDelay();
+  }
+
+  public static Map<String, BlockStorage> getWorlds() {
+    return plugin.getWorlds();
   }
 
 }

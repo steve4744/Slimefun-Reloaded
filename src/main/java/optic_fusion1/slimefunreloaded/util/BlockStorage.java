@@ -27,6 +27,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 
 public class BlockStorage {
 
@@ -39,11 +40,11 @@ public class BlockStorage {
   private Map<String, Config> blocksCache = new HashMap<>();
 
   public static BlockStorage getStorage(World world) {
-    return SlimefunPlugin.getUtilities().worlds.get(world.getName());
+    return Slimefun.getWorlds().get(world.getName());
   }
 
   public static BlockStorage getForcedStorage(World world) {
-    return isWorldRegistered(world.getName()) ? SlimefunPlugin.getUtilities().worlds.get(world.getName()) : new BlockStorage(world);
+    return isWorldRegistered(world.getName()) ? Slimefun.getWorlds().get(world.getName()) : new BlockStorage(world);
   }
 
   private static String serializeLocation(Location l) {
@@ -76,7 +77,7 @@ public class BlockStorage {
   }
 
   public BlockStorage(final World w) {
-    if (worlds.containsKey(w.getName())) {
+    if (Slimefun.getWorlds().containsKey(w.getName())) {
       return;
     }
     this.world = w;
@@ -127,7 +128,7 @@ public class BlockStorage {
                 }
                 storage.put(l, blockInfo);
 
-                if (SlimefunItem.isTicking(file.getName().replace(".sfb", ""))) {
+                if (SlimefunReloadedItem.isTicking(file.getName().replace(".sfb", ""))) {
                   Set<Location> locations = SlimefunPlugin.getUtilities().tickingChunks.getOrDefault(chunkString, new HashSet<>());
                   locations.add(l);
                   SlimefunPlugin.getUtilities().tickingChunks.put(chunkString, locations);
@@ -170,7 +171,7 @@ public class BlockStorage {
       }
     }
 
-    worlds.put(world.getName(), this);
+    Slimefun.getWorlds().put(world.getName(), this);
 
     for (File file : new File("data-storage/Slimefun/stored-inventories").listFiles()) {
       if (file.getName().startsWith(w.getName()) && file.getName().endsWith(".sfi")) {
@@ -284,7 +285,7 @@ public class BlockStorage {
       cfg.save(chunks);
 
       if (remove) {
-        worlds.remove(world.getName());
+        Slimefun.getWorlds().remove(world.getName());
       }
     }
 
@@ -293,7 +294,7 @@ public class BlockStorage {
   }
 
   public static void store(Block block, ItemStack item) {
-    SlimefunItem sfitem = SlimefunItem.getByItem(item);
+    SlimefunReloadedItem sfitem = SlimefunReloadedItem.getByItem(item);
     if (sfitem != null) {
       addBlockInfo(block, "id", sfitem.getID(), true);
     }
@@ -304,10 +305,10 @@ public class BlockStorage {
   }
 
   /**
-   * Retrieves the SlimefunItem's ItemStack from the specified Block. If the specified Block is registered in BlockStorage, its data will be erased from it, regardless of the returned value.
+   * Retrieves the SlimefunReloadedItem's ItemStack from the specified Block. If the specified Block is registered in BlockStorage, its data will be erased from it, regardless of the returned value.
    *
    * @param block the block to retrieve the ItemStack from
-   * @return the SlimefunItem's ItemStack corresponding to the block if it has one, otherwise null
+   * @return the SlimefunReloadedItem's ItemStack corresponding to the block if it has one, otherwise null
    *
    * @since 4.0
    */
@@ -315,7 +316,7 @@ public class BlockStorage {
     if (!hasBlockInfo(block)) {
       return null;
     } else {
-      final SlimefunItem item = SlimefunItem.getByID(getLocationInfo(block.getLocation(), "id"));
+      final SlimefunReloadedItem item = SlimefunReloadedItem.getByID(getLocationInfo(block.getLocation(), "id"));
       clearBlockInfo(block);
       if (item == null) {
         return null;
@@ -557,7 +558,7 @@ public class BlockStorage {
     cfg.setValue(serializeLocation(l), value);
 
     if (updateTicker) {
-      SlimefunItem item = SlimefunItem.getByID(key);
+      SlimefunReloadedItem item = SlimefunReloadedItem.getByID(key);
       if (item != null && item.isTicking()) {
         String chunkString = locationToChunkString(l);
         if (value != null) {
@@ -574,15 +575,15 @@ public class BlockStorage {
     }
   }
 
-  public static SlimefunItem check(Block block) {
+  public static SlimefunReloadedItem check(Block block) {
     return check(block.getLocation());
   }
 
-  public static SlimefunItem check(Location l) {
+  public static SlimefunReloadedItem check(Location l) {
     if (!hasBlockInfo(l)) {
       return null;
     }
-    return SlimefunItem.getByID(getLocationInfo(l, "id"));
+    return SlimefunReloadedItem.getByID(getLocationInfo(l, "id"));
   }
 
   public static String checkID(Block block) {
@@ -613,7 +614,7 @@ public class BlockStorage {
   }
 
   public static boolean isWorldRegistered(String name) {
-    return worlds.containsKey(name);
+    return Slimefun.getWorlds().containsKey(name);
   }
 
   public static Set<String> getTickingChunks() {

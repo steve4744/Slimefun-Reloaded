@@ -1,7 +1,9 @@
 package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +22,7 @@ import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.research.ResearchRegistry;
 import optic_fusion1.slimefunreloaded.updater.Updater;
+import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
@@ -58,6 +61,7 @@ public class SlimefunReloaded extends JavaPlugin {
   private boolean legacyOreGrinder;
   private boolean legacyOreWasher;
   private int smelteryFireBreakChance;
+  public final Map<String, BlockStorage> worlds = new HashMap<>();
 
   @Override
   public void onEnable() {
@@ -538,6 +542,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public int getBlocksInfoLoadingDelay() {
     return blocksInfoLoadingDelay;
+  }
+  
+  public Map<String, BlockStorage> getWorlds(){
+    return worlds;
   }
 
 }
