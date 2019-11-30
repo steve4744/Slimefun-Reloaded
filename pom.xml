@@ -54,11 +54,8 @@
         </plugins>
         <resources>
             <resource>
-                <directory>${basedir}/src/main/resources</directory>
+                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                <includes>
-                    <include>*</include>
-                </includes>
             </resource>
         </resources>
     </build>

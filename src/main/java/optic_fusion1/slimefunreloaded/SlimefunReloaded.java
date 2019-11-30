@@ -2,8 +2,10 @@ package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +28,7 @@ import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
+import org.bukkit.Location;
 
 public class SlimefunReloaded extends JavaPlugin {
 
@@ -61,7 +64,12 @@ public class SlimefunReloaded extends JavaPlugin {
   private boolean legacyOreGrinder;
   private boolean legacyOreWasher;
   private int smelteryFireBreakChance;
-  public final Map<String, BlockStorage> worlds = new HashMap<>();
+  private final Map<String, BlockStorage> worlds = new HashMap<>();
+  private final Set<String> tickers = new HashSet<>();
+  private final Map<String, Set<Location>> tickingChunks = new HashMap<>();
+  private final Set<String> loadedTickers = new HashSet<>();
+  private final Map<String, BlockInfoConfig> mapChunks = new HashMap<>();
+  private final Map<String, UniversalBlockMenu> universalInventories = new HashMap<>();
 
   @Override
   public void onEnable() {
@@ -543,9 +551,29 @@ public class SlimefunReloaded extends JavaPlugin {
   public int getBlocksInfoLoadingDelay() {
     return blocksInfoLoadingDelay;
   }
-  
-  public Map<String, BlockStorage> getWorlds(){
+
+  public Map<String, BlockStorage> getWorlds() {
     return worlds;
+  }
+
+  public Set<String> getTickers() {
+    return tickers;
+  }
+
+  public Map<String, Set<Location>> getTickingChunks() {
+    return tickingChunks;
+  }
+
+  public Set<String> getLoadedTickers() {
+    return loadedTickers;
+  }
+
+  public Map<String, BlockInfoConfig> getMapChunks() {
+    return mapChunks;
+  }
+
+  public Map<String, UniversalBlockMenu> getUniversalInventories() {
+    return universalInventories;
   }
 
 }

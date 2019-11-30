@@ -3,6 +3,7 @@ package optic_fusion1.slimefunreloaded;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
@@ -10,6 +11,7 @@ import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
+import org.bukkit.Location;
 
 public final class Slimefun {
 
@@ -111,6 +113,26 @@ public final class Slimefun {
 
   public static Map<String, BlockStorage> getWorlds() {
     return plugin.getWorlds();
+  }
+
+  public static Set<String> getTickers() {
+    return plugin.getTickers();
+  }
+
+  public static Map<String, Set<Location>> getTickingChunks() {
+    return plugin.getTickingChunks();
+  }
+
+  public static Set<String> getLoadedTickers() {
+    return plugin.getLoadedTickers();
+  }
+
+  public static Map<String, BlockInfoConfig> getMapChunks() {
+    return plugin.getMapChunks();
+  }
+  
+   public static Map<String, UniversalBlockMenu> getUniversalInventories() {
+    return plugin.getUniversalInventories();
   }
 
 }
