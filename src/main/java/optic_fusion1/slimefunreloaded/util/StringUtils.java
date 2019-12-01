@@ -29,7 +29,7 @@ public final class StringUtils {
     StringBuilder builder = new StringBuilder(text.length() * 3);
 
     for (char c : text.toCharArray()) {
-      builder.append(c + colors[i % colors.length].toString());
+      builder.append(c).append(colors[i % colors.length].toString());
       i++;
     }
 
@@ -42,9 +42,9 @@ public final class StringUtils {
     int i = 0;
     for (String s : string.split("_")) {
       if (i == 0) {
-        builder.append(Character.toUpperCase(s.charAt(0)) + s.substring(1));
+        builder.append(Character.toUpperCase(s.charAt(0))).append(s.substring(1));
       } else {
-        builder.append(" " + Character.toUpperCase(s.charAt(0)) + s.substring(1));
+        builder.append(" ").append(Character.toUpperCase(s.charAt(0))).append(s.substring(1));
       }
       i++;
     }

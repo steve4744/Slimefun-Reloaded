@@ -217,28 +217,6 @@ public final class PlayerProfile {
     return guideHistory;
   }
 
-  /**
-   * This is now deprecated, use {@link #fromUUID(UUID, Consumer)} instead
-   *
-   * @param uuid The UUID of the profile you are trying to retrieve.
-   * @return The PlayerProfile of this player
-   *
-   * @deprecated Use {@link #fromUUID(UUID, Consumer)}
-   */
-  @Deprecated
-  public static PlayerProfile fromUUID(UUID uuid) {
-    PlayerProfile profile = Slimefun.getProfiles().get(uuid);
-
-    if (profile == null) {
-      profile = new PlayerProfile(uuid);
-      Slimefun.getProfiles().put(uuid, profile);
-    } else {
-      profile.markedForDeletion = false;
-    }
-
-    return profile;
-  }
-
   public static boolean fromUUID(UUID uuid, Consumer<PlayerProfile> callback) {
     PlayerProfile profile = Slimefun.getProfiles().get(uuid);
 
@@ -253,27 +231,6 @@ public final class PlayerProfile {
       callback.accept(pp);
     });
     return false;
-  }
-
-  /**
-   * This is now deprecated, use {@link #get(OfflinePlayer, Consumer)} instead
-   *
-   * @param p The player's profile you wish to retrieve
-   * @return The PlayerProfile of this player
-   * @deprecated Use {@link #get(OfflinePlayer, Consumer)}
-   */
-  @Deprecated
-  public static PlayerProfile get(OfflinePlayer p) {
-    PlayerProfile profile = Slimefun.getProfiles().get(p.getUniqueId());
-
-    if (profile == null) {
-      profile = new PlayerProfile(p);
-      Slimefun.getProfiles().put(p.getUniqueId(), profile);
-    } else {
-      profile.markedForDeletion = false;
-    }
-
-    return profile;
   }
 
   /**
@@ -330,7 +287,7 @@ public final class PlayerProfile {
     }
 
     if (id.isPresent()) {
-      return PlayerProfile.fromUUID(UUID.fromString(uuid)).getBackpack(id.get());
+      return PlayerProfile.fromUUID(UUID.fromString(uuid), () -> {}).getBackpack(id.get());
     } else {
       return null;
     }

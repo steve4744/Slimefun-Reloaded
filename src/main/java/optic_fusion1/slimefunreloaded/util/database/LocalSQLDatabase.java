@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.logging.Level;
 import optic_fusion1.slimefunreloaded.util.database.Database.DatabaseLoader;
-import static org.bukkit.Bukkit.getLogger;
 import org.bukkit.plugin.Plugin;
 
 public abstract class LocalSQLDatabase<T extends LocalSQLDatabase<T>> extends SQLDatabase<T> {

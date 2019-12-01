@@ -328,16 +328,6 @@ public class BlockStorage {
     }
   }
 
-  @Deprecated
-  public static Config getBlockInfo(Block block) {
-    return getLocationInfo(block.getLocation());
-  }
-
-  @Deprecated
-  public static Config getBlockInfo(Location l) {
-    return getLocationInfo(l);
-  }
-
   public static Config getLocationInfo(Location l) {
     BlockStorage storage = getStorage(l.getWorld());
     Config cfg = storage.storage.get(l);
@@ -386,16 +376,6 @@ public class BlockStorage {
       return null;
     }
     return Slimefun.getMapChunks().get(serializeChunk(chunk)).toJSON();
-  }
-
-  @Deprecated
-  public static String getBlockInfo(Block block, String key) {
-    return getLocationInfo(block.getLocation(), key);
-  }
-
-  @Deprecated
-  public static String getBlockInfo(Location l, String key) {
-    return getLocationInfo(l, key);
   }
 
   public static String getLocationInfo(Location l, String key) {
@@ -511,18 +491,8 @@ public class BlockStorage {
     }
   }
 
-  @Deprecated
-  public static void moveBlockInfo(Block block, Block newBlock) {
-    moveBlockInfo(block.getLocation(), newBlock.getLocation());
-  }
-
   public static void moveBlockInfo(Location from, Location to) {
     SlimefunPlugin.getTicker().move.put(from, to);
-  }
-
-  @Deprecated
-  public static void _integrated_moveBlockInfo(Block block, Block newBlock) {
-    _integrated_moveLocationInfo(block.getLocation(), newBlock.getLocation());
   }
 
   public static void _integrated_moveLocationInfo(Location from, Location to) {
@@ -623,22 +593,8 @@ public class BlockStorage {
     return new HashSet<>(Slimefun.getLoadedTickers());
   }
 
-  @Deprecated
-  public static Set<Block> getTickingBlocks(Chunk chunk) {
-    return getTickingBlocks(chunk.toString());
-  }
-
   public static Set<Location> getTickingLocations(Chunk chunk) {
     return getTickingLocations(chunk.toString());
-  }
-
-  @Deprecated
-  public static Set<Block> getTickingBlocks(String chunk) {
-    Set<Block> ret = new HashSet<>();
-    for (Location l : getTickingLocations(chunk)) {
-      ret.add(l.getBlock());
-    }
-    return ret;
   }
 
   public static Set<Location> getTickingLocations(String chunk) {
