@@ -16,7 +16,7 @@ public class TrashCan extends SlimefunReloadedMachine<TrashCanState> {
   /*
   This is what it should be, however certain things aren't properly implemented yet
   super(new NamespacedKey(plugin, "TrashCan"), Slimefun.getCategoryManager().getCategoryByName("Cargo"),
-     (SlimefunItemStack) SlimefunItems.TRASH_CAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {null, SlimefunItems.PORTABLE_DUSTBIN, null, SlimefunItems.LEAD_INGOT, SlimefunItems.CARGO_MOTOR, SlimefunItems.LEAD_INGOT, SlimefunItems.ALUMINUM_INGOT, SlimefunItems.LEAD_INGOT, SlimefunItems.ALUMINUM_INGOT});
+     (SlimefunReloadedItemStack) SlimefunReloadedItems.TRASH_CAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {null, SlimefunReloadedItems.PORTABLE_DUSTBIN, null, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.CARGO_MOTOR, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT});
      */
   @Override
   public TrashCanState createState(Block block) {

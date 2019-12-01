@@ -562,8 +562,8 @@ public class BlockStorage {
     return checkID(block.getLocation());
   }
 
-  public static boolean check(Block block, String slimefunItem) {
-    return check(block.getLocation(), slimefunItem);
+  public static boolean check(Block block, String SlimefunReloadedItem) {
+    return check(block.getLocation(), SlimefunReloadedItem);
   }
 
   public static String checkID(Location l) {
@@ -573,13 +573,13 @@ public class BlockStorage {
     return getLocationInfo(l, "id");
   }
 
-  public static boolean check(Location l, String slimefunItem) {
+  public static boolean check(Location l, String SlimefunReloadedItem) {
     if (!hasBlockInfo(l)) {
       return false;
     }
     try {
       String id = getLocationInfo(l, "id");
-      return id != null && id.equalsIgnoreCase(slimefunItem);
+      return id != null && id.equalsIgnoreCase(SlimefunReloadedItem);
     } catch (NullPointerException x) {
       return false;
     }
