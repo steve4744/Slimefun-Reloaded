@@ -5,11 +5,11 @@ import optic_fusion1.slimefunreloaded.component.RecipeType;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
-public class SlimefunReloadedBackback extends SlimefunReloadedItem {
+public class SlimefunReloadedBackpack extends SlimefunReloadedItem {
 
   private int size;
 
-  public SlimefunReloadedBackback(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, int size) {
+  public SlimefunReloadedBackpack(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, int size) {
     super(key, category, item, recipeType, recipe);
     this.size = size;
   }
