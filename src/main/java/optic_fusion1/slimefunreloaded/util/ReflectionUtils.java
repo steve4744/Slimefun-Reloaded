@@ -11,6 +11,8 @@ import org.bukkit.Bukkit;
 public final class ReflectionUtils {
 
   private static final Map<Class<?>, Class<?>> conversion = new HashMap<>();
+  private static Method handle_player, handle_world, handle_entity, handle_animals, sendPacket;
+  private static Field player_connection;
 
   static {
     conversion.put(Byte.class, Byte.TYPE);
@@ -21,11 +23,41 @@ public final class ReflectionUtils {
     conversion.put(Float.class, Float.TYPE);
     conversion.put(Double.class, Double.TYPE);
     conversion.put(Boolean.class, Boolean.TYPE);
+
+    try {
+      handle_world = getClass(PackageName.OBC, "CraftWorld").getMethod("getHandle");
+      handle_player = getClass(PackageName.OBC, "entity.CraftPlayer").getMethod("getHandle");
+      handle_entity = getClass(PackageName.OBC, "entity.CraftEntity").getMethod("getHandle");
+      handle_animals = getClass(PackageName.OBC, "entity.CraftAnimals").getMethod("getHandle");
+      player_connection = getClass(PackageName.NMS, "EntityPlayer").getField("playerConnection");
+      sendPacket = getMethod(getClass(PackageName.NMS, "PlayerConnection"), "sendPacket");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   private ReflectionUtils() {
   }
 
+  public static Object getHandle(CraftObject type, Object object) throws Exception {
+    switch (type) {
+      case PLAYER:
+        return handle_player.invoke(object);
+      case WORLD:
+        return handle_world.invoke(object);
+      case ENTITY:
+        return handle_entity.invoke(object);
+      case ANIMALS:
+        return handle_animals.invoke(object);
+      default:
+        return null;
+    }
+  }
+
+  public static Class<?> getClass(PackageName pkg, String name){
+    return getClass(pkg.toPackage() + getVersion() + "." + name);
+  }
+  
   public static Class<?> getNMSClass(String name) {
     return getClass("net.minecraft.server." + getVersion() + "." + name);
   }
@@ -53,6 +85,16 @@ public final class ReflectionUtils {
 
   public static String getNMSVersion() {
     return "net.minecraft.server." + getRawVersion() + ".";
+  }
+
+  public static boolean isVersion(String... versions) {
+    String nmsVersion = getVersion();
+    for (String version : versions) {
+      if (version.equals(nmsVersion)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static Class<?> wrapperToPrimitive(Class<?> clazz) {
