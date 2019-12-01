@@ -146,4 +146,7 @@ public final class Slimefun {
      return plugin.getProfiles();
    }
    
+   public static Config getCfg(){
+     return plugin.getCfg();
+   }
 }

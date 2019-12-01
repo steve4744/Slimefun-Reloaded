@@ -1,9 +1,9 @@
 package optic_fusion1.slimefunreloaded.component.item.impl;
 
-import optic_fusion1.slimefunreloaded.builder.ItemStackBuilder;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import optic_fusion1.slimefunreloaded.util.CustomItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
@@ -24,8 +24,7 @@ public class KnowledgeFlask extends SlimefunReloadedItem {
     if (player.getLevel() >= 1) {
       if (clickedBlock == null || !(clickedBlock.getState() instanceof Container)) {
         player.setLevel(player.getLevel() - 1);
-        player.getInventory().addItem(new ItemStackBuilder(Material.EXPERIENCE_BOTTLE)
-         .setName("&aFlask of Knowledge").asBukkitItemStack());
+        player.getInventory().addItem(new CustomItem(Material.EXPERIENCE_BOTTLE, "&aFlask of Knowledge"));
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 0.5F);
         item.setAmount(item.getAmount() - 1);
       }

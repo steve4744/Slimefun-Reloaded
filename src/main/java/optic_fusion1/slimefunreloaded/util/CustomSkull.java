@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.UUID;
+import optic_fusion1.slimefunreloaded.Slimefun;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -47,11 +48,11 @@ public class CustomSkull {
   }
 
   private static Object createProfile(String texture) throws Exception {
-    if (!CSCoreLib.getLib().getCfg().contains("skulls.uuids." + texture)) {
-      CSCoreLib.getLib().getCfg().setValue("skulls.uuids." + texture, UUID.randomUUID().toString());
-      CSCoreLib.getLib().getCfg().save();
+    if (!Slimefun.getCfg().contains("skulls.uuids." + texture)) {
+      Slimefun.getCfg().setValue("skulls.uuids." + texture, UUID.randomUUID().toString());
+      Slimefun.getCfg().save();
     }
-    Object profile = profile_constructor.newInstance(UUID.fromString(CSCoreLib.getLib().getCfg().getString("skulls.uuids." + texture)), "CSCoreLib");
+    Object profile = profile_constructor.newInstance(UUID.fromString(Slimefun.getCfg().getString("skulls.uuids." + texture)), "CSCoreLib");
     Object properties = property.invoke(profile);
     insert_property.invoke(properties, "textures", property_constructor.newInstance("textures", texture));
     return profile;

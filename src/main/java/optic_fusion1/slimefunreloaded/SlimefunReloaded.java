@@ -309,4 +309,8 @@ public class SlimefunReloaded extends JavaPlugin {
     return profiles;
   }
 
+  public Config getCfg(){
+    return CONFIG;
+  }
+  
 }
