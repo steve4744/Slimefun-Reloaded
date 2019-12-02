@@ -2,6 +2,7 @@ package optic_fusion1.slimefunreloaded.recipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.component.machine.SlimefunReloadedMachine;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
@@ -69,7 +70,7 @@ public class RecipeType {
     return SlimefunReloadedItem.getByID(machine);
   }
 
-  public static List<ItemStack> getRecipeInputs(SlimefunReloadedItem machine) {
+  public static List<ItemStack> getRecipeInputs(SlimefunReloadedComponent machine) {
     if (machine == null) {
       return new ArrayList<>();
     }
@@ -83,7 +84,7 @@ public class RecipeType {
     return convertible;
   }
 
-  public static List<ItemStack[]> getRecipeInputList(SlimefunReloadedItem machine) {
+  public static List<ItemStack[]> getRecipeInputList(SlimefunReloadedComponent machine) {
     if (machine == null) {
       return new ArrayList<>();
     }
@@ -97,12 +98,12 @@ public class RecipeType {
     return convertible;
   }
 
-  public static ItemStack getRecipeOutput(SlimefunReloadedItem machine, ItemStack input) {
+  public static ItemStack getRecipeOutput(SlimefunReloadedComponent machine, ItemStack input) {
     List<ItemStack[]> recipes = (machine instanceof SlimefunReloadedMachine ? ((SlimefunReloadedMachine) machine).getRecipes() : ((SlimefunReloadedGadget) machine).getRecipes());
     return recipes.get(((getRecipeInputs(machine).indexOf(input) * 2) + 1))[0].clone();
   }
 
-  public static ItemStack getRecipeOutputList(SlimefunReloadedItem machine, ItemStack[] input) {
+  public static ItemStack getRecipeOutputList(SlimefunReloadedComponent machine, ItemStack[] input) {
     List<ItemStack[]> recipes = (machine instanceof SlimefunReloadedMachine ? ((SlimefunReloadedMachine) machine).getRecipes() : ((SlimefunReloadedGadget) machine).getRecipes());
     return recipes.get(((getRecipeInputList(machine).indexOf(input) * 2) + 1))[0];
   }

@@ -5,6 +5,7 @@ import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.LockedCategory;
 import optic_fusion1.slimefunreloaded.category.type.SeasonalCategory;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import org.bukkit.Material;
 
 public class CategoryRegistery {
@@ -14,7 +15,7 @@ public class CategoryRegistery {
 
   public void registerCategories() {
     register(new Category("Weapons", new CustomItem(Material.GOLDEN_SWORD, "&7Weapons", LORE), 1));
-//    register(new Category("Portable", SlimefunReloadedItems.BACKPACK_MEDIUM, "&7Items", "", LORE), 1);
+    register(new Category("Portable", new CustomItem(SlimefunReloadedItems.BACKPACK_MEDIUM, "&7Items", "", LORE), 1));
     register(new Category("Food", new CustomItem(Material.APPLE, "&7Food", "", LORE), 2));
     register(new Category("Basic Machines", new CustomItem(Material.SMITHING_TABLE, "&7Basic Machines", "", LORE), 1));
 //    	public static final LockedCategory ELECTRICITY = new LockedCategory(new CustomItem(SlimefunReloadedItems.NUCLEAR_REACTOR, "&bEnergy and Electricity", "", LORE), 4, MACHINES_1);
