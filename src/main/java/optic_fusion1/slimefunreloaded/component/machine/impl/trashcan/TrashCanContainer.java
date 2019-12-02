@@ -1,4 +1,4 @@
-package optic_fusion1.slimefunreloaded.component.machine.impl.test;
+package optic_fusion1.slimefunreloaded.component.machine.impl.trashcan;
 
 import optic_fusion1.slimefunreloaded.machine.MachineContainer;
 import org.bukkit.Bukkit;

@@ -24,6 +24,7 @@ public class KnowledgeFlask extends SlimefunReloadedItem {
     if (player.getLevel() >= 1) {
       if (clickedBlock == null || !(clickedBlock.getState() instanceof Container)) {
         player.setLevel(player.getLevel() - 1);
+        //e.setCancelled(true);
         player.getInventory().addItem(new CustomItem(Material.EXPERIENCE_BOTTLE, "&aFlask of Knowledge"));
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 0.5F);
         item.setAmount(item.getAmount() - 1);

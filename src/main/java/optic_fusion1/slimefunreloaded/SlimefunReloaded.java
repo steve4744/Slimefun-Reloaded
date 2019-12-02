@@ -1,7 +1,7 @@
 package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
-import java.util.EnumMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import optic_fusion1.slimefunreloaded.ancient_altar.AltarRecipe;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -34,7 +35,6 @@ import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 public class SlimefunReloaded extends JavaPlugin {
@@ -94,6 +94,9 @@ public class SlimefunReloaded extends JavaPlugin {
   public final Map<UUID, Entity[]> remove = new HashMap<>();
   //Required for the SeismicAxe
   public final List<UUID> blocks = new ArrayList<>();
+
+  public final Set<Location> altarinuse = new HashSet<>();
+  public final Set<AltarRecipe> altarRecipes = new HashSet<>();
 
   @Override
   public void onEnable() {
@@ -367,13 +370,19 @@ public class SlimefunReloaded extends JavaPlugin {
 //  public CustomItemDataService getItemDataService() {
 //    return itemDataService;
 //  }
-
 //  public CustomTextureService getItemTextureService() {
 //    return textureService;
 //  }
-  
-  public List<UUID> getBlocks(){
+  public List<UUID> getBlocks() {
     return blocks;
+  }
+
+  public Set<Location> getAltarinuse() {
+    return altarinuse;
+  }
+
+  public Set<AltarRecipe> getAltarRecipes() {
+    return altarRecipes;
   }
 
 }

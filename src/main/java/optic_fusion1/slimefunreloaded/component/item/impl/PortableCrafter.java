@@ -18,6 +18,7 @@ public class PortableCrafter extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
+    //e.setCancelled(true);
     player.openWorkbench(player.getLocation(), true);
     player.getWorld().playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1, 1);
     return true;

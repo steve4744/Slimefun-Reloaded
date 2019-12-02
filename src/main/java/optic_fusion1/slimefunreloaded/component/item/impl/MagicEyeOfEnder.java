@@ -19,6 +19,7 @@ public class MagicEyeOfEnder extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
+    //e.getParentEvent().setCancelled(true);
     if (player.getInventory().getHelmet() != null && player.getInventory().getChestplate() != null && player.getInventory().getLeggings() != null && player.getInventory().getBoots() != null && SlimefunManager.isItemSimiliar(player.getInventory().getHelmet(), SlimefunReloadedItems.ENDER_HELMET, true) && SlimefunManager.isItemSimiliar(player.getInventory().getChestplate(), SlimefunReloadedItems.ENDER_CHESTPLATE, true) && SlimefunManager.isItemSimiliar(player.getInventory().getLeggings(), SlimefunReloadedItems.ENDER_LEGGINGS, true) && SlimefunManager.isItemSimiliar(player.getInventory().getBoots(), SlimefunReloadedItems.ENDER_BOOTS, true)) {
       player.launchProjectile(EnderPearl.class);
       player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);

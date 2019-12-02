@@ -1,8 +1,25 @@
 package optic_fusion1.slimefunreloaded.util;
 
+import java.lang.reflect.Method;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
 
 public final class StringUtils {
+
+  private static Method copy, getName, toString;
+
+  static {
+    try {
+      copy = ReflectionUtils.getClass(PackageName.OBC, "inventory.CraftItemStack").getMethod("asNMSCopy", ItemStack.class);
+      getName = ReflectionUtils.getMethod(ReflectionUtils.getClass(PackageName.NMS, "ItemStack"), "getName");
+
+      if (ReflectionUtils.isVersion("v1_13_", "v1_14_")) {
+        toString = ReflectionUtils.getMethod(ReflectionUtils.getClass(PackageName.NMS, "IChatBaseComponent"), "getString");
+      }
+    } catch (Exception x) {
+      x.printStackTrace();
+    }
+  }
 
   private StringUtils() {
   }
@@ -49,6 +66,28 @@ public final class StringUtils {
       i++;
     }
     return builder.toString();
+  }
+
+  public static String formatItemName(ItemStack item, boolean includePlural) {
+    String name = item.getType().toString();
+    try {
+      Object instance = copy.invoke(null, item);
+
+      if (toString == null) {
+        name = (String) getName.invoke(instance);
+      } else {
+        name = (String) toString.invoke(getName.invoke(instance));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+      name = item.getItemMeta().getDisplayName();
+    }
+    if (includePlural) {
+      name = item.getAmount() + " " + name + "/s";
+    }
+    return name;
   }
 
 }

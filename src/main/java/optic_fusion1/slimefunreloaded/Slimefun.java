@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
+import optic_fusion1.slimefunreloaded.ancient_altar.AltarRecipe;
 
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
@@ -19,7 +20,6 @@ import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 public final class Slimefun {
@@ -191,9 +191,17 @@ public final class Slimefun {
   public static RecipeSnapshot getMinecraftRecipes() {
     return plugin.getMinecraftRecipes();
   }
-  
-  public static List<UUID> getBlocks(){
+
+  public static List<UUID> getBlocks() {
     return plugin.getBlocks();
+  }
+
+  public static Set<Location> getAltarinuse() {
+    return plugin.getAltarinuse();
+  }
+
+  public static Set<AltarRecipe> getAltarRecipes() {
+    return plugin.getAltarRecipes();
   }
 
 }

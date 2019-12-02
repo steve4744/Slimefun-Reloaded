@@ -34,7 +34,7 @@ public class GrapplingHook extends SlimefunReloadedItem {
     UUID uuid = player.getUniqueId();
 
     if (clickedBlock == null && !Slimefun.getJumpState().containsKey(uuid)) {
-      
+      //e.setCancelled(true);
       if (player.getInventory().getItemInOffHand().getType() == Material.BOW) {
         // Cancel, to fix dupe #740
         return false;

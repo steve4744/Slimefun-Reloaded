@@ -18,6 +18,7 @@ public class EnderBackpack extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
+    //e.setCancelled(true);
     player.openInventory(player.getEnderChest());
     player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
     return true;

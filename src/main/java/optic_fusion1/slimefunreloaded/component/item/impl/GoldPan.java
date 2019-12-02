@@ -57,6 +57,7 @@ public class GoldPan extends SlimefunReloadedItem {
         clickedBlock.getWorld().dropItemNaturally(clickedBlock.getLocation(), output.clone());
       }
     }
+    //e.setCancelled(true);
     return true;
   }
 

@@ -52,6 +52,7 @@ public class SoulboundRune extends SlimefunReloadedItem {
       Item ent = (Item) entity;
 
       if (ench.getAmount() == 1) {
+        //e.setCancelled(true);
         ItemMeta enchMeta = ench.getItemMeta();
         List<String> lore = enchMeta.hasLore() ? enchMeta.getLore() : new ArrayList<>();
 

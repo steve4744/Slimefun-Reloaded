@@ -61,6 +61,7 @@ public class NetherGoldPan extends SlimefunReloadedItem {
         clickedBlock.getWorld().dropItemNaturally(clickedBlock.getLocation(), output.clone());
       }
     }
+    //e.setCancelled(true);
     return true;
   }
 
