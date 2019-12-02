@@ -53,6 +53,15 @@ public final class StringUtils {
     return builder.toString();
   }
 
+  public static String christmas(String string) {
+    StringBuilder xmas = new StringBuilder("");
+    for (int i = 0; i < string.length(); i++) {
+      xmas.append((i % 2 == 0 ? "&a" : "&c"));
+      xmas.append(string.charAt(i));
+    }
+    return ChatColor.translateAlternateColorCodes('&', xmas.toString());
+  }
+
   public static String format(String string) {
     string = string.toLowerCase();
     StringBuilder builder = new StringBuilder();

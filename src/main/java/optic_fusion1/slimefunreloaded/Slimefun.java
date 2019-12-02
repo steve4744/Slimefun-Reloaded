@@ -17,6 +17,8 @@ import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.util.BlockInfoConfig;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
+import optic_fusion1.slimefunreloaded.util.CustomItemDataService;
+import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -202,6 +204,14 @@ public final class Slimefun {
 
   public static Set<AltarRecipe> getAltarRecipes() {
     return plugin.getAltarRecipes();
+  }
+
+  public static CustomItemDataService getItemDataService() {
+    return plugin.getItemDataService();
+  }
+
+  public static CustomTextureService getItemTextureService() {
+    return plugin.getItemTextureService();
   }
 
 }

@@ -30,6 +30,8 @@ import optic_fusion1.slimefunreloaded.updater.Updater;
 import optic_fusion1.slimefunreloaded.util.BlockInfoConfig;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
+import optic_fusion1.slimefunreloaded.util.CustomItemDataService;
+import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
@@ -41,8 +43,8 @@ public class SlimefunReloaded extends JavaPlugin {
 
   private RecipeSnapshot recipeSnapshot;
 
-//  private final CustomItemDataService itemDataService = new CustomItemDataService(this, "slimefun_item");
-//  private final CustomTextureService textureService = new CustomTextureService(this);
+  private final CustomItemDataService itemDataService = new CustomItemDataService(this, "slimefunreloaded_item");
+  private final CustomTextureService textureService = new CustomTextureService(this);
 //    private TickerTask ticker;
   private final File DATA_FOLDER = new File("plugins/SlimefunReloaded");
   private final File DATABASE_FOLDER = new File(DATA_FOLDER, "data-storage/Players");
@@ -383,6 +385,14 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public Set<AltarRecipe> getAltarRecipes() {
     return altarRecipes;
+  }
+
+  public CustomItemDataService getItemDataService() {
+    return itemDataService;
+  }
+
+  public CustomTextureService getItemTextureService() {
+    return textureService;
   }
 
 }
