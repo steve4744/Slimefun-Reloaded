@@ -9,12 +9,17 @@ import java.util.logging.Logger;
 
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
+import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
+import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
+import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.util.BlockInfoConfig;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
 
 public final class Slimefun {
 
@@ -133,20 +138,53 @@ public final class Slimefun {
   public static Map<String, BlockInfoConfig> getMapChunks() {
     return plugin.getMapChunks();
   }
-  
-   public static Map<String, UniversalBlockMenu> getUniversalInventories() {
+
+  public static Map<String, UniversalBlockMenu> getUniversalInventories() {
     return plugin.getUniversalInventories();
   }
 
-   public static String getVersion(){
-     return plugin.getVersion();
-   }
- 
-   public static Map<UUID, PlayerProfile> getProfiles(){
-     return plugin.getProfiles();
-   }
-   
-   public static Config getCfg(){
-     return plugin.getCfg();
-   }
+  public static String getVersion() {
+    return plugin.getVersion();
+  }
+
+  public static Map<UUID, PlayerProfile> getProfiles() {
+    return plugin.getProfiles();
+  }
+
+  public static Config getCfg() {
+    return plugin.getCfg();
+  }
+
+  public static RecipeSnapshot getRecipeSnapshot() {
+    return plugin.getRecipeSnapshot();
+  }
+
+  public static ProtectionManager getProtectionManager() {
+    return plugin.getProtectionManager();
+  }
+
+  public static SlimefunReloadedHooks getSlimefunReloadedHooks() {
+    return plugin.getSlimefunReloadedHooks();
+  }
+
+  //Required for the GrapplingHook
+  public static Map<UUID, Boolean> getJumpState() {
+    return plugin.getJumpState();
+  }
+
+  //Required for the GrapplingHook
+  public static Map<UUID, ItemStack> getArrows() {
+    return plugin.getArrows();
+  }
+
+  //Required for the GrapplingHook
+  public static Set<UUID> getDamage() {
+    return plugin.getDamage();
+  }
+
+  //Required for the GrapplingHook
+  public static Map<UUID, Entity[]> getRemove() {
+    return plugin.getRemove();
+  }
+
 }

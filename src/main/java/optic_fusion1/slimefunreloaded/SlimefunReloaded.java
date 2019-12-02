@@ -32,6 +32,8 @@ import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
 
 public class SlimefunReloaded extends JavaPlugin {
 
@@ -79,6 +81,15 @@ public class SlimefunReloaded extends JavaPlugin {
   private final Map<String, UniversalBlockMenu> universalInventories = new HashMap<>();
   private String version;
   public final Map<UUID, PlayerProfile> profiles = new HashMap<>();
+
+  //Required for the GrapplingHook
+  public final Map<UUID, Boolean> jumpState = new HashMap<>();
+  //Required for the GrapplingHook
+  public final Map<UUID, ItemStack> arrows = new HashMap<>();
+  //Required for the GrapplingHook
+  public final Set<UUID> damage = new HashSet<>();
+  //Required for the GrapplingHook
+  public final Map<UUID, Entity[]> remove = new HashMap<>();
 
   @Override
   public void onEnable() {
@@ -309,8 +320,40 @@ public class SlimefunReloaded extends JavaPlugin {
     return profiles;
   }
 
-  public Config getCfg(){
+  public Config getCfg() {
     return CONFIG;
   }
-  
+
+  public RecipeSnapshot getRecipeSnapshot() {
+    return recipeSnapshot;
+  }
+
+  public ProtectionManager getProtectionManager() {
+    return protectionManager;
+  }
+
+  public SlimefunReloadedHooks getSlimefunReloadedHooks() {
+    return slimefunReloadedHooks;
+  }
+
+  //Required for the GrapplingHook
+  public Map<UUID, Boolean> getJumpState() {
+    return jumpState;
+  }
+
+  //Required for the GrapplingHook
+  public Map<UUID, ItemStack> getArrows() {
+    return arrows;
+  }
+
+  //Required for the GrapplingHook
+  public Set<UUID> getDamage() {
+    return damage;
+  }
+
+  //Required for the GrapplingHook
+  public Map<UUID, Entity[]> getRemove() {
+    return remove;
+  }
+
 }
