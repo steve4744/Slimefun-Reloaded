@@ -19,6 +19,7 @@ import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 public final class Slimefun {
@@ -185,6 +186,14 @@ public final class Slimefun {
   //Required for the GrapplingHook
   public static Map<UUID, Entity[]> getRemove() {
     return plugin.getRemove();
+  }
+
+  public static RecipeSnapshot getMinecraftRecipes() {
+    return plugin.getMinecraftRecipes();
+  }
+  
+  public static List<UUID> getBlocks(){
+    return plugin.getBlocks();
   }
 
 }

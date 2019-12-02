@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded;
 
 import java.io.File;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,7 @@ import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 public class SlimefunReloaded extends JavaPlugin {
@@ -90,6 +92,8 @@ public class SlimefunReloaded extends JavaPlugin {
   public final Set<UUID> damage = new HashSet<>();
   //Required for the GrapplingHook
   public final Map<UUID, Entity[]> remove = new HashMap<>();
+  //Required for the SeismicAxe
+  public final List<UUID> blocks = new ArrayList<>();
 
   @Override
   public void onEnable() {
@@ -354,6 +358,22 @@ public class SlimefunReloaded extends JavaPlugin {
   //Required for the GrapplingHook
   public Map<UUID, Entity[]> getRemove() {
     return remove;
+  }
+
+  public RecipeSnapshot getMinecraftRecipes() {
+    return recipeSnapshot;
+  }
+
+//  public CustomItemDataService getItemDataService() {
+//    return itemDataService;
+//  }
+
+//  public CustomTextureService getItemTextureService() {
+//    return textureService;
+//  }
+  
+  public List<UUID> getBlocks(){
+    return blocks;
   }
 
 }

@@ -12,6 +12,7 @@ import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.event.block.Action;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -57,7 +58,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    *
    * @return true if success, false otherwise. If false, the item will not be dropped
    */
-  public boolean onDrop(Player player, ItemStack item) {
+  public boolean onDrop(Player player, Item item) {
     return true;
   }
 
