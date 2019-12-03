@@ -17,12 +17,6 @@ Click the badge down below to join the server for suggestions/questions or other
   </a>
 </p>
 
-## Wiki
-Slimefun Reloaded has a (detailed and well-maintained - *cough*) Wiki for new Users, maybe also consider
-applying as Wiki Staff to help grow our Community and help out new Users of this Project.
-https://github.com/OpticFusion1/Slimefun-Reloaded/wiki
-
-
 ## Contributions
 You are allowed, even encouraged, to contribute to Slimefun Reloaded by making Pull Requests.
 These Pull Requests can be Fixes, Changes or even Additions, but please keep in mind that
