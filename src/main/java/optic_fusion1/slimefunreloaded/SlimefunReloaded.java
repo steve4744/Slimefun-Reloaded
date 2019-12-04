@@ -16,7 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import optic_fusion1.slimefunreloaded.gps.GPSNetwork;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
@@ -41,6 +41,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
+
+//TODO: Clean this class up
 public class SlimefunReloaded extends JavaPlugin {
 
   private RecipeSnapshot recipeSnapshot;
@@ -62,7 +64,7 @@ public class SlimefunReloaded extends JavaPlugin {
   private final CategoryManager CATEGORY_MANAGER = new CategoryManager();
   private final ResearchManager RESEARCH_MANAGER = new ResearchManager();
 
-//  private GPSNetwork gps;
+  private GPSNetwork gps;
   private ProtectionManager protectionManager;
   private SlimefunReloadedHooks slimefunReloadedHooks;
   private Logger logger;
@@ -102,6 +104,8 @@ public class SlimefunReloaded extends JavaPlugin {
   public final Set<Location> altarinuse = new HashSet<>();
   public final Set<AltarRecipe> altarRecipes = new HashSet<>();
   public final Map<String, BlockMenuPreset> blockMenuPresets = new HashMap<>();
+  public final Set<UUID> teleporterUsers = new HashSet<>();
+  public final Set<UUID> elevatorUsers = new HashSet<>();
 
   @Override
   public void onEnable() {
@@ -128,7 +132,7 @@ public class SlimefunReloaded extends JavaPlugin {
     a();
     setupConfig();
     loadSettings();
-//    gps = new GPSNetwork();
+    gps = new GPSNetwork();
     if (CONFIG.getBoolean("options.auto-update")) {
       Updater updater = new Updater(this, 0, false);
       updater.downloadUpdate();
@@ -400,6 +404,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public Object getItemValue(String id, String key) {
     return ITEMS_CONFIG.getValue(id + "." + key);
+  }
+  
+  public Set<UUID> getTeleporterUsers(){
+    return teleporterUsers;
   }
 
 }

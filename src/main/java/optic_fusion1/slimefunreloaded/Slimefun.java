@@ -226,4 +226,8 @@ public final class Slimefun {
     return plugin.getItemValue(id, key);
   }
   
+  public static Set<UUID> getTeleporterUsers(){
+    return plugin.getTeleporterUsers();
+  }
+  
 }
