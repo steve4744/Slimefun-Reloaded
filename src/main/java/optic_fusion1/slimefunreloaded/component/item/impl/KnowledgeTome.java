@@ -26,7 +26,7 @@ public class KnowledgeTome extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
-    if (SlimefunManager.isItemSimiliar(item, getItem(), true)) {
+    if (item.isSimilar(getItem())) {
       List<String> lore = item.getItemMeta().getLore();
       lore.set(0, ChatColor.translateAlternateColorCodes('&', "&7Owner: &b" + player.getName()));
       lore.set(1, ChatColor.BLACK + "" + player.getUniqueId());
@@ -36,7 +36,7 @@ public class KnowledgeTome extends SlimefunReloadedItem {
       player.getEquipment().setItemInMainHand(item);
       player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1F, 1F);
       return true;
-    } else if (SlimefunManager.isItemSimiliar(item, getItem(), false)) {
+    } else {
       PlayerProfile.get(player, profile -> {
         PlayerProfile.fromUUID(UUID.fromString(ChatColor.stripColor(item.getItemMeta().getLore().get(1))), owner -> {
           Set<Research> researches = owner.getResearches();
@@ -49,7 +49,6 @@ public class KnowledgeTome extends SlimefunReloadedItem {
       }
       return true;
     }
-    return true;
   }
 
 }

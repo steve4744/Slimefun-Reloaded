@@ -2,6 +2,8 @@ package optic_fusion1.slimefunreloaded.recipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.component.machine.SlimefunReloadedMachine;
@@ -33,6 +35,7 @@ public class RecipeType {
   public static final RecipeType SHAPELESS_RECIPE = new RecipeType(new CustomItem(Material.CRAFTING_TABLE, "&eShapeless Recipe", "", "&a&oJust a standard Recipe in the Workbench..."));
   public static final RecipeType FURNACE = new RecipeType(new CustomItem(Material.FURNACE, "&eFurnace Recipe", "", "&a&oJust smelt it in a regular Furnace"));
   public static final RecipeType NULL = new RecipeType((ItemStack) null);
+  private static final ComponentManager COMPONENT_MANAGER = Slimefun.getComponentManager();
 
   private final ItemStack item;
   private final String machine;
@@ -66,8 +69,8 @@ public class RecipeType {
     return this.item;
   }
 
-  public SlimefunReloadedItem getMachine() {
-    return SlimefunReloadedItem.getByID(machine);
+  public SlimefunReloadedComponent getMachine() {
+    return COMPONENT_MANAGER.getComponentByNamespace(machine);
   }
 
   public static List<ItemStack> getRecipeInputs(SlimefunReloadedComponent machine) {

@@ -52,7 +52,7 @@ public final class Pedestals {
       return null;
     }
 
-    if (SlimefunManager.isItemSimiliar(catalyst, SlimefunReloadedItems.BROKEN_SPAWNER, false)) {
+    if (catalyst.isSimilar(SlimefunReloadedItems.BROKEN_SPAWNER)) {
       if (checkRecipe(SlimefunReloadedItems.BROKEN_SPAWNER, input) == null) {
         return null;
       }
@@ -68,11 +68,11 @@ public final class Pedestals {
 
   private static ItemStack checkRecipe(ItemStack catalyst, List<ItemStack> items) {
     for (AltarRecipe recipe : Slimefun.getAltarRecipes()) {
-      if (SlimefunManager.isItemSimiliar(catalyst, recipe.getCatalyst(), true)) {
+      if (catalyst.isSimilar(recipe.getCatalyst())) {
         for (int i = 0; i < 8; i++) {
-          if (SlimefunManager.isItemSimiliar(items.get(i), recipe.getInput().get(0), true)) {
+          if (items.get(i).isSimilar(recipe.getInput().get(0))) {
             for (int j = 1; j < 8; j++) {
-              if (!SlimefunManager.isItemSimiliar(items.get((i + j) % items.size()), recipe.getInput().get(j), true)) {
+              if (!items.get((i + j) % items.size()).isSimilar(recipe.getInput().get(j))) {
                 break;
               } else if (j == 7) {
                 return recipe.getOutput();

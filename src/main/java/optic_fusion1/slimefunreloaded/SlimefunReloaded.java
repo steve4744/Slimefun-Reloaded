@@ -398,4 +398,8 @@ public class SlimefunReloaded extends JavaPlugin {
     return blockMenuPresets;
   }
 
+  public Object getItemValue(String id, String key) {
+    return ITEMS_CONFIG.getValue(id + "." + key);
+  }
+
 }

@@ -252,7 +252,7 @@ public class BlockStorage {
       Config cfg = entry.getValue();
 
       if (cfg.getKeys().isEmpty()) {
-        if (!cfg.getFile().delete()) {
+        if (cfg.getFile().exists() && !cfg.getFile().delete()) {
           Slimefun.getLogger().log(Level.WARNING, "Could not delete File: " + cfg.getFile().getName());
         }
       } else {
@@ -462,7 +462,7 @@ public class BlockStorage {
   }
 
   public static void clearBlockInfo(Location l, boolean destroy) {
-    SlimefunPlugin.getTicker().delete.put(l, destroy);
+    Slimefun.getTicker().delete.put(l, destroy);
   }
 
   public static void _integrated_removeBlockInfo(Location l, boolean destroy) {
@@ -495,7 +495,7 @@ public class BlockStorage {
   }
 
   public static void moveBlockInfo(Location from, Location to) {
-    SlimefunPlugin.getTicker().move.put(from, to);
+    Slimefun.getTicker().move.put(from, to);
   }
 
   public static void _integrated_moveLocationInfo(Location from, Location to) {
@@ -533,7 +533,7 @@ public class BlockStorage {
     cfg.setValue(serializeLocation(l), value);
 
     if (updateTicker) {
-      SlimefunReloadedItem item = COMPONENT_MANAGER.getComponentByNamespace(key);
+      SlimefunReloadedComponent item = COMPONENT_MANAGER.getComponentByNamespace(key);
       if (item != null && item.isTicking()) {
         String chunkString = locationToChunkString(l);
         if (value != null) {
@@ -550,15 +550,15 @@ public class BlockStorage {
     }
   }
 
-  public static SlimefunReloadedItem check(Block block) {
+  public static SlimefunReloadedComponent check(Block block) {
     return check(block.getLocation());
   }
 
-  public static SlimefunReloadedItem check(Location l) {
+  public static SlimefunReloadedComponent check(Location l) {
     if (!hasBlockInfo(l)) {
       return null;
     }
-    return SlimefunReloadedItem.getByID(getLocationInfo(l, "id"));
+    return COMPONENT_MANAGER.getComponentByNamespace(getLocationInfo(l, "id"));
   }
 
   public static String checkID(Block block) {

@@ -22,6 +22,11 @@ public class CustomItem extends ItemStack {
     super(type);
   }
 
+  public CustomItem(ItemStack item, int amount){
+    this(item);
+    item.setAmount(amount);
+  }
+  
   public CustomItem(ItemStack item, Consumer<ItemMeta> meta) {
     super(item);
     ItemMeta im = getItemMeta();

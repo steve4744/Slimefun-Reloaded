@@ -7,6 +7,7 @@ import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
 import optic_fusion1.slimefunreloaded.util.I18n;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -33,7 +34,7 @@ public class StormStaff extends SlimefunReloadedItem {
   }
 
   private static ItemStack getCraftedOutput() {
-    ItemStack item = SlimefunItems.STAFF_STORM.clone();
+    ItemStack item = SlimefunReloadedItems.STAFF_STORM.clone();
     ItemMeta im = item.getItemMeta();
     List<String> lore = im.getLore();
 

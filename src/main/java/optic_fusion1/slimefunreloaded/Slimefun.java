@@ -222,4 +222,8 @@ public final class Slimefun {
     return plugin.getBlockMenuPresets();
   }
   
+  public static Object getItemValue(String id, String key){
+    return plugin.getItemValue(id, key);
+  }
+  
 }

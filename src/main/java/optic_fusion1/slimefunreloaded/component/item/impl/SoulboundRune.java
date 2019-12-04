@@ -41,7 +41,7 @@ public class SoulboundRune extends SlimefunReloadedItem {
       Location l = item.getLocation();
       Collection<Entity> entites = l.getWorld().getNearbyEntities(l, 1.5, 1.5, 1.5,
        entity -> entity instanceof Item && !SlimefunManager.isItemSoulbound(((Item) entity).getItemStack())
-       && !SlimefunManager.isItemSimiliar(((Item) entity).getItemStack(), SlimefunReloadedItems.RUNE_SOULBOUND, true)
+       && !(((Item) entity).getItemStack()).isSimilar(SlimefunReloadedItems.RUNE_SOULBOUND)
       );
 
       if (entites.isEmpty()) {
