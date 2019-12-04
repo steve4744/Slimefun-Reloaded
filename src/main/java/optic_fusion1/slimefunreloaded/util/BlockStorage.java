@@ -30,6 +30,9 @@ import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import optic_fusion1.slimefunreloaded.inventory.BlockMenu;
+import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
+import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 
 public class BlockStorage {
 

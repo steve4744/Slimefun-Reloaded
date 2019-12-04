@@ -5,6 +5,7 @@ import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import optic_fusion1.slimefunreloaded.util.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

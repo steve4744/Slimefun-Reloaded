@@ -11,6 +11,8 @@ import optic_fusion1.slimefunreloaded.ancient_altar.AltarRecipe;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
+import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
+import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
 import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
@@ -142,6 +144,7 @@ public final class Slimefun {
     return plugin.getMapChunks();
   }
 
+  @Deprecated
   public static Map<String, UniversalBlockMenu> getUniversalInventories() {
     return plugin.getUniversalInventories();
   }
@@ -214,4 +217,9 @@ public final class Slimefun {
     return plugin.getItemTextureService();
   }
 
+  @Deprecated
+  public static Map<String, BlockMenuPreset> getBlockMenuPresets(){
+    return plugin.getBlockMenuPresets();
+  }
+  
 }

@@ -7,6 +7,7 @@ import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import optic_fusion1.slimefunreloaded.util.collection.RandomizedSet;
 import org.bukkit.Effect;
 import org.bukkit.Material;

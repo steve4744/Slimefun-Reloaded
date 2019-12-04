@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

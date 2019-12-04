@@ -10,6 +10,8 @@ import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
 import optic_fusion1.slimefunreloaded.util.I18n;
+import optic_fusion1.slimefunreloaded.util.ItemUtils;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import optic_fusion1.slimefunreloaded.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

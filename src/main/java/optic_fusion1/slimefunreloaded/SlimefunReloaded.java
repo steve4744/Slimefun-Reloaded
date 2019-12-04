@@ -21,6 +21,8 @@ import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
+import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
+import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
 import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
 import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
@@ -99,6 +101,7 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public final Set<Location> altarinuse = new HashSet<>();
   public final Set<AltarRecipe> altarRecipes = new HashSet<>();
+  public final Map<String, BlockMenuPreset> blockMenuPresets = new HashMap<>();
 
   @Override
   public void onEnable() {
@@ -317,6 +320,7 @@ public class SlimefunReloaded extends JavaPlugin {
     return mapChunks;
   }
 
+  @Deprecated
   public Map<String, UniversalBlockMenu> getUniversalInventories() {
     return universalInventories;
   }
@@ -369,12 +373,6 @@ public class SlimefunReloaded extends JavaPlugin {
     return recipeSnapshot;
   }
 
-//  public CustomItemDataService getItemDataService() {
-//    return itemDataService;
-//  }
-//  public CustomTextureService getItemTextureService() {
-//    return textureService;
-//  }
   public List<UUID> getBlocks() {
     return blocks;
   }
@@ -393,6 +391,11 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public CustomTextureService getItemTextureService() {
     return textureService;
+  }
+
+  @Deprecated
+  public Map<String, BlockMenuPreset> getBlockMenuPresets() {
+    return blockMenuPresets;
   }
 
 }

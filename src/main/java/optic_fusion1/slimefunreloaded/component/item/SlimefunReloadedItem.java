@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.util.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
