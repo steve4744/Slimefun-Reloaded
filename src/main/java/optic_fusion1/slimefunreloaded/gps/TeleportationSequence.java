@@ -3,6 +3,7 @@ package optic_fusion1.slimefunreloaded.gps;
 import java.util.UUID;
 import java.util.logging.Level;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -82,7 +83,7 @@ public final class TeleportationSequence {
 
           destination.getWorld().spawnParticle(Particle.PORTAL, new Location(destination.getWorld(), destination.getX(), destination.getY() + 1, destination.getZ()), progress * 2, 0.2F, 0.8F, 0.2F);
           destination.getWorld().playSound(destination, Sound.ENTITY_BLAZE_DEATH, 1F, 1.4F);
-          SlimefunReloaded.getUtilities().teleporterUsers.remove(uuid);
+          Slimefun.getTeleporterUsers().remove(uuid);
         } else {
           TitleBuilder title = (TitleBuilder) new TitleBuilder(0, 60, 0).addText(ChatColor.translateAlternateColorCodes('&', "&3Teleporting..."));
           TitleBuilder subtitle = (TitleBuilder) new TitleBuilder(0, 60, 0).addText(ChatColor.translateAlternateColorCodes('&', "&b" + progress + "%"));

@@ -5,6 +5,7 @@ import java.util.Random;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Creeper;

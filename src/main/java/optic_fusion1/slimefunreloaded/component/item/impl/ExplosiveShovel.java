@@ -7,6 +7,7 @@ import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.component.item.interfaces.DamageableItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
+import optic_fusion1.slimefunreloaded.util.material.MaterialTools;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

@@ -20,6 +20,7 @@ import optic_fusion1.slimefunreloaded.gps.GPSNetwork;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
@@ -39,8 +40,8 @@ import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
 
 //TODO: Clean this class up
 public class SlimefunReloaded extends JavaPlugin {
@@ -405,8 +406,8 @@ public class SlimefunReloaded extends JavaPlugin {
   public Object getItemValue(String id, String key) {
     return ITEMS_CONFIG.getValue(id + "." + key);
   }
-  
-  public Set<UUID> getTeleporterUsers(){
+
+  public Set<UUID> getTeleporterUsers() {
     return teleporterUsers;
   }
 

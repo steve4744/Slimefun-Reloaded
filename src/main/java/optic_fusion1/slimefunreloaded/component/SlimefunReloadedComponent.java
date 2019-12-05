@@ -17,6 +17,7 @@ import optic_fusion1.slimefunreloaded.research.Research;
 public abstract class SlimefunReloadedComponent implements Keyed {
 
   private final NamespacedKey key;
+  private ItemState state;
   private final Category category;
   private final ItemStack item;
   private RecipeType recipeType;
@@ -104,12 +105,16 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     return recipe;
   }
 
-  public boolean isTicking(){
+  public boolean isTicking() {
     return ticking;
   }
-  
-  public String getID(){
+
+  public String getID() {
     return key.getNamespace();
   }
-  
+
+  public ItemState getState() {
+    return state;
+  }
+
 }

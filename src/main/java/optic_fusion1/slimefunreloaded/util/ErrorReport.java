@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.stream.IntStream;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
-import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -95,7 +95,7 @@ public class ErrorReport {
     });
   }
 
-  public ErrorReport(Throwable throwable, TickerTask task, Location l, SlimefunReloadedItem item) {
+  public ErrorReport(Throwable throwable, TickerTask task, Location l, SlimefunReloadedComponent item) {
     this(throwable, stream -> {
       stream.println("Block Info:");
       stream.println("  World: " + l.getWorld().getName());

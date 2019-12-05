@@ -1,4 +1,4 @@
-package optic_fusion1.slimefunreloaded.util.block;
+package optic_fusion1.slimefunreloaded.util.material;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,7 +6,15 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 import org.bukkit.Material;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
+/**
+ * A read-only collection of {@link Material}. Internally represented by an Array of {@link Material}.
+ *
+ * @author TheBusyBiscuit
+ *
+ */
+@Deprecated
 public class MaterialCollection implements Iterable<Material> {
 
   private final Material[] asArray;
@@ -20,7 +28,7 @@ public class MaterialCollection implements Iterable<Material> {
   }
 
   public MaterialCollection(Stream<Material> stream) {
-    Objects.requireNonNull(stream);
+    Objects.requireNonNull(stream, "Required stream, received null instead");
     this.asArray = stream
      .distinct()
      .filter(Objects::nonNull)
@@ -28,7 +36,7 @@ public class MaterialCollection implements Iterable<Material> {
   }
 
   public MaterialCollection merge(MaterialCollection collection) {
-    Objects.requireNonNull(collection);
+    Objects.requireNonNull(collection, "Required collection, received null instead");
     return new MaterialCollection(Stream.concat(stream(), collection.stream()));
   }
 
@@ -47,10 +55,6 @@ public class MaterialCollection implements Iterable<Material> {
   public Material get(int index) {
     return asArray[index];
   }
-  
-  public Material[] getArray(){
-    return asArray;
-  }
 
   public boolean contains(Material type) {
     if (type == null) {
@@ -59,19 +63,21 @@ public class MaterialCollection implements Iterable<Material> {
     return stream().anyMatch(material -> material == type);
   }
 
-  public boolean containsAll(Collection<Material> materials) {
-    Objects.requireNonNull(materials);
+  public boolean containsAll(@NonNull Collection<Material> materials) {
     return materials.stream().allMatch(this::contains);
   }
 
-  public boolean containsAll(MaterialCollection materials) {
-    Objects.requireNonNull(materials);
+  public boolean containsAll(@NonNull MaterialCollection materials) {
     return materials.stream().allMatch(this::contains);
   }
 
   @Override
   public Iterator<Material> iterator() {
     return stream().iterator();
+  }
+
+  public Material[] getAsArray() {
+    return asArray;
   }
 
 }

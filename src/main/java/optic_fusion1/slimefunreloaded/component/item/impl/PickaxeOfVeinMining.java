@@ -8,6 +8,7 @@ import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
 import optic_fusion1.slimefunreloaded.util.block.Vein;
+import optic_fusion1.slimefunreloaded.util.material.MaterialCollections;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

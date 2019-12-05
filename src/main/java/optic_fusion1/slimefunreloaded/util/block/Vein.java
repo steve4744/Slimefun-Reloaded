@@ -3,6 +3,7 @@ package optic_fusion1.slimefunreloaded.util.block;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
+import optic_fusion1.slimefunreloaded.util.material.MaterialCollection;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 

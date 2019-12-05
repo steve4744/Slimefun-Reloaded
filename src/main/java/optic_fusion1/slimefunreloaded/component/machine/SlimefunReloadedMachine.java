@@ -1,5 +1,7 @@
 package optic_fusion1.slimefunreloaded.component.machine;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -80,5 +82,10 @@ public abstract class SlimefunReloadedMachine<T extends MachineState> extends Sl
    * @return the newly created machine state
    */
   public abstract T createState(Block block);
+
+  public List<ItemStack[]> getRecipes() {
+    return new ArrayList<>();
+//    return recipes;
+  }
 
 }

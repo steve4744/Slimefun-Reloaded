@@ -4,6 +4,7 @@ import java.util.List;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.component.item.interfaces.DamageableItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
@@ -50,7 +51,7 @@ public class ExplosivePickaxe extends SlimefunReloadedItem implements Damageable
             Slimefun.getProtectionManager().logAction(player, b, ProtectableAction.BREAK_BLOCK);
 
             b.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, b.getType());
-            SlimefunReloadedItem sfItem = BlockStorage.check(b);
+            SlimefunReloadedComponent sfItem = BlockStorage.check(b);
             boolean allow = false;
 
             if (sfItem != null && !(sfItem instanceof HandledBlock)) {

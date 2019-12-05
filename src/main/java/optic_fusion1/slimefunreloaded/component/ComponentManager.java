@@ -71,4 +71,8 @@ public class ComponentManager {
     this.tickables.clear();
   }
 
+  public Map<String, SlimefunReloadedComponent> getComponents(){
+    return components;
+  }
+  
 }

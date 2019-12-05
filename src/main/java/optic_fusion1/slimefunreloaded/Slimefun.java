@@ -24,6 +24,7 @@ import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public final class Slimefun {
@@ -218,16 +219,16 @@ public final class Slimefun {
   }
 
   @Deprecated
-  public static Map<String, BlockMenuPreset> getBlockMenuPresets(){
+  public static Map<String, BlockMenuPreset> getBlockMenuPresets() {
     return plugin.getBlockMenuPresets();
   }
-  
-  public static Object getItemValue(String id, String key){
+
+  public static Object getItemValue(String id, String key) {
     return plugin.getItemValue(id, key);
   }
-  
-  public static Set<UUID> getTeleporterUsers(){
+
+  public static Set<UUID> getTeleporterUsers() {
     return plugin.getTeleporterUsers();
   }
-  
+
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import optic_fusion1.slimefunreloaded.Slimefun;
-import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -90,7 +90,7 @@ public class TickerTask implements Runnable {
         for (final Location l : BlockStorage.getTickingLocations(c)) {
           if (l.getWorld().isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) {
             final Block b = l.getBlock();
-            final SlimefunReloadedItem item = BlockStorage.check(l);
+            final SlimefunReloadedComponent item = BlockStorage.check(l);
 
             if (item != null && item.getBlockTicker() != null) {
               machines++;
@@ -161,7 +161,7 @@ public class TickerTask implements Runnable {
     running = false;
   }
 
-  private void reportErrors(Location l, SlimefunReloadedItem item, Exception x, int errors) {
+  private void reportErrors(Location l, SlimefunReloadedComponent item, Exception x, int errors) {
     errors++;
 
     if (errors == 1) {

@@ -9,6 +9,7 @@ import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.recipe.MinecraftRecipe;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
+import optic_fusion1.slimefunreloaded.util.material.MaterialCollections;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
