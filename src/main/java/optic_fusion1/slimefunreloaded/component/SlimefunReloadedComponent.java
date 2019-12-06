@@ -24,6 +24,8 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   private ItemStack[] recipe;
   private boolean ticking = false;
   private Research research;
+  private String[] keys;
+  private Object[] values;
 
   protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     this.key = key;
@@ -31,6 +33,12 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     this.item = item.clone();
     this.recipeType = recipeType;
     this.recipe = recipe.clone();
+  }
+
+  protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
+    this(key, category, item, recipeType, recipe);
+    this.keys = keys;
+    this.values = values;
   }
 
   @Override
@@ -115,6 +123,14 @@ public abstract class SlimefunReloadedComponent implements Keyed {
 
   public ItemState getState() {
     return state;
+  }
+
+  public String[] getKeys() {
+    return keys;
+  }
+
+  public Object[] getValues() {
+    return values;
   }
 
 }
