@@ -2,11 +2,15 @@ package optic_fusion1.slimefunreloaded.gps;
 
 import java.util.Set;
 import java.util.UUID;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.inventory.ChestMenu;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
+import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.chat.ChatInput;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -54,21 +58,19 @@ public final class Elevator {
       elevatorUsers.remove(p.getUniqueId());
       return;
     }
-
-    TellRawMessage tellraw = new TellRawMessage();
-    tellraw.addText("&3- Pick a Destination -\n\n");
+    TextComponent message = new TextComponent("&3- Pick a Destination-\n\n");
     int index = 1;
     for (int y = b.getWorld().getMaxHeight(); y > 0; y--) {
       Block block = b.getWorld().getBlockAt(b.getX(), y, b.getZ());
       if (BlockStorage.check(block, "ELEVATOR_PLATE")) {
         String floor = ChatColor.translateAlternateColorCodes('&', BlockStorage.getLocationInfo(block.getLocation(), "floor"));
         if (block.getY() == b.getY()) {
-          tellraw.addText("&7> " + index + ". &r" + floor + "\n");
-          tellraw.addHoverEvent(HoverAction.SHOW_TEXT, "\n&eThis is the Floor you are currently on:\n&r" + floor + "\n");
+          message.addExtra("&7> " + index + ". &r" + floor + "\n");
+          message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("\n&eThis is the Floor you are currently on:\n&r" + floor + "\n")));
         } else {
-          tellraw.addText("&7" + index + ". &r" + floor + "\n");
-          tellraw.addHoverEvent(HoverAction.SHOW_TEXT, "\n&eClick to teleport to this Floor\n&r" + floor + "\n");
-          tellraw.addClickEvent(me.mrCookieSlime.CSCoreLibPlugin.general.Chat.TellRawMessage.ClickAction.RUN_COMMAND, "/sf elevator " + block.getX() + ' ' + block.getY() + ' ' + block.getZ() + " ");
+          message.addExtra("&7" + index + ". &r" + floor + "\n");
+          message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("\n&eClick to teleport to this Floor\n&r" + floor + "\n")));
+          message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sf elevator " + block.getX() + ' ' + block.getY() + ' ' + block.getZ() + " "));
         }
 
         index++;
@@ -77,7 +79,7 @@ public final class Elevator {
     if (index > 2) {
       new CustomBookOverlay("Elevator", "Slimefun", tellraw).open(p);
     } else {
-      SlimefunReloaded.getLocal().sendMessage(p, "machines.ELEVATOR.no-destinations", true);
+      I18n.tl(p, "machines.ELEVATOR.no-destinations");
     }
   }
 

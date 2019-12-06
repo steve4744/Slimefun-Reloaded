@@ -10,7 +10,7 @@ import optic_fusion1.slimefunreloaded.component.item.interfaces.DamageableItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
-import org.apache.commons.lang.StringUtils;
+import optic_fusion1.slimefunreloaded.util.StringUtils;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

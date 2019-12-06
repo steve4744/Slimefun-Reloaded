@@ -24,6 +24,7 @@ import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
 import optic_fusion1.slimefunreloaded.util.CustomSkull;
 import optic_fusion1.slimefunreloaded.util.DoubleHandler;
+import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.chat.ChatInput;
 
 public class GPSNetwork {
@@ -199,21 +200,21 @@ public class GPSNetwork {
 
   public void addWaypoint(Player p, final Location l) {
     if ((getWaypoints(p.getUniqueId()).size() + 2) > inventory.length) {
-      SlimefunReloaded.getLocal().sendMessage(p, "gps.waypoint.max", true);
+      I18n.tl(p, "gps.waypoint.max");
       return;
     }
 
-    SlimefunReloaded.getLocal().sendMessage(p, "gps.waypoint.new", true);
+    I18n.tl(p, "gps.waypoint.new");
     p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 1F);
 
-    ChatInput.waitForPlayer(SlimefunReloaded.instance, p, message
+    ChatInput.waitForPlayer(Slimefun.getSlimefunReloaded(), p, message
      -> addWaypoint(p, message, l)
     );
   }
 
   public void addWaypoint(Player p, String name, Location l) {
     if ((getWaypoints(p.getUniqueId()).size() + 2) > inventory.length) {
-      SlimefunReloaded.getLocal().sendMessage(p, "gps.waypoint.max", true);
+      I18n.tl(p, "gps.waypoint.max");
       return;
     }
 
@@ -225,7 +226,7 @@ public class GPSNetwork {
     cfg.save();
 
     p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 1F);
-    SlimefunReloaded.getLocal().sendMessage(p, "gps.waypoint.added", true);
+    I18n.tl(p, "gps.waypoint.added");
   }
 
   public Set<Location> getTransmitters(UUID uuid) {
@@ -233,15 +234,15 @@ public class GPSNetwork {
   }
 
   public void openTeleporterGUI(Player p, UUID uuid, Block b, final int complexity) {
-    if (SlimefunReloaded.getUtilities().teleporterUsers.contains(p.getUniqueId())) {
+    if (Slimefun.getTeleporterUsers().contains(p.getUniqueId())) {
       return;
     }
 
     p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1F, 1F);
-    SlimefunReloaded.getUtilities().teleporterUsers.add(p.getUniqueId());
+    Slimefun.getTeleporterUsers().add(p.getUniqueId());
 
     ChestMenu menu = new ChestMenu("&3Teleporter");
-    menu.addMenuCloseHandler(pl -> SlimefunReloaded.getUtilities().teleporterUsers.remove(pl.getUniqueId()));
+    menu.addMenuCloseHandler(pl -> Slimefun.getTeleporterUsers().remove(pl.getUniqueId()));
 
     for (int slot : teleporterBorder) {
       menu.addItem(slot, new CustomItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), " "),

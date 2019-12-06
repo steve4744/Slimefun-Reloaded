@@ -99,4 +99,13 @@ public final class StringUtils {
     return name;
   }
 
+  public static boolean equals(String string, String... equal) {
+    for (String s : equal) {
+      if (string.equals(s)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
