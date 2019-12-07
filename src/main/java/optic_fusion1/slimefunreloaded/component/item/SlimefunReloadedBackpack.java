@@ -9,6 +9,10 @@ public class SlimefunReloadedBackpack extends SlimefunReloadedItem {
 
   private int size;
 
+  public SlimefunReloadedBackpack(NamespacedKey key, Category category, ItemStack item, ItemStack[] recipe, int size) {
+    this(key, category, item, null, recipe, size);
+  }
+  
   public SlimefunReloadedBackpack(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, int size) {
     super(key, category, item, recipeType, recipe);
     this.size = size;
