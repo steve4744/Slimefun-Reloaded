@@ -3,7 +3,6 @@ package optic_fusion1.slimefunreloaded.component.item.impl;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
-import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
