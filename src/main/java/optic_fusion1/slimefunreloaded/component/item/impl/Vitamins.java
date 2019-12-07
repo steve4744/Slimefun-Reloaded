@@ -4,6 +4,7 @@ import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.ItemUtils;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
@@ -26,35 +27,38 @@ public class Vitamins extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
-    if (player.getGameMode() != GameMode.CREATIVE) {
-      ItemUtils.consumeItem(item, false);
+    if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
+      if (player.getGameMode() != GameMode.CREATIVE) {
+        ItemUtils.consumeItem(item, false);
+      }
+      player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
+      if (player.hasPotionEffect(PotionEffectType.POISON)) {
+        player.removePotionEffect(PotionEffectType.POISON);
+      }
+      if (player.hasPotionEffect(PotionEffectType.WITHER)) {
+        player.removePotionEffect(PotionEffectType.WITHER);
+      }
+      if (player.hasPotionEffect(PotionEffectType.SLOW)) {
+        player.removePotionEffect(PotionEffectType.SLOW);
+      }
+      if (player.hasPotionEffect(PotionEffectType.SLOW_DIGGING)) {
+        player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
+      }
+      if (player.hasPotionEffect(PotionEffectType.WEAKNESS)) {
+        player.removePotionEffect(PotionEffectType.WEAKNESS);
+      }
+      if (player.hasPotionEffect(PotionEffectType.CONFUSION)) {
+        player.removePotionEffect(PotionEffectType.CONFUSION);
+      }
+      if (player.hasPotionEffect(PotionEffectType.BLINDNESS)) {
+        player.removePotionEffect(PotionEffectType.BLINDNESS);
+      }
+      player.setFireTicks(0);
+      player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 2));
+      //e.setCancelled(true);
+      return true;
     }
-    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
-    if (player.hasPotionEffect(PotionEffectType.POISON)) {
-      player.removePotionEffect(PotionEffectType.POISON);
-    }
-    if (player.hasPotionEffect(PotionEffectType.WITHER)) {
-      player.removePotionEffect(PotionEffectType.WITHER);
-    }
-    if (player.hasPotionEffect(PotionEffectType.SLOW)) {
-      player.removePotionEffect(PotionEffectType.SLOW);
-    }
-    if (player.hasPotionEffect(PotionEffectType.SLOW_DIGGING)) {
-      player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
-    }
-    if (player.hasPotionEffect(PotionEffectType.WEAKNESS)) {
-      player.removePotionEffect(PotionEffectType.WEAKNESS);
-    }
-    if (player.hasPotionEffect(PotionEffectType.CONFUSION)) {
-      player.removePotionEffect(PotionEffectType.CONFUSION);
-    }
-    if (player.hasPotionEffect(PotionEffectType.BLINDNESS)) {
-      player.removePotionEffect(PotionEffectType.BLINDNESS);
-    }
-    player.setFireTicks(0);
-    player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 2));
-    //e.setCancelled(true);
-    return true;
+    return false;
   }
 
 }

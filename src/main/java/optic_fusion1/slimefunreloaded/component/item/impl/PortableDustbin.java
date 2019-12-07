@@ -19,6 +19,10 @@ public class PortableDustbin extends SlimefunReloadedItem {
     super(key, category, item, recipeType, recipe);
   }
 
+  public PortableDustbin(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
+    super(key, category, item, recipeType, recipe, keys, values);
+  }
+
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
 //    e.setCancelled(true);
