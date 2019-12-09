@@ -1,6 +1,5 @@
 package optic_fusion1.slimefunreloaded.component.item.impl;
 
-import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
@@ -18,9 +17,14 @@ public class MagicSugar extends SlimefunReloadedItem {
 
   private int speed;
 
-  public MagicSugar(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+  public MagicSugar(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, int speed) {
     super(key, category, item, recipeType, recipe);
-    speed = (int) Slimefun.getItemValue("MAGIC_SUGAR", "effects.SPEED");
+    this.speed = speed;
+  }
+
+  public MagicSugar(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values, int speed) {
+    super(key, category, item, recipeType, recipe, keys, values);
+    this.speed = speed;
   }
 
   @Override
