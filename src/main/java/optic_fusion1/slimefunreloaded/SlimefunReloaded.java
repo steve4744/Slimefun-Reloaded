@@ -40,7 +40,6 @@ import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 //TODO: Clean this class up
@@ -107,6 +106,7 @@ public class SlimefunReloaded extends JavaPlugin {
   public final Map<String, BlockMenuPreset> blockMenuPresets = new HashMap<>();
   public final Set<UUID> teleporterUsers = new HashSet<>();
   public final Set<UUID> elevatorUsers = new HashSet<>();
+  public final Map<String, SlimefunReloadedComponent> itemIDs = new HashMap<>();
 
   @Override
   public void onEnable() {
@@ -409,6 +409,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public Set<UUID> getTeleporterUsers() {
     return teleporterUsers;
+  }
+  
+  public Map<String, SlimefunReloadedComponent> getItemIds(){
+    return itemIDs;
   }
 
 }

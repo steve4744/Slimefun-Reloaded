@@ -1,13 +1,21 @@
 package optic_fusion1.slimefunreloaded.component;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.category.CategoryManager;
 
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
+import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
 import optic_fusion1.slimefunreloaded.research.Research;
+import optic_fusion1.slimefunreloaded.util.Config;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 
 /**
  * Represents a base for all slimefun components in the mod including items, blocks and multiblocks.
@@ -16,8 +24,10 @@ import optic_fusion1.slimefunreloaded.research.Research;
  */
 public abstract class SlimefunReloadedComponent implements Keyed {
 
+  private static final Config ITEM_CONFIG = Slimefun.getItemsConfig();
+  private static final ComponentManager COMPONENT_MANAGER = Slimefun.getComponentManager();
   private final NamespacedKey key;
-  private ItemState state;
+  private ComponentState state;
   private final Category category;
   private final ItemStack item;
   private RecipeType recipeType;
@@ -26,6 +36,12 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   private Research research;
   private String[] keys;
   private Object[] values;
+  protected boolean enchantable = true;
+  protected boolean disenchantable = true;
+  protected boolean hidden = false;
+  protected boolean useableInWorkbench = false;
+  private String permission = "";
+  private List<String> noPermissionTooltip;
 
   protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     this.key = key;
@@ -33,12 +49,79 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     this.item = item.clone();
     this.recipeType = recipeType;
     this.recipe = recipe.clone();
+    String componentKey = key.getKey();
+    if (COMPONENT_MANAGER.getComponents().containsKey(componentKey)) {
+      throw new IllegalArgumentException("ID \"" + componentKey + "\" already exists");
+    }
+    if (this.recipe.length < 9) {
+      this.recipe = new ItemStack[]{null, null, null, null, null, null, null, null, null};
+    }
+    ITEM_CONFIG.setDefaultValue(componentKey + ".enabled", true);
+    ITEM_CONFIG.setDefaultValue(componentKey + ".can-be-used-in-workbenches", useableInWorkbench);
+    ITEM_CONFIG.setDefaultValue(componentKey + ".hide-in-guide", hidden);
+    ITEM_CONFIG.setDefaultValue(componentKey + ".allow-enchanting", enchantable);
+    ITEM_CONFIG.setDefaultValue(componentKey + ".allow-disenchanting", disenchantable);
+    ITEM_CONFIG.setDefaultValue(componentKey + ".required-permission", permission);
+    ITEM_CONFIG.setDefaultValue(componentKey + ".no-permission-tooltip", new String[]{"&4&lLOCKED", "", "&rYou do not have Permission", "&rto access this Item"});
+    Config whitelistConfig = Slimefun.getWhitelistConfig();
+    for (World world : Bukkit.getWorlds()) {
+      whitelistConfig.setDefaultValue(world.getName() + ".enabled", true);
+      whitelistConfig.setDefaultValue(world.getName() + ".enabled-items." + componentKey, true);
+    }
+    if (this.ticking && !Slimefun.getCfg().getBoolean("URID.enable-tickers")) {
+      this.state = ComponentState.DISABLED;
+      return;
+    }
+    if (ITEM_CONFIG.getBoolean(componentKey + ".enabled")) {
+      CategoryManager categoryManager = Slimefun.getCategoryManager();
+      if (!categoryManager.getCategories().contains(category)) {
+        categoryManager.addCategory(category);
+      }
+      this.state = ComponentState.ENABLED;
+      this.useableInWorkbench = ITEM_CONFIG.getBoolean(componentKey + ".can-be-used-in-workbenches");
+      this.hidden = ITEM_CONFIG.getBoolean(componentKey + ".hide-in-guide");
+      this.enchantable = ITEM_CONFIG.getBoolean(componentKey + ".allow-enchanting");
+      this.disenchantable = ITEM_CONFIG.getBoolean(componentKey + ".allow-disenchanting");
+      this.permission = ITEM_CONFIG.getString(componentKey + ".required-permission");
+      this.noPermissionTooltip = ITEM_CONFIG.getStringList(componentKey + ".no-permission-tooltip");
+      COMPONENT_MANAGER.addEnabledComponent(this);
+
+//      if (slimefun) {
+//        SlimefunPlugin.getUtilities().vanillaItems++;
+//      }
+      COMPONENT_MANAGER.registerComponent(this);
+
+//      for (ItemHandler handler : itemhandlers) {
+//        if (areItemHandlersPrivate()) {
+//          continue;
+//        }
+//
+//        Set<ItemHandler> handlerset = getHandlers(handler.toCodename());
+//        handlerset.add(handler);
+//
+//        SlimefunPlugin.getUtilities().itemHandlers.put(handler.toCodename(), handlerset);
+    } else {
+      if (this instanceof VanillaItem) {
+        this.state = ComponentState.VANILLA;
+      } else {
+        this.state = ComponentState.DISABLED;
+      }
+    }
+    if (Slimefun.getSlimefunReloaded().isPrintOutLoading()) {
+      Slimefun.getLogger().log(Level.INFO, "Loaded Item \"{0}\"", componentKey);
+    }
   }
 
   protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
     this(key, category, item, recipeType, recipe);
     this.keys = keys;
     this.values = values;
+    String componentKey = key.getKey();
+    if (this.keys != null && this.values != null) {
+      for (int i = 0; i < this.keys.length; i++) {
+        ITEM_CONFIG.setDefaultValue(componentKey + '.' + this.keys[i], this.values[i]);
+      }
+    }
   }
 
   @Override
@@ -118,10 +201,10 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   }
 
   public String getID() {
-    return key.getNamespace();
+    return key.getKey();
   }
 
-  public ItemState getState() {
+  public ComponentState getState() {
     return state;
   }
 

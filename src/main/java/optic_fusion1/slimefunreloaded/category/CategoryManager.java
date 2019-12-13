@@ -4,6 +4,7 @@ import optic_fusion1.slimefunreloaded.category.type.Category;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import optic_fusion1.slimefunreloaded.category.type.SeasonalCategory;
 import org.bukkit.inventory.ItemStack;
 
 public class CategoryManager {
@@ -25,7 +26,14 @@ public class CategoryManager {
 
   public void addCategory(Category category) {
     if (!categoryExists(category.getName())) {
-      categories.add(category);
+      Collections.sort(categories, categorySorter);
+      if (category instanceof SeasonalCategory) {
+        if (((SeasonalCategory) category).isUnlocked()) {
+          categories.add(category);
+        }
+      } else {
+        categories.add(category);
+      }
       Collections.sort(categories, categorySorter);
     }
   }

@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 public class ComponentManager {
 
   private final Map<String, SlimefunReloadedComponent> components = new HashMap<>();
+  private final Map<String, SlimefunReloadedComponent> enabledComponents = new HashMap<>();
   private final List<TickableComponent<? extends SlimefunReloadedComponent>> tickables = new ArrayList<>(32);
 
   @SuppressWarnings("unchecked")
@@ -58,7 +59,7 @@ public class ComponentManager {
     while (it.hasNext()) {
       Map.Entry pair = (Map.Entry) it.next();
       SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
-      if(component.getKey().getNamespace().equals(nameSpace)){
+      if (component.getKey().getNamespace().equals(nameSpace)) {
         return component;
       }
       it.remove();
@@ -71,8 +72,16 @@ public class ComponentManager {
     this.tickables.clear();
   }
 
-  public Map<String, SlimefunReloadedComponent> getComponents(){
+  public Map<String, SlimefunReloadedComponent> getComponents() {
+    return components;
+  }
+
+  public Map<String, SlimefunReloadedComponent> getEnabledComponents() {
     return components;
   }
   
+  public void addEnabledComponent(SlimefunReloadedComponent component){
+    enabledComponents.put(component.getID(), component);
+  }
+
 }
