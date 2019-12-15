@@ -14,13 +14,13 @@ public class CategoryRegistery {
   private static final String LORE = "&a> Click to open";
 
   public void registerCategories() {
-    register(new Category("Weapons", new CustomItem(Material.GOLDEN_SWORD, "&7Weapons", LORE), 1));
-    register(new Category("Portable", new CustomItem(SlimefunReloadedItems.BACKPACK_MEDIUM, "&7Items", "", LORE), 1));
-    register(new Category("Food", new CustomItem(Material.APPLE, "&7Food", "", LORE), 2));
-    register(new Category("Basic Machines", new CustomItem(Material.SMITHING_TABLE, "&7Basic Machines", "", LORE), 1));
+    register(new Category("WEAPONS", new CustomItem(Material.GOLDEN_SWORD, "&7Weapons", LORE), 1));
+    register(new Category("PORTABLE", new CustomItem(SlimefunReloadedItems.BACKPACK_MEDIUM, "&7Items", "", LORE), 1));
+    register(new Category("FOOD", new CustomItem(Material.APPLE, "&7Food", "", LORE), 2));
+    register(new Category("BASIC MACHINES", new CustomItem(Material.SMITHING_TABLE, "&7Basic Machines", "", LORE), 1));
 //    	public static final LockedCategory ELECTRICITY = new LockedCategory(new CustomItem(SlimefunReloadedItems.NUCLEAR_REACTOR, "&bEnergy and Electricity", "", LORE), 4, MACHINES_1);
 //	public static final LockedCategory GPS = new LockedCategory(new CustomItem(SlimefunReloadedItems.GPS_TRANSMITTER, "&bGPS-based Machines", "", LORE), 4, MACHINES_1);
-    register(new Category("Armor", new CustomItem(Material.IRON_CHESTPLATE, "&7Armor", "", LORE)));
+    register(new Category("ARMOR", new CustomItem(Material.IRON_CHESTPLATE, "&7Armor", "", LORE)));
 //    register(new Category("LUMPS_AND_MAGIC", new CustomItem(SlimefunReloadedItems.RUN_ENDER, "&7Magical Items", "", LORE), 2));
     register(new Category("MAGIC", new CustomItem(Material.ELYTRA, "&7Magical Gadgets", "", LORE)));
     //	public static final Category MISC = new Category(new CustomItem(SlimefunReloadedItems.CAN, "&7Miscellaneous", "", LORE), 2);
@@ -35,9 +35,9 @@ public class CategoryRegistery {
     register(new Category("TOOLS", new CustomItem(Material.EMERALD, "&7Tools", "", LORE), 1));
 
     // Seasonal Categories
-    register(new SeasonalCategory("Christmas", new CustomItem(Material.NETHER_STAR, "Christmas", "", "&c> Click to help &aSanta"), 1, 12));
-    register(new SeasonalCategory("Valentines Day", new CustomItem(Material.POPPY, "&dValentine's Day", "", "&d> Click here to celebrate love"), 2, 2));
-    register(new SeasonalCategory("Easter", new CustomItem(Material.EGG, "&6Easter", "", "&a> Click to paint some eggs"), 4, 2));
+    register(new SeasonalCategory("CHRISTMAS", new CustomItem(Material.NETHER_STAR, "Christmas", "", "&c> Click to help &aSanta"), 1, 12));
+    register(new SeasonalCategory("VALENTINES DAY", new CustomItem(Material.POPPY, "&dValentine's Day", "", "&d> Click here to celebrate love"), 2, 2));
+    register(new SeasonalCategory("EASTER", new CustomItem(Material.EGG, "&6Easter", "", "&a> Click to paint some eggs"), 4, 2));
   }
 
   private void register(Category category) {

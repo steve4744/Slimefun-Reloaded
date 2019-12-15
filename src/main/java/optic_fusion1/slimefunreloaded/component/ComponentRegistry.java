@@ -25,6 +25,8 @@ import optic_fusion1.slimefunreloaded.component.item.impl.GoldPan;
 import optic_fusion1.slimefunreloaded.component.item.impl.GrapplingHook;
 import optic_fusion1.slimefunreloaded.component.item.impl.HerculesPickaxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.InfernalBonemeal;
+import optic_fusion1.slimefunreloaded.component.item.impl.JetBoots;
+import optic_fusion1.slimefunreloaded.component.item.impl.Jetpack;
 import optic_fusion1.slimefunreloaded.component.item.impl.KnowledgeFlask;
 import optic_fusion1.slimefunreloaded.component.item.impl.KnowledgeTome;
 import optic_fusion1.slimefunreloaded.component.item.impl.LumberAxe;
@@ -1795,24 +1797,6 @@ public final class ComponentRegistry {
     registerSimpleSlimefunReloadedItem("easter_apple_pie", EASTER, SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.SUGAR), new ItemStack(Material.APPLE), new ItemStack(Material.EGG), null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, 2));
     register(new EasterEgg(new NamespacedKey(plugin, "easter_egg"), EASTER, (SlimefunReloadedItemStack) SlimefunReloadedItems.EASTER_EGG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.LIME_DYE), new ItemStack(Material.EGG), new ItemStack(Material.PURPLE_DYE), null, null, null}, new CustomItem(SlimefunReloadedItems.EASTER_EGG, 2)));
     /*
-    RainbowTicker xmas = new RainbowTicker(13, 14);
-
-		new SlimefunReloadedItems(CHRISTMAS, (SlimefunReloadedItemStack) SlimefunReloadedItems.RAINBOW_WOOL_XMAS, RecipeType.ANCIENT_ALTAR,
-		new ItemStack[] {new ItemStack(Material.RED_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.GREEN_DYE), new ItemStack(Material.WHITE_WOOL), SlimefunReloadedItems.RUNE_RAINBOW, new ItemStack(Material.WHITE_WOOL), new ItemStack(Material.GREEN_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.RED_DYE)}, new CustomItem(SlimefunReloadedItems.RAINBOW_WOOL_XMAS, 2))
-		.register(true, xmas);
-
-		new SlimefunReloadedItems(CHRISTMAS, (SlimefunReloadedItemStack) SlimefunReloadedItems.RAINBOW_GLASS_XMAS, RecipeType.ANCIENT_ALTAR,
-		new ItemStack[] {new ItemStack(Material.RED_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.GREEN_DYE), new ItemStack(Material.WHITE_STAINED_GLASS), SlimefunReloadedItems.RUNE_RAINBOW, new ItemStack(Material.WHITE_STAINED_GLASS), new ItemStack(Material.GREEN_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.RED_DYE)}, new CustomItem(SlimefunReloadedItems.RAINBOW_GLASS_XMAS, 2))
-		.register(true, xmas);
-
-		new SlimefunReloadedItems(CHRISTMAS, (SlimefunReloadedItemStack) SlimefunReloadedItems.RAINBOW_GLASS_PANE_XMAS, RecipeType.ANCIENT_ALTAR,
-		new ItemStack[] {new ItemStack(Material.RED_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.GREEN_DYE), new ItemStack(Material.WHITE_STAINED_GLASS_PANE), SlimefunReloadedItems.RUNE_RAINBOW, new ItemStack(Material.WHITE_STAINED_GLASS_PANE), new ItemStack(Material.GREEN_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.RED_DYE)}, new CustomItem(SlimefunReloadedItems.RAINBOW_GLASS_PANE_XMAS, 2))
-		.register(true, xmas);
-
-		new SlimefunReloadedItems(CHRISTMAS, (SlimefunReloadedItemStack) SlimefunReloadedItems.RAINBOW_CLAY_XMAS, RecipeType.ANCIENT_ALTAR,
-		new ItemStack[] {new ItemStack(Material.RED_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.GREEN_DYE), new ItemStack(Material.WHITE_TERRACOTTA), SlimefunReloadedItems.RUNE_RAINBOW, new ItemStack(Material.WHITE_TERRACOTTA), new ItemStack(Material.GREEN_DYE), SlimefunReloadedItems.CHRISTMAS_COOKIE, new ItemStack(Material.RED_DYE)}, new CustomItem(SlimefunReloadedItems.RAINBOW_CLAY_XMAS, 2))
-		.register(true, xmas);
-
 		RainbowTicker valentine = new RainbowTicker(2, 6, 10);
 
 		new SlimefunReloadedItems(VALENTINES_DAY, (SlimefunReloadedItemStack) SlimefunReloadedItems.RAINBOW_WOOL_VALENTINE, RecipeType.ANCIENT_ALTAR,
@@ -1864,44 +1848,15 @@ public final class ComponentRegistry {
 		.register(true);
 
      */
- /*
- Jetpacks
- new Jetpack((SlimefunReloadedItemStack) SlimefunReloadedItems.DURALUMIN_JETPACK,
-		new ItemStack[] {SlimefunReloadedItems.DURALUMIN_INGOT, null, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.35)
-		.register(true);
-
-		new Jetpack((SlimefunReloadedItemStack) SlimefunReloadedItems.SOLDER_JETPACK,
-		new ItemStack[] {SlimefunReloadedItems.SOLDER_INGOT, null, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.4)
-		.register(true);
-
-		new Jetpack((SlimefunReloadedItemStack) SlimefunReloadedItems.BILLON_JETPACK,
-		new ItemStack[] {SlimefunReloadedItems.BILLON_INGOT, null, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.45)
-		.register(true);
-
-		new Jetpack((SlimefunReloadedItemStack) SlimefunReloadedItems.STEEL_JETPACK,
-		new ItemStack[] {SlimefunReloadedItems.STEEL_INGOT, null, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.5)
-		.register(true);
-
-		new Jetpack((SlimefunReloadedItemStack) SlimefunReloadedItems.DAMASCUS_STEEL_JETPACK,
-		new ItemStack[] {SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, null, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.55)
-		.register(true);
-
-		new Jetpack((SlimefunReloadedItemStack) SlimefunReloadedItems.REINFORCED_ALLOY_JETPACK,
-		new ItemStack[] {SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, null, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.6)
-		.register(true);
-
-		new Jetpack((SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO_JETPACK,
-		new ItemStack[] {SlimefunReloadedItems.CARBON_CHUNK, null, SlimefunReloadedItems.CARBON_CHUNK, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.LARGE_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.7)
-		.register(true);
-     */
- /*
+    //Jetpack Registery
+    registerJetpack("duralumin_jetpack", (SlimefunReloadedItemStack) SlimefunReloadedItems.DURALUMIN_JETPACK, new ItemStack[]{SlimefunReloadedItems.DURALUMIN_INGOT, null, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.35);
+    registerJetpack("solder_jetpack", (SlimefunReloadedItemStack) SlimefunReloadedItems.SOLDER_JETPACK, new ItemStack[]{SlimefunReloadedItems.SOLDER_INGOT, null, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.4);
+    registerJetpack("billion_jetpack", (SlimefunReloadedItemStack) SlimefunReloadedItems.BILLON_JETPACK, new ItemStack[]{SlimefunReloadedItems.BILLON_INGOT, null, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.45);
+    registerJetpack("steel_jetpack", (SlimefunReloadedItemStack) SlimefunReloadedItems.STEEL_JETPACK, new ItemStack[]{SlimefunReloadedItems.STEEL_INGOT, null, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.5);
+    registerJetpack("damascus_steel_jetpack", (SlimefunReloadedItemStack) SlimefunReloadedItems.DAMASCUS_STEEL_JETPACK, new ItemStack[]{SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, null, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.55);
+    registerJetpack("reinforced_alloy_jetpack", (SlimefunReloadedItemStack) SlimefunReloadedItems.REINFORCED_ALLOY_JETPACK, new ItemStack[]{SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, null, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.6);
+    registerJetpack("carbonado_jetpack", (SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO_JETPACK, new ItemStack[]{SlimefunReloadedItems.CARBON_CHUNK, null, SlimefunReloadedItems.CARBON_CHUNK, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.LARGE_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.7);
+    /*
  Armor sets
  SlimefunManager.registerArmorSet(new ItemStack(Material.GLOWSTONE), new ItemStack[] {SlimefunReloadedItems.GLOWSTONE_HELMET, SlimefunReloadedItems.GLOWSTONE_CHESTPLATE, SlimefunReloadedItems.GLOWSTONE_LEGGINGS, SlimefunReloadedItems.GLOWSTONE_BOOTS}, "GLOWSTONE",
 		new PotionEffect[][] {new PotionEffect[] {new PotionEffect(PotionEffectType.NIGHT_VISION, 600, 0)}, new PotionEffect[] {new PotionEffect(PotionEffectType.NIGHT_VISION, 600, 0)}, new PotionEffect[] {new PotionEffect(PotionEffectType.NIGHT_VISION, 600, 0)}, new PotionEffect[] {new PotionEffect(PotionEffectType.NIGHT_VISION, 600, 0)}}, true, true);
@@ -2034,48 +1989,16 @@ new GrindStone().register();
 		false, false, "wizard", 60)
 		.register(true);
      */
- /*
- new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.DURALUMIN_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.35)
-		.register(true);
-
-		new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.SOLDER_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.4)
-		.register(true);
-
-		new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.BILLON_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.45)
-		.register(true);
-
-		new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.STEEL_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.5)
-		.register(true);
-
-		new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.DAMASCUS_STEEL_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.55)
-		.register(true);
-
-		new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.REINFORCED_ALLOY_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.6)
-		.register(true);
-
-		new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.LARGE_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.7)
-		.register(true);
-
-		new JetBoots((SlimefunReloadedItemStack) SlimefunReloadedItems.ARMORED_JETBOOTS,
-		new ItemStack[] {null, null, null, SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER},
-		0.45)
-		.register(true);
-     */
- /*
+    //JetBoots Registery
+    registerJetBoots("duralumin_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.DURALUMIN_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DURALUMIN_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.35);
+    registerJetBoots("solder_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.SOLDER_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.SOLDER_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.4);
+    registerJetBoots("billion_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.BILLON_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.BILLON_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.45);
+    registerJetBoots("steel_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.STEEL_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.5);
+    registerJetBoots("damascus_steel_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.DAMASCUS_STEEL_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.SMALL_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.55);
+    registerJetBoots("reinforced_alloy_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.REINFORCED_ALLOY_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.6);
+    registerJetBoots("carbonado_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.LARGE_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.7);
+    registerJetBoots("armored_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.ARMORED_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.45);
+    /*
  new EnhancedFurnace(1, 1, 1, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE,
 		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, new ItemStack(Material.FURNACE), SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
 		.register(true);
@@ -2140,11 +2063,13 @@ new GrindStone().register();
     register(new MeatJerky(new NamespacedKey(plugin, namespace), category, item, type, recipe, 0));
   }
 
-  public static void registerBackpack(String namespace, Category category, SlimefunReloadedItemStack item, RecipeType type, ItemStack[] recipe, int size) {
+  public static void registerBackpack(String namespace, Category category, SlimefunReloadedItemStack item, RecipeType type,
+   ItemStack[] recipe, int size) {
     register(new SlimefunReloadedBackpack(new NamespacedKey(plugin, namespace), category, item, recipe, size));
   }
 
-  public static void registerSoulboundItem(String namespace, Category category, SlimefunReloadedItemStack item, ItemStack[] recipe) {
+  public static void registerSoulboundItem(String namespace, Category category, SlimefunReloadedItemStack item,
+   ItemStack[] recipe) {
     register(new SoulboundItem(new NamespacedKey(plugin, namespace), category, item, recipe));
   }
 
@@ -2170,6 +2095,14 @@ new GrindStone().register();
 
   public static void registerSlimefunReloadedAlloy(String namespace, ItemStack item, ItemStack[] recipe) {
     register(new Alloy(new NamespacedKey(plugin, namespace), item, recipe));
+  }
+
+  public static void registerJetBoots(String namespace, ItemStack item, ItemStack[] recipe, double speed) {
+    register(new JetBoots(new NamespacedKey(plugin, namespace), item, recipe, speed));
+  }
+
+  public static void registerJetpack(String namespace, ItemStack item, ItemStack[] recipe, double speed) {
+    register(new Jetpack(new NamespacedKey(plugin, namespace), item, recipe, speed));
   }
 
   public static void register(SlimefunReloadedComponent component) {

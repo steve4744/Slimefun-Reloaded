@@ -73,9 +73,6 @@ public class DebugCommand implements CommandExecutor {
       }
       player.sendMessage("A category with the name " + name + " exists");
     } else {
-      //debug component give <name>
-      //debug component list
-      //debug category <name>
       player.sendMessage("Usage: /debug <component <give <name>|list>|category <list|name>>");
       player.sendMessage("Examples:");
       player.sendMessage("/debug component give grandmas_walking_stick");
