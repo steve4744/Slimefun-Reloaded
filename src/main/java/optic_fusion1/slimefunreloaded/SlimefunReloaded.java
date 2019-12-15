@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
 import optic_fusion1.slimefunreloaded.gps.GPSNetwork;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
+import optic_fusion1.slimefunreloaded.command.DebugCommand;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
@@ -42,7 +43,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
-//TODO: Clean this class up
+//TODO: Finish & clean this class us see me.mrCookieSlime.Slimefun.SlimefunPlugin for the Slimefun equivalent of this class
 public class SlimefunReloaded extends JavaPlugin {
 
   private RecipeSnapshot recipeSnapshot;
@@ -142,6 +143,9 @@ public class SlimefunReloaded extends JavaPlugin {
 //    MiscSetup.loadDescriptions();
     ResearchRegistry.registerResearches();
     ComponentRegistry.registerComponents();
+    
+    //TEMP DEBUG COMMAND
+    Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
   }
 
   @Override
@@ -407,11 +411,15 @@ public class SlimefunReloaded extends JavaPlugin {
     return ITEMS_CONFIG.getValue(id + "." + key);
   }
 
+  public void setItemVariable(String id, String key, Object value) {
+    ITEMS_CONFIG.setDefaultValue(id + '.' + key, value);
+  }
+
   public Set<UUID> getTeleporterUsers() {
     return teleporterUsers;
   }
-  
-  public Map<String, SlimefunReloadedComponent> getItemIds(){
+
+  public Map<String, SlimefunReloadedComponent> getItemIds() {
     return itemIDs;
   }
 

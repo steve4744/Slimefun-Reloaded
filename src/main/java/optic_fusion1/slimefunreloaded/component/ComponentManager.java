@@ -79,9 +79,22 @@ public class ComponentManager {
   public Map<String, SlimefunReloadedComponent> getEnabledComponents() {
     return components;
   }
-  
-  public void addEnabledComponent(SlimefunReloadedComponent component){
+
+  public void addEnabledComponent(SlimefunReloadedComponent component) {
     enabledComponents.put(component.getID(), component);
+  }
+
+  public List<String> getComponentNames() {
+    List<String> names = new ArrayList<>();
+    Iterator it = components.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry pair = (Map.Entry) it.next();
+      SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
+      NamespacedKey key = component.getKey();
+      names.add(key.getKey() + ":" + key.getNamespace());
+      it.remove();
+    }
+    return names;
   }
 
 }

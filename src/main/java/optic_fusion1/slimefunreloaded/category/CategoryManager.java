@@ -60,4 +60,12 @@ public class CategoryManager {
     return null;
   }
 
+  public List<String> getCategoryNames() {
+    List<String> names = new ArrayList<>();
+    for(Category category : categories){
+      names.add(category.getName());
+    }
+    return names;
+  }
+
 }
