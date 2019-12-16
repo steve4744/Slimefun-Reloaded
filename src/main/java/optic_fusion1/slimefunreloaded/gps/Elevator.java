@@ -6,7 +6,6 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import optic_fusion1.slimefunreloaded.Slimefun;
-import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.inventory.ChestMenu;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
@@ -52,7 +51,7 @@ public final class Elevator {
   }
 
   public static void openDialogue(Player p, Block b) {
-    Set<UUID> elevatorUsers = SlimefunReloaded.getUtilities().elevatorUsers;
+    Set<UUID> elevatorUsers = Slimefun.getElevatorUsers();
 
     if (elevatorUsers.contains(p.getUniqueId())) {
       elevatorUsers.remove(p.getUniqueId());

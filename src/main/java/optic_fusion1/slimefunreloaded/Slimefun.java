@@ -11,6 +11,7 @@ import optic_fusion1.slimefunreloaded.ancient_altar.AltarRecipe;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.gps.GPSNetwork;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
@@ -25,7 +26,6 @@ import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public final class Slimefun {
@@ -234,6 +234,14 @@ public final class Slimefun {
 
   public static Map<String, SlimefunReloadedComponent> getItemIds(){
     return plugin.getItemIds();
+  }
+ 
+  public static Set<UUID> getElevatorUsers(){
+    return plugin.getElevatorUsers();
+  }
+  
+  public static GPSNetwork getGPSNetwork(){
+    return plugin.getGPSNetwork();
   }
   
 }

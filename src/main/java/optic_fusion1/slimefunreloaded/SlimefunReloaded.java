@@ -43,7 +43,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
-//TODO: Finish & clean this class us see me.mrCookieSlime.Slimefun.SlimefunPlugin for the Slimefun equivalent of this class
+//TODO: Finish & clean this class up see me.mrCookieSlime.Slimefun.SlimefunPlugin for the Slimefun equivalent of this class
 public class SlimefunReloaded extends JavaPlugin {
 
   private RecipeSnapshot recipeSnapshot;
@@ -113,11 +113,11 @@ public class SlimefunReloaded extends JavaPlugin {
   public void onEnable() {
     version = getDescription().getVersion();
     logger = getLogger();
-    String version = ReflectionUtils.getVersion();
-    if (!version.startsWith("v1_14")) {
+    String nmsVersion = ReflectionUtils.getVersion();
+    if (!nmsVersion.startsWith("v1_14")) {
       logger.severe("Slimefun Reloaded was not installed correctly!");
       logger.severe("You are using the wrong version of Minecraft!");
-      logger.log(Level.SEVERE, "You are using Minecraft {0}", version);
+      logger.log(Level.SEVERE, "You are using Minecraft {0}", nmsVersion);
       logger.log(Level.SEVERE, "but Slimefun Reloaded v{0} requires you to be using", getDescription().getVersion());
       logger.severe("Minecraft 1.14");
       logger.severe("Please use an older version of Slimefun or Slimefun Reloaded and disable auto-updating");
@@ -143,7 +143,7 @@ public class SlimefunReloaded extends JavaPlugin {
 //    MiscSetup.loadDescriptions();
     ResearchRegistry.registerResearches();
     ComponentRegistry.registerComponents();
-    
+
     //TEMP DEBUG COMMAND
     Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
   }
@@ -423,4 +423,12 @@ public class SlimefunReloaded extends JavaPlugin {
     return itemIDs;
   }
 
+  public Set<UUID> getElevatorUsers() {
+    return elevatorUsers;
+  }
+
+  public GPSNetwork getGPSNetwork(){
+    return gps;
+  }
+  
 }

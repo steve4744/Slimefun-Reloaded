@@ -216,4 +216,8 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     return values;
   }
 
+  public boolean isDisabled() {
+    return state != ComponentState.ENABLED;
+  }
+
 }
