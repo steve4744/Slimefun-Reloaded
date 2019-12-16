@@ -32,6 +32,8 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
   public SlimefunReloadedItem(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
     super(key, category, item, recipeType, recipe, keys, values);
   }
+  
+  
 
   /**
    * Called when a player interacts with this item.

@@ -36,7 +36,7 @@ public class EasterEgg extends SlimefunReloadedItem {
     if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
       //e.setCancelled(true);
       if (player.getGameMode() != GameMode.CREATIVE) {
-        ItemUtils.consumeItem(item, false);
+        consumeItem(item, false);
       }
       FireworkShow.launchRandom(player, 2);
       List<ItemStack> gifts = new ArrayList<>();

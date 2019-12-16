@@ -23,7 +23,7 @@ public class Medicine extends SlimefunReloadedConsumeable {
   @Override
   public boolean onConsume(Player player, ItemStack item) {
     if (player.getGameMode() != GameMode.CREATIVE) {
-      ItemUtils.consumeItem(item, false);
+      consumeItem(item, false);
     }
     player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, Material.WHITE_WOOL);
     player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 1));

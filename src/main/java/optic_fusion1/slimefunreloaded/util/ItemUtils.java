@@ -183,42 +183,4 @@ public final class ItemUtils {
     }
   }
 
-  /**
-   * This Method will consume the Item in the specified slot. See {@link ItemUtils#consumeItem(ItemStack, int, boolean)} for further details.
-   *
-   * @param item The Item to consume
-   * @param replaceConsumables Whether Consumable Items should be replaced with their "empty" version, see {@link ItemUtils#consumeItem(ItemStack, int, boolean)}
-   */
-  public static void consumeItem(@NonNull ItemStack item, boolean replaceConsumables) {
-    consumeItem(item, 1, replaceConsumables);
-  }
-
-  /**
-   * This Method consumes a specified amount of items from the specified slot.
-   *
-   * The items will be removed from the slot, if the slot does not hold enough items, it will be replaced with null. Note that this does not check whether there are enough Items present, if you specify a bigger amount than present, it will simply set the Item to null.
-   *
-   * If replaceConsumables is true, the following things will not be replaced with 'null':    {@code Buckets -> new ItemStack(Material.BUCKET)}
-	 * {@code Potions -> new ItemStack(Material.GLASS_BOTTLE)}
-   *
-   * @param item	The Item to consume
-   * @param amount	How many Items should be removed
-   * @param replaceConsumables	Whether Items should be replaced with their "empty" version
-   */
-  public static void consumeItem(@NonNull ItemStack item, int amount, boolean replaceConsumables) {
-    if (item.getType() != Material.AIR && item.getAmount() > 0) {
-      /*if (MaterialCollections.getAllFilledBuckets().contains(item.getType()) && replaceConsumables) {
-        item.setType(Material.BUCKET);
-        item.setAmount(1);
-      } else*/ if (item.getType() == Material.POTION && replaceConsumables) {
-        item.setType(Material.GLASS_BOTTLE);
-        item.setAmount(1);
-      } else if (item.getAmount() <= amount) {
-        item.setAmount(0);
-      } else {
-        item.setAmount(item.getAmount() - amount);
-      }
-    }
-  }
-
 }

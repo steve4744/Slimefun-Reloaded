@@ -35,7 +35,7 @@ public class Bandage extends SlimefunReloadedItem {
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
       if (player.getGameMode() != GameMode.CREATIVE) {
-        ItemUtils.consumeItem(item, false);
+        consumeItem(item, false);
       }
       player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, Material.WHITE_WOOL);
       player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 1));

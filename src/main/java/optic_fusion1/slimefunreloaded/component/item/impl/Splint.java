@@ -30,7 +30,7 @@ public class Splint extends SlimefunReloadedItem {
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
       if (player.getGameMode() != GameMode.CREATIVE) {
-        ItemUtils.consumeItem(item, false);
+        consumeItem(item, false);
       }
       player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SKELETON_HURT, 1, 1);
       player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));

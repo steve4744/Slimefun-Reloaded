@@ -29,7 +29,7 @@ public class Vitamins extends SlimefunReloadedItem {
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
       if (player.getGameMode() != GameMode.CREATIVE) {
-        ItemUtils.consumeItem(item, false);
+        consumeItem(item, false);
       }
       player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
       if (player.hasPotionEffect(PotionEffectType.POISON)) {
