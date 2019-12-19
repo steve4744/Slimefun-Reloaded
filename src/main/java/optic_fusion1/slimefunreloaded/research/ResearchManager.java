@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.google.common.base.Preconditions;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -93,6 +95,19 @@ public class ResearchManager {
   public void removeResearchingPlayer(UUID playerUniqueId) {
     Preconditions.checkArgument(playerUniqueId != null, "Cannot remove null player from research");
     this.researching.remove(playerUniqueId);
+  }
+  
+  public List<String> getResearchNames() {
+    List<String> names = new ArrayList<>();
+    Iterator it = researches.iterator();
+    while (it.hasNext()) {
+      Map.Entry pair = (Map.Entry) it.next();
+      Research research = (Research) pair.getValue();
+      NamespacedKey key = research.getKey();
+      names.add(key.getKey() + ":" + key.getNamespace());
+      it.remove();
+    }
+    return names;
   }
 
 }

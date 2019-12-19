@@ -14,6 +14,7 @@ import java.util.function.Consumer;
 import java.util.stream.IntStream;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.research.Research;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -44,7 +45,7 @@ public final class PlayerProfile {
     this.uuid = p.getUniqueId();
     this.name = p.getName();
 
-    cfg = new Config(new File("plugins/SlimefunReloaded/data-storage/Players/" + uuid.toString() + ".yml"));
+    cfg = new Config(new File("data-storage/Slimefun/Players/" + uuid.toString() + ".yml"));
 
     for (Research research : Slimefun.getResearchManager().getResearches()) {
       if (cfg.contains("researches." + research.getKey().getNamespace())) {
@@ -69,27 +70,14 @@ public final class PlayerProfile {
     return uuid;
   }
 
-  /**
-   * This method returns whether the Player has logged off. If this is true, then the Profile can be removed from RAM.
-   *
-   * @return	Whether the Profile is marked for deletion
-   */
   public boolean isMarkedForDeletion() {
     return markedForDeletion;
   }
 
-  /**
-   * This method returns whether the Profile has unsaved changes
-   *
-   * @return	Whether there are unsaved changes
-   */
   public boolean isDirty() {
     return dirty;
   }
 
-  /**
-   * This method will save the Player's Researches and Backpacks to the hard drive
-   */
   public void save() {
     for (BackpackInventory backpack : backpacks.values()) {
       backpack.save();
@@ -99,12 +87,6 @@ public final class PlayerProfile {
     dirty = false;
   }
 
-  /**
-   * This method sets the Player's "researched" status for this Research. Use the boolean to unlock or lock the Research
-   *
-   * @param research	The Research that should be unlocked or locked
-   * @param unlock	Whether the Research should be unlocked or locked
-   */
   public void setResearched(Research research, boolean unlock) {
     dirty = true;
 
@@ -117,35 +99,18 @@ public final class PlayerProfile {
     }
   }
 
-  /**
-   * This method returns whether the Player has unlocked the given Research
-   *
-   * @param research	The Research that is being queried
-   * @return	Whether this Research has been unlocked
-   */
   public boolean hasUnlocked(Research research) {
     return !research.isEnabled() || researches.contains(research);
   }
 
-  /**
-   * This Method will return all Researches that this Player has unlocked
-   *
-   * @return	A Hashset<Research> of all Researches this Player has unlocked
-   */
   public Set<Research> getResearches() {
     return researches;
   }
 
-  /**
-   * Call this method if the Player has left. The profile can then be removed from RAM.
-   */
   public void markForDeletion() {
     this.markedForDeletion = true;
   }
 
-  /**
-   * Call this method if this Profile has unsaved changes.
-   */
   public void markDirty() {
     this.dirty = true;
   }
@@ -175,10 +140,9 @@ public final class PlayerProfile {
   public String getTitle() {
     List<String> titles = Slimefun.getResearchesTitles();
 
-    int index = Math.round(Float.valueOf(String.valueOf(Math.round(((researches.size() * 100.0F) / Slimefun.getResearchManager().getResearches().size()) * 100.0F) / 100.0F)) / 100.0F) * titles.size();
-    if (index > 0) {
-      index--;
-    }
+    float fraction = (float) researches.size() / Slimefun.getResearchManager().getResearches().size();
+    int index = (int) (fraction * (titles.size() - 1));
+
     return titles.get(index);
   }
 
@@ -217,6 +181,19 @@ public final class PlayerProfile {
     return guideHistory;
   }
 
+  public static PlayerProfile fromUUID(UUID uuid) {
+    PlayerProfile profile = Slimefun.getProfiles().get(uuid);
+
+    if (profile == null) {
+      profile = new PlayerProfile(uuid);
+      Slimefun.getProfiles().put(uuid, profile);
+    } else {
+      profile.markedForDeletion = false;
+    }
+
+    return profile;
+  }
+
   public static boolean fromUUID(UUID uuid, Consumer<PlayerProfile> callback) {
     PlayerProfile profile = Slimefun.getProfiles().get(uuid);
 
@@ -233,13 +210,19 @@ public final class PlayerProfile {
     return false;
   }
 
-  /**
-   * Get the PlayerProfile for a player asynchronously.
-   *
-   * @param p The player who's profile to retrieve
-   * @param callback The callback with the PlayerProfile
-   * @return If the player was cached or not.
-   */
+  public static PlayerProfile get(OfflinePlayer p) {
+    PlayerProfile profile = Slimefun.getProfiles().get(p.getUniqueId());
+
+    if (profile == null) {
+      profile = new PlayerProfile(p);
+      Slimefun.getProfiles().put(p.getUniqueId(), profile);
+    } else {
+      profile.markedForDeletion = false;
+    }
+
+    return profile;
+  }
+
   public static boolean get(OfflinePlayer p, Consumer<PlayerProfile> callback) {
     PlayerProfile profile = Slimefun.getProfiles().get(p.getUniqueId());
     if (profile != null) {
@@ -287,7 +270,7 @@ public final class PlayerProfile {
     }
 
     if (id.isPresent()) {
-      return PlayerProfile.fromUUID(UUID.fromString(uuid), () -> {}).getBackpack(id.get());
+      return PlayerProfile.fromUUID(UUID.fromString(uuid)).getBackpack(id.get());
     } else {
       return null;
     }

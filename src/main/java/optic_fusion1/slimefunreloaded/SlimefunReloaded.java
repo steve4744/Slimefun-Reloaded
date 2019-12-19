@@ -21,7 +21,9 @@ import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.command.DebugCommand;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
+import optic_fusion1.slimefunreloaded.component.ComponentState;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
@@ -41,6 +43,7 @@ import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 //TODO: Finish & clean this class up see me.mrCookieSlime.Slimefun.SlimefunPlugin for the Slimefun equivalent of this class
@@ -427,8 +430,105 @@ public class SlimefunReloaded extends JavaPlugin {
     return elevatorUsers;
   }
 
-  public GPSNetwork getGPSNetwork(){
+  public GPSNetwork getGPSNetwork() {
     return gps;
   }
-  
+
+  public boolean hasUnlocked(Player player, ItemStack item, boolean sendMessage) {
+    SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByItem(item);
+    ComponentState state = component.getState();
+    if (component == null) {
+      if (state != ComponentState.ENABLED) {
+        if (sendMessage && state != ComponentState.VANILLA) {
+          I18n.tl(player, "messages.disabled-item");
+        }
+        return false;
+      } else {
+        return true;
+      }
+    } else if (isEnabled(player, item, sendMessage) && hasPermission(player, component, sendMessage)) {
+      if (component.getResearch() == null) {
+        return true;
+      } else if (PlayerProfile.get(player).hasUnlocked(component.getResearch())) {
+        return true;
+      } else {
+        if (sendMessage && !(component instanceof VanillaItem)) {
+          I18n.tl(player, "messages.not-researched");
+        }
+      }
+    }
+    return false;
+  }
+
+  public boolean hasUnlocked(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
+    if (isEnabled(player, component, sendMessage) && hasPermission(player, component, sendMessage)) {
+      if (component.getResearch() == null) {
+        return true;
+      } else if (PlayerProfile.get(player).hasUnlocked(component.getResearch())) {
+        return true;
+      } else {
+        if (sendMessage && !(component instanceof VanillaItem)) {
+          I18n.tl(player, "messages.not-researched");
+          return false;
+        }
+      }
+    }
+    return false;
+  }
+
+  public boolean hasPermission(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
+    if (component == null) {
+      return true;
+    } else if (component.getPermission().equalsIgnoreCase("")) {
+      return true;
+    } else if (player.hasPermission(component.getPermission())) {
+      return true;
+    } else {
+      if (sendMessage) {
+        I18n.tl(player, "messages.no-permission");
+      }
+      return false;
+    }
+  }
+
+  public boolean isEnabled(Player player, ItemStack item, boolean sendMessage) {
+    SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByItem(item);
+    if (component == null) {
+      return !component.isDisabled();
+    } else {
+      return isEnabled(player, component, sendMessage);
+    }
+  }
+
+  public boolean isEnabled(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
+    if (component.isDisabled()) {
+      if (sendMessage) {
+        I18n.tl(player, "messages.disabled-in-world");
+      }
+      return false;
+    }
+    String worldName = player.getWorld().getName();
+    if (WHITELIST_CONFIG.contains(worldName + ".enabled")) {
+      if (WHITELIST_CONFIG.getBoolean(worldName + ".enabled")) {
+        if (!WHITELIST_CONFIG.contains(worldName + ".enabled-items." + component.getID())) {
+          WHITELIST_CONFIG.setDefaultValue(worldName + ".enabled-items." + component.getID(), true);
+        }
+        if (WHITELIST_CONFIG.getBoolean(worldName + ".enabled-items." + component.getID())) {
+          return true;
+        } else {
+          if (sendMessage) {
+            I18n.tl(player, "messages.disabled-in-world");
+          }
+          return false;
+        }
+      } else {
+        if (sendMessage) {
+          I18n.tl(player, "messages.disabled-in-world");
+        }
+        return false;
+      }
+    }
+    return true;
+  }
+
 }

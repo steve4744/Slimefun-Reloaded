@@ -5,6 +5,8 @@ import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.research.Research;
+import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -72,8 +74,25 @@ public class DebugCommand implements CommandExecutor {
         return true;
       }
       player.sendMessage("A category with the name " + name + " exists");
+    } else if (args[0].equals("research")) {
+      if (args.length == 1) {
+        player.sendMessage("You did not enter enough arguments");
+        return true;
+      }
+      ResearchManager researchManager = Slimefun.getResearchManager();
+      if (args[0].equals("list")) {
+        player.sendMessage(StringUtils.join(researchManager.getResearchNames(), ", "));
+        return true;
+      }
+      String name = args[1];
+      Research research = researchManager.getResearchByNamespace(name);
+      if (research == null) {
+        player.sendMessage("A research with the name " + name + " doesn't exist");
+        return true;
+      }
+      player.sendMessage("A research with the name " + name + " exists");
     } else {
-      player.sendMessage("Usage: /debug <component <give <name>|list>|category <list|name>>");
+      player.sendMessage("Usage: /debug <component <give <name>|list>|category <list|name>|research <list|name>>");
       player.sendMessage("Examples:");
       player.sendMessage("/debug component give grandmas_walking_stick");
       player.sendMessage("/debug component list");

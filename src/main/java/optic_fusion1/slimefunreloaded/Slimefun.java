@@ -26,6 +26,7 @@ import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public final class Slimefun {
@@ -243,5 +244,27 @@ public final class Slimefun {
   public static GPSNetwork getGPSNetwork(){
     return plugin.getGPSNetwork();
   }
+
+  public static boolean hasUnlocked(Player player, ItemStack item, boolean sendMessage) {
+    return plugin.hasUnlocked(player, item, sendMessage);
+  }
+
+  public static boolean hasUnlocked(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
+    return plugin.hasUnlocked(player, component, sendMessage);
+  }
+
+  public static boolean hasPermission(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
+    return plugin.hasPermission(player, component, sendMessage);
+  }
+
+  public static boolean isEnabled(Player player, ItemStack item, boolean sendMessage) {
+    return plugin.isEnabled(player, item, sendMessage);
+  }
+
+  public static boolean isEnabled(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
+    return plugin.isEnabled(player, component, sendMessage);
+  }
+  
+  
   
 }

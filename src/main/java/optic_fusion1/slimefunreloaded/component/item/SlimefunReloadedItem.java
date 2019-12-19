@@ -1,7 +1,6 @@
 package optic_fusion1.slimefunreloaded.component.item;
 
 import java.util.List;
-import java.util.Objects;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -9,9 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
-import optic_fusion1.slimefunreloaded.util.ItemUtils;
-import optic_fusion1.slimefunreloaded.util.material.MaterialCollections;
-import org.bukkit.Material;
+import optic_fusion1.slimefunreloaded.util.Utils;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -83,6 +80,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param player the player
    * @param entity the entity killed
    * @param item the item
+   * @param drops the entity drops
    */
   public void onKill(Player player, Entity entity, ItemStack item, List<ItemStack> drops) {
   }
@@ -122,20 +120,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param replaceConsumables	Whether Items should be replaced with their "empty" version
    */
   public static void consumeItem(ItemStack item, int amount, boolean replaceConsumables) {
-    Objects.requireNonNull(item, "Required item, received null instead");
-    if (item.getType() != Material.AIR && item.getAmount() > 0) {
-      if (MaterialCollections.getAllFilledBuckets().contains(item.getType()) && replaceConsumables) {
-        item.setType(Material.BUCKET);
-        item.setAmount(1);
-      } else if (item.getType() == Material.POTION && replaceConsumables) {
-        item.setType(Material.GLASS_BOTTLE);
-        item.setAmount(1);
-      } else if (item.getAmount() <= amount) {
-        item.setAmount(0);
-      } else {
-        item.setAmount(item.getAmount() - amount);
-      }
-    }
+    Utils.consumeItem(item, amount, replaceConsumables);
   }
 
 }
