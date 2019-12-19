@@ -18,7 +18,7 @@ public class PortableGEOScanner extends SlimefunReloadedItem {
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     //e.setCancelled(true);
-    GEOScanner.scanChunk(player, player.getLocation().getChunk());
+//    GEOScanner.scanChunk(player, player.getLocation().getChunk());
     return true;
   }
 

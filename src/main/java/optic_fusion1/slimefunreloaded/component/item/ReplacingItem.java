@@ -10,7 +10,7 @@ public class ReplacingItem extends SlimefunReloadedItem {
 
   public ReplacingItem(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     super(key, category, item, recipeType, recipe);
-    this.setReplacing(true);
+//    this.setReplacing(true);
   }
 
 }

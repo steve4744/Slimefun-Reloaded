@@ -12,12 +12,12 @@ public final class SlimefunReloadedRecipes {
   }
 
   public static void registerMachineRecipe(String machine, int seconds, ItemStack[] input, ItemStack[] output) {
-    for (Map.Entry<String, SlimefunReloadedComponent> entry : Slimefun.getComponentManager().getComponents().entrySet()) {
-      SlimefunReloadedComponent component = entry.getValue();
-      if (component instanceof AContainer && ((AContainer) item).getMachineIdentifier().equals(machine)) {
-        ((AContainer) item).registerRecipe(seconds, input, output);      
-      }
-    }
+//    for (Map.Entry<String, SlimefunReloadedComponent> entry : Slimefun.getComponentManager().getComponents().entrySet()) {
+//      SlimefunReloadedComponent component = entry.getValue();
+//      if (component instanceof AContainer && ((AContainer) item).getMachineIdentifier().equals(machine)) {
+//        ((AContainer) item).registerRecipe(seconds, input, output);      
+//      }
+//    }
   }
 
 }

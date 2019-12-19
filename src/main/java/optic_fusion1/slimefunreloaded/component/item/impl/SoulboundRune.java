@@ -28,60 +28,60 @@ public class SoulboundRune extends SlimefunReloadedItem {
 
   @Override
   public boolean onDrop(Player player, Item item) {
-    if (!Slimefun.hasUnlocked(player, SlimefunReloadedItems.RUNE_SOULBOUND, true)) {
-      return true;
-    }
-
-    Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
-      // Being sure the entity is still valid and not picked up or whatsoever.
-      if (!item.isValid()) {
-        return;
-      }
-
-      Location l = item.getLocation();
-      Collection<Entity> entites = l.getWorld().getNearbyEntities(l, 1.5, 1.5, 1.5,
-       entity -> entity instanceof Item && !SlimefunManager.isItemSoulbound(((Item) entity).getItemStack())
-       && !(((Item) entity).getItemStack()).isSimilar(SlimefunReloadedItems.RUNE_SOULBOUND)
-      );
-
-      if (entites.isEmpty()) {
-        return;
-      }
-
-      Entity entity = entites.stream().findFirst().get();
-      ItemStack ench = ((Item) entity).getItemStack();
-      Item ent = (Item) entity;
-
-      if (ench.getAmount() == 1) {
-        //e.setCancelled(true);
-        ItemMeta enchMeta = ench.getItemMeta();
-        List<String> lore = enchMeta.hasLore() ? enchMeta.getLore() : new ArrayList<>();
-
-        // This lightning is just an effect, it deals no damage.
-        l.getWorld().strikeLightningEffect(l);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
-
-          // Being sure entities are still valid and not picked up or whatsoever.
-          if (item.isValid() && ent.isValid()) {
-
-            l.getWorld().createExplosion(l, 0.0F);
-            l.getWorld().playSound(l, Sound.ENTITY_GENERIC_EXPLODE, 0.3F, 1F);
-
-            lore.add(ChatColor.GRAY + "Soulbound");
-
-            enchMeta.setLore(lore);
-            ench.setItemMeta(enchMeta);
-
-            ent.remove();
-            item.remove();
-            l.getWorld().dropItemNaturally(l, ench);
-            I18n.tl(player, "messages.soulbound-rune.success");
-          }
-        }, 10L);
-      } else {
-        I18n.tl(player, "messages.soulbound-rune.sucess");
-      }
-    }, 20L);
+//    if (!Slimefun.hasUnlocked(player, SlimefunReloadedItems.RUNE_SOULBOUND, true)) {
+//      return true;
+//    }
+//
+//    Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
+//      // Being sure the entity is still valid and not picked up or whatsoever.
+//      if (!item.isValid()) {
+//        return;
+//      }
+//
+//      Location l = item.getLocation();
+//      Collection<Entity> entites = l.getWorld().getNearbyEntities(l, 1.5, 1.5, 1.5,
+//       entity -> entity instanceof Item && !SlimefunManager.isItemSoulbound(((Item) entity).getItemStack())
+//       && !(((Item) entity).getItemStack()).isSimilar(SlimefunReloadedItems.RUNE_SOULBOUND)
+//      );
+//
+//      if (entites.isEmpty()) {
+//        return;
+//      }
+//
+//      Entity entity = entites.stream().findFirst().get();
+//      ItemStack ench = ((Item) entity).getItemStack();
+//      Item ent = (Item) entity;
+//
+//      if (ench.getAmount() == 1) {
+//        //e.setCancelled(true);
+//        ItemMeta enchMeta = ench.getItemMeta();
+//        List<String> lore = enchMeta.hasLore() ? enchMeta.getLore() : new ArrayList<>();
+//
+//        // This lightning is just an effect, it deals no damage.
+//        l.getWorld().strikeLightningEffect(l);
+//        Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
+//
+//          // Being sure entities are still valid and not picked up or whatsoever.
+//          if (item.isValid() && ent.isValid()) {
+//
+//            l.getWorld().createExplosion(l, 0.0F);
+//            l.getWorld().playSound(l, Sound.ENTITY_GENERIC_EXPLODE, 0.3F, 1F);
+//
+//            lore.add(ChatColor.GRAY + "Soulbound");
+//
+//            enchMeta.setLore(lore);
+//            ench.setItemMeta(enchMeta);
+//
+//            ent.remove();
+//            item.remove();
+//            l.getWorld().dropItemNaturally(l, ench);
+//            I18n.tl(player, "messages.soulbound-rune.success");
+//          }
+//        }, 10L);
+//      } else {
+//        I18n.tl(player, "messages.soulbound-rune.sucess");
+//      }
+//    }, 20L);
 
     return true;
   }

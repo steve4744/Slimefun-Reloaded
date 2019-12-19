@@ -134,15 +134,15 @@ public class BlockStorage {
                 }
                 storage.put(l, blockInfo);
 
-                if (SlimefunReloadedItem.isTicking(file.getName().replace(".sfb", ""))) {
-                  Set<Location> locations = Slimefun.getTickingChunks().getOrDefault(chunkString, new HashSet<>());
-                  locations.add(l);
-                  Slimefun.getTickingChunks().put(chunkString, locations);
-
-                  if (!Slimefun.getLoadedTickers().contains(chunkString)) {
-                    Slimefun.getLoadedTickers().add(chunkString);
-                  }
-                }
+//                if (SlimefunReloadedItem.isTicking(file.getName().replace(".sfb", ""))) {
+//                  Set<Location> locations = Slimefun.getTickingChunks().getOrDefault(chunkString, new HashSet<>());
+//                  locations.add(l);
+//                  Slimefun.getTickingChunks().put(chunkString, locations);
+//
+//                  if (!Slimefun.getLoadedTickers().contains(chunkString)) {
+//                    Slimefun.getLoadedTickers().add(chunkString);
+//                  }
+//                }
               } catch (Exception x) {
                 Slimefun.getLogger().log(Level.WARNING, "Failed to load " + file.getName() + '(' + key + ") for Slimefun " + Slimefun.getVersion(), x);
               }
@@ -462,7 +462,7 @@ public class BlockStorage {
   }
 
   public static void clearBlockInfo(Location l, boolean destroy) {
-    Slimefun.getTicker().delete.put(l, destroy);
+//    Slimefun.getTicker().delete.put(l, destroy);
   }
 
   public static void _integrated_removeBlockInfo(Location l, boolean destroy) {
@@ -495,7 +495,7 @@ public class BlockStorage {
   }
 
   public static void moveBlockInfo(Location from, Location to) {
-    Slimefun.getTicker().move.put(from, to);
+//    Slimefun.getTicker().move.put(from, to);
   }
 
   public static void _integrated_moveLocationInfo(Location from, Location to) {

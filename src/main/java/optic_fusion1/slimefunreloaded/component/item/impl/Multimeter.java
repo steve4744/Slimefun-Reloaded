@@ -19,12 +19,12 @@ public class Multimeter extends SlimefunReloadedItem {
 
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
-    if (clickedBlock != null && ChargableBlock.isChargable(clickedBlock)) {
-      player.sendMessage("");
-      player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bStored Energy: &3" + DoubleHandler.getFancyDouble(ChargableBlock.getCharge(clickedBlock)) + " J"));
-      player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bCapacity: &3" + DoubleHandler.getFancyDouble(ChargableBlock.getMaxCharge(clickedBlock)) + " J"));
-      player.sendMessage("");
-    }
+//    if (clickedBlock != null && ChargableBlock.isChargable(clickedBlock)) {
+//      player.sendMessage("");
+//      player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bStored Energy: &3" + DoubleHandler.getFancyDouble(ChargableBlock.getCharge(clickedBlock)) + " J"));
+//      player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bCapacity: &3" + DoubleHandler.getFancyDouble(ChargableBlock.getMaxCharge(clickedBlock)) + " J"));
+//      player.sendMessage("");
+//    }
     return true;
   }
 

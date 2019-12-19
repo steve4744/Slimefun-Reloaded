@@ -54,111 +54,111 @@ public class TickerTask implements Runnable {
 
   @Override
   public void run() {
-    if (running) {
-      return;
-    }
-
-    running = true;
-    long timestamp = System.nanoTime();
-
-    skipped = 0;
-    chunks = 0;
-    machines = 0;
-    chunkItemCount.clear();
-    machineCount.clear();
-    time = 0;
-    chunkTimings.clear();
-    chunksSkipped.clear();
-    machineTimings.clear();
-    blockTimings.clear();
-
-    final Map<Location, Integer> bugged = new HashMap<>(buggedBlocks);
-    buggedBlocks.clear();
-
-    Map<Location, Boolean> remove = new HashMap<>(delete);
-
-    for (Map.Entry<Location, Boolean> entry : remove.entrySet()) {
-      BlockStorage._integrated_removeBlockInfo(entry.getKey(), entry.getValue());
-      delete.remove(entry.getKey());
-    }
-
-    if (!halted) {
-      for (final String c : BlockStorage.getTickingChunks()) {
-        long timestamp2 = System.nanoTime();
-        chunks++;
-
-        for (final Location l : BlockStorage.getTickingLocations(c)) {
-          if (l.getWorld().isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) {
-            final Block b = l.getBlock();
-            final SlimefunReloadedComponent item = BlockStorage.check(l);
-
-            if (item != null && item.getBlockTicker() != null) {
-              machines++;
-
-              try {
-                item.getBlockTicker().update();
-
-                if (item.getBlockTicker().isSynchronized()) {
-                  Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
-                    try {
-                      long timestamp3 = System.nanoTime();
-                      item.getBlockTicker().tick(b, item, BlockStorage.getLocationInfo(l));
-
-                      Long machinetime = machineTimings.get(item.getID());
-                      Integer chunk = chunkItemCount.get(c);
-                      Integer machine = machineCount.get(item.getID());
-
-                      machineTimings.put(item.getID(), (machinetime != null ? machinetime : 0) + (System.nanoTime() - timestamp3));
-                      chunkItemCount.put(c, (chunk != null ? chunk : 0) + 1);
-                      machineCount.put(item.getID(), (machine != null ? machine : 0) + 1);
-                      blockTimings.put(l, System.nanoTime() - timestamp3);
-                    } catch (Exception x) {
-                      int errors = bugged.getOrDefault(l, 0);
-                      reportErrors(l, item, x, errors);
-                    }
-                  });
-                } else {
-                  long timestamp3 = System.nanoTime();
-                  item.getBlockTicker().tick(b, item, BlockStorage.getLocationInfo(l));
-
-                  machineTimings.merge(item.getID(), (System.nanoTime() - timestamp3), Long::sum);
-                  chunkItemCount.merge(c, 1, Integer::sum);
-                  machineCount.merge(item.getID(), 1, Integer::sum);
-                  blockTimings.put(l, System.nanoTime() - timestamp3);
-                }
-                tickers.add(item.getBlockTicker());
-              } catch (Exception x) {
-                int errors = bugged.getOrDefault(l, 0);
-                reportErrors(l, item, x, errors);
-              }
-            } else {
-              skipped++;
-            }
-          } else {
-            skipped += BlockStorage.getTickingLocations(c).size();
-            chunksSkipped.add(c);
-            chunks--;
-            break;
-          }
-        }
-
-        chunkTimings.put(c, System.nanoTime() - timestamp2);
-      }
-    }
-
-    for (Map.Entry<Location, Location> entry : move.entrySet()) {
-      BlockStorage._integrated_moveLocationInfo(entry.getKey(), entry.getValue());
-    }
-    move.clear();
-
-    Iterator<BlockTicker> iterator = tickers.iterator();
-    while (iterator.hasNext()) {
-      iterator.next().startNewTick();
-      iterator.remove();
-    }
-
-    time = System.nanoTime() - timestamp;
-    running = false;
+//    if (running) {
+//      return;
+//    }
+//
+//    running = true;
+//    long timestamp = System.nanoTime();
+//
+//    skipped = 0;
+//    chunks = 0;
+//    machines = 0;
+//    chunkItemCount.clear();
+//    machineCount.clear();
+//    time = 0;
+//    chunkTimings.clear();
+//    chunksSkipped.clear();
+//    machineTimings.clear();
+//    blockTimings.clear();
+//
+//    final Map<Location, Integer> bugged = new HashMap<>(buggedBlocks);
+//    buggedBlocks.clear();
+//
+//    Map<Location, Boolean> remove = new HashMap<>(delete);
+//
+//    for (Map.Entry<Location, Boolean> entry : remove.entrySet()) {
+//      BlockStorage._integrated_removeBlockInfo(entry.getKey(), entry.getValue());
+//      delete.remove(entry.getKey());
+//    }
+//
+//    if (!halted) {
+//      for (final String c : BlockStorage.getTickingChunks()) {
+//        long timestamp2 = System.nanoTime();
+//        chunks++;
+//
+//        for (final Location l : BlockStorage.getTickingLocations(c)) {
+//          if (l.getWorld().isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) {
+//            final Block b = l.getBlock();
+//            final SlimefunReloadedComponent item = BlockStorage.check(l);
+//
+//            if (item != null && item.getBlockTicker() != null) {
+//              machines++;
+//
+//              try {
+//                item.getBlockTicker().update();
+//
+//                if (item.getBlockTicker().isSynchronized()) {
+//                  Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
+//                    try {
+//                      long timestamp3 = System.nanoTime();
+//                      item.getBlockTicker().tick(b, item, BlockStorage.getLocationInfo(l));
+//
+//                      Long machinetime = machineTimings.get(item.getID());
+//                      Integer chunk = chunkItemCount.get(c);
+//                      Integer machine = machineCount.get(item.getID());
+//
+//                      machineTimings.put(item.getID(), (machinetime != null ? machinetime : 0) + (System.nanoTime() - timestamp3));
+//                      chunkItemCount.put(c, (chunk != null ? chunk : 0) + 1);
+//                      machineCount.put(item.getID(), (machine != null ? machine : 0) + 1);
+//                      blockTimings.put(l, System.nanoTime() - timestamp3);
+//                    } catch (Exception x) {
+//                      int errors = bugged.getOrDefault(l, 0);
+//                      reportErrors(l, item, x, errors);
+//                    }
+//                  });
+//                } else {
+//                  long timestamp3 = System.nanoTime();
+//                  item.getBlockTicker().tick(b, item, BlockStorage.getLocationInfo(l));
+//
+//                  machineTimings.merge(item.getID(), (System.nanoTime() - timestamp3), Long::sum);
+//                  chunkItemCount.merge(c, 1, Integer::sum);
+//                  machineCount.merge(item.getID(), 1, Integer::sum);
+//                  blockTimings.put(l, System.nanoTime() - timestamp3);
+//                }
+//                tickers.add(item.getBlockTicker());
+//              } catch (Exception x) {
+//                int errors = bugged.getOrDefault(l, 0);
+//                reportErrors(l, item, x, errors);
+//              }
+//            } else {
+//              skipped++;
+//            }
+//          } else {
+//            skipped += BlockStorage.getTickingLocations(c).size();
+//            chunksSkipped.add(c);
+//            chunks--;
+//            break;
+//          }
+//        }
+//
+//        chunkTimings.put(c, System.nanoTime() - timestamp2);
+//      }
+//    }
+//
+//    for (Map.Entry<Location, Location> entry : move.entrySet()) {
+//      BlockStorage._integrated_moveLocationInfo(entry.getKey(), entry.getValue());
+//    }
+//    move.clear();
+//
+//    Iterator<BlockTicker> iterator = tickers.iterator();
+//    while (iterator.hasNext()) {
+//      iterator.next().startNewTick();
+//      iterator.remove();
+//    }
+//
+//    time = System.nanoTime() - timestamp;
+//    running = false;
   }
 
   private void reportErrors(Location l, SlimefunReloadedComponent item, Exception x, int errors) {
@@ -188,108 +188,108 @@ public class TickerTask implements Runnable {
   }
 
   public void info(CommandSender sender) {
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2== &aSlimefun Diagnostic Tool &2=="));
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Halted: &e&l" + String.valueOf(halted).toUpperCase()));
-    sender.sendMessage("");
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Impact: &e" + toMillis(time)));
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticked Chunks: &e" + chunks));
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticked Machines: &e" + machines));
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Skipped Machines: &e" + skipped));
-    sender.sendMessage("");
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticking Machines:"));
-
-    List<Map.Entry<String, Long>> timings = machineCount.keySet().stream()
-     .map(key -> new AbstractMap.SimpleEntry<>(key, machineTimings.getOrDefault(key, 0L)))
-     .sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
-     .collect(Collectors.toList());
-
-    if (sender instanceof Player) {
-      TellRawMessage tellraw = new TellRawMessage();
-      tellraw.addText("   &7&oHover for more Info");
-      StringBuilder hover = new StringBuilder();
-      int hidden = 0;
-
-      for (Map.Entry<String, Long> entry : timings) {
-        int count = machineCount.get(entry.getKey());
-        if (entry.getValue() > 500_000) {
-          hover.append("\n&c").append(entry.getKey()).append(" - ")
-           .append(count).append("x &7(").append(toMillis(entry.getValue())).append(", ")
-           .append(toMillis(entry.getValue() / count)).append(" avg/machine)");
-        } else {
-          hidden++;
-        }
-      }
-
-      hover.append("\n\n&c+ &4").append(hidden).append(" Hidden");
-      tellraw.addHoverEvent(HoverAction.SHOW_TEXT, hover.toString());
-
-      try {
-        tellraw.send((Player) sender);
-      } catch (Exception x) {
-        Slimefun.getLogger().log(Level.SEVERE, "An Error occurred while sending a Timings Summary for Slimefun " + Slimefun.getVersion(), x);
-      }
-    } else {
-      int hidden = 0;
-
-      for (Map.Entry<String, Long> entry : timings) {
-        int count = machineCount.get(entry.getKey());
-        if (entry.getValue() > 500_000) {
-          sender.sendMessage(StringUtils.color("  &e" + entry.getKey() + " - " + count + "x &7(" + toMillis(entry.getValue()) + ", " + toMillis(entry.getValue() / count) + " avg/machine)"));
-        } else {
-          hidden++;
-        }
-      }
-
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c+ &4" + hidden + " Hidden"));
-    }
-
-    sender.sendMessage("");
-    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticking Chunks:"));
-
-    timings = chunkTimings.entrySet().stream()
-     .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-     .collect(Collectors.toList());
-
-    if (sender instanceof Player) {
-      TellRawMessage tellraw = new TellRawMessage();
-      tellraw.addText("   &7&oHover for more Info");
-      StringBuilder hover = new StringBuilder();
-      int hidden = 0;
-
-      for (Map.Entry<String, Long> entry : timings) {
-        if (!chunksSkipped.contains(entry.getKey())) {
-          if (entry.getValue() > 0) {
-            hover.append("\n&c").append(entry.getKey().replace("CraftChunk", "")).append(" - ")
-             .append(chunkItemCount.getOrDefault(entry.getKey(), 0))
-             .append("x &7(").append(toMillis(entry.getValue())).append(")");
-          } else {
-            hidden++;
-          }
-        }
-      }
-
-      hover.append("\n\n&c+ &4").append(hidden).append(" Hidden");
-      tellraw.addHoverEvent(HoverAction.SHOW_TEXT, hover.toString());
-
-      try {
-        tellraw.send((Player) sender);
-      } catch (Exception x) {
-        Slimefun.getLogger().log(Level.SEVERE, "An Error occurred while sending a Timings Summary for Slimefun " + Slimefun.getVersion(), x);
-      }
-    } else {
-      int hidden = 0;
-      for (Map.Entry<String, Long> entry : timings) {
-        if (!chunksSkipped.contains(entry.getKey())) {
-          if (entry.getValue() > 0) {
-            sender.sendMessage("  &c" + entry.getKey().replace("CraftChunk", "") + " - "
-             + (chunkItemCount.getOrDefault(entry.getKey(), 0)) + "x &7(" + toMillis(entry.getValue()) + ")");
-          } else {
-            hidden++;
-          }
-        }
-      }
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c+ &4" + hidden + " Hidden"));
-    }
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2== &aSlimefun Diagnostic Tool &2=="));
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Halted: &e&l" + String.valueOf(halted).toUpperCase()));
+//    sender.sendMessage("");
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Impact: &e" + toMillis(time)));
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticked Chunks: &e" + chunks));
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticked Machines: &e" + machines));
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Skipped Machines: &e" + skipped));
+//    sender.sendMessage("");
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticking Machines:"));
+//
+//    List<Map.Entry<String, Long>> timings = machineCount.keySet().stream()
+//     .map(key -> new AbstractMap.SimpleEntry<>(key, machineTimings.getOrDefault(key, 0L)))
+//     .sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
+//     .collect(Collectors.toList());
+//
+//    if (sender instanceof Player) {
+//      TellRawMessage tellraw = new TellRawMessage();
+//      tellraw.addText("   &7&oHover for more Info");
+//      StringBuilder hover = new StringBuilder();
+//      int hidden = 0;
+//
+//      for (Map.Entry<String, Long> entry : timings) {
+//        int count = machineCount.get(entry.getKey());
+//        if (entry.getValue() > 500_000) {
+//          hover.append("\n&c").append(entry.getKey()).append(" - ")
+//           .append(count).append("x &7(").append(toMillis(entry.getValue())).append(", ")
+//           .append(toMillis(entry.getValue() / count)).append(" avg/machine)");
+//        } else {
+//          hidden++;
+//        }
+//      }
+//
+//      hover.append("\n\n&c+ &4").append(hidden).append(" Hidden");
+//      tellraw.addHoverEvent(HoverAction.SHOW_TEXT, hover.toString());
+//
+//      try {
+//        tellraw.send((Player) sender);
+//      } catch (Exception x) {
+//        Slimefun.getLogger().log(Level.SEVERE, "An Error occurred while sending a Timings Summary for Slimefun " + Slimefun.getVersion(), x);
+//      }
+//    } else {
+//      int hidden = 0;
+//
+//      for (Map.Entry<String, Long> entry : timings) {
+//        int count = machineCount.get(entry.getKey());
+//        if (entry.getValue() > 500_000) {
+//          sender.sendMessage(StringUtils.color("  &e" + entry.getKey() + " - " + count + "x &7(" + toMillis(entry.getValue()) + ", " + toMillis(entry.getValue() / count) + " avg/machine)"));
+//        } else {
+//          hidden++;
+//        }
+//      }
+//
+//      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c+ &4" + hidden + " Hidden"));
+//    }
+//
+//    sender.sendMessage("");
+//    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Ticking Chunks:"));
+//
+//    timings = chunkTimings.entrySet().stream()
+//     .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+//     .collect(Collectors.toList());
+//
+//    if (sender instanceof Player) {
+//      TellRawMessage tellraw = new TellRawMessage();
+//      tellraw.addText("   &7&oHover for more Info");
+//      StringBuilder hover = new StringBuilder();
+//      int hidden = 0;
+//
+//      for (Map.Entry<String, Long> entry : timings) {
+//        if (!chunksSkipped.contains(entry.getKey())) {
+//          if (entry.getValue() > 0) {
+//            hover.append("\n&c").append(entry.getKey().replace("CraftChunk", "")).append(" - ")
+//             .append(chunkItemCount.getOrDefault(entry.getKey(), 0))
+//             .append("x &7(").append(toMillis(entry.getValue())).append(")");
+//          } else {
+//            hidden++;
+//          }
+//        }
+//      }
+//
+//      hover.append("\n\n&c+ &4").append(hidden).append(" Hidden");
+//      tellraw.addHoverEvent(HoverAction.SHOW_TEXT, hover.toString());
+//
+//      try {
+//        tellraw.send((Player) sender);
+//      } catch (Exception x) {
+//        Slimefun.getLogger().log(Level.SEVERE, "An Error occurred while sending a Timings Summary for Slimefun " + Slimefun.getVersion(), x);
+//      }
+//    } else {
+//      int hidden = 0;
+//      for (Map.Entry<String, Long> entry : timings) {
+//        if (!chunksSkipped.contains(entry.getKey())) {
+//          if (entry.getValue() > 0) {
+//            sender.sendMessage("  &c" + entry.getKey().replace("CraftChunk", "") + " - "
+//             + (chunkItemCount.getOrDefault(entry.getKey(), 0)) + "x &7(" + toMillis(entry.getValue()) + ")");
+//          } else {
+//            hidden++;
+//          }
+//        }
+//      }
+//      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c+ &4" + hidden + " Hidden"));
+//    }
   }
 
   public long getTimings(Block b) {

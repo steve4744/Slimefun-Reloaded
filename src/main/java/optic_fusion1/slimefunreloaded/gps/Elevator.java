@@ -76,7 +76,7 @@ public final class Elevator {
       }
     }
     if (index > 2) {
-      new CustomBookOverlay("Elevator", "Slimefun", tellraw).open(p);
+//      new CustomBookOverlay("Elevator", "Slimefun", tellraw).open(p);
     } else {
       I18n.tl(p, "machines.ELEVATOR.no-destinations");
     }

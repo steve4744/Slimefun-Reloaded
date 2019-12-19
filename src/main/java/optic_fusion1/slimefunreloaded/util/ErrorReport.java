@@ -106,7 +106,7 @@ public class ErrorReport {
       stream.println("  State: " + l.getBlock().getState().getClass().getName());
       stream.println();
       stream.println("Ticker-Info:");
-      stream.println("  Type: " + (item.getBlockTicker().isSynchronized() ? "Synchronized" : "Asynchronous"));
+//      stream.println("  Type: " + (item.getBlockTicker().isSynchronized() ? "Synchronized" : "Asynchronous"));
       stream.println("  Object Dump: " + task.toString());
       stream.println();
       stream.println("Slimefun Data:");
