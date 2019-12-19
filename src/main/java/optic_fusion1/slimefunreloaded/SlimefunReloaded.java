@@ -95,14 +95,6 @@ public class SlimefunReloaded extends JavaPlugin {
   private String version;
   public final Map<UUID, PlayerProfile> profiles = new HashMap<>();
 
-  //Required for the GrapplingHook
-  public final Map<UUID, Boolean> jumpState = new HashMap<>();
-  //Required for the GrapplingHook
-  public final Map<UUID, ItemStack> arrows = new HashMap<>();
-  //Required for the GrapplingHook
-  public final Set<UUID> damage = new HashSet<>();
-  //Required for the GrapplingHook
-  public final Map<UUID, Entity[]> remove = new HashMap<>();
   //Required for the SeismicAxe
   public final List<UUID> blocks = new ArrayList<>();
 
@@ -360,26 +352,6 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public SlimefunReloadedHooks getSlimefunReloadedHooks() {
     return slimefunReloadedHooks;
-  }
-
-  //Required for the GrapplingHook
-  public Map<UUID, Boolean> getJumpState() {
-    return jumpState;
-  }
-
-  //Required for the GrapplingHook
-  public Map<UUID, ItemStack> getArrows() {
-    return arrows;
-  }
-
-  //Required for the GrapplingHook
-  public Set<UUID> getDamage() {
-    return damage;
-  }
-
-  //Required for the GrapplingHook
-  public Map<UUID, Entity[]> getRemove() {
-    return remove;
   }
 
   public RecipeSnapshot getMinecraftRecipes() {

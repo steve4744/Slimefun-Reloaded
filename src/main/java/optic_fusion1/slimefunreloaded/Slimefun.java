@@ -25,7 +25,6 @@ import optic_fusion1.slimefunreloaded.util.CustomItemDataService;
 import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -174,26 +173,6 @@ public final class Slimefun {
 
   public static SlimefunReloadedHooks getSlimefunReloadedHooks() {
     return plugin.getSlimefunReloadedHooks();
-  }
-
-  //Required for the GrapplingHook
-  public static Map<UUID, Boolean> getJumpState() {
-    return plugin.getJumpState();
-  }
-
-  //Required for the GrapplingHook
-  public static Map<UUID, ItemStack> getArrows() {
-    return plugin.getArrows();
-  }
-
-  //Required for the GrapplingHook
-  public static Set<UUID> getDamage() {
-    return plugin.getDamage();
-  }
-
-  //Required for the GrapplingHook
-  public static Map<UUID, Entity[]> getRemove() {
-    return plugin.getRemove();
   }
 
   public static RecipeSnapshot getMinecraftRecipes() {

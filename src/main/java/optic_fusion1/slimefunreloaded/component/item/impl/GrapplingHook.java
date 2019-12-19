@@ -1,5 +1,9 @@
 package optic_fusion1.slimefunreloaded.component.item.impl;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.Category;
@@ -22,6 +26,10 @@ import org.bukkit.util.Vector;
 
 public class GrapplingHook extends SlimefunReloadedItem {
 
+  private Map<UUID, Boolean> jumpState = new HashMap<>();
+  private Map<UUID, ItemStack> arrows = new HashMap<>();
+  private Set<UUID> damage = new HashSet<>();
+  private Map<UUID, Entity[]> remove = new HashMap<>();
   private long despawnTicks;
 
   public GrapplingHook(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -33,13 +41,13 @@ public class GrapplingHook extends SlimefunReloadedItem {
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     UUID uuid = player.getUniqueId();
 
-    if (clickedBlock == null && !Slimefun.getJumpState().containsKey(uuid)) {
+    if (clickedBlock == null && !jumpState.containsKey(uuid)) {
       //e.setCancelled(true);
       if (player.getInventory().getItemInOffHand().getType() == Material.BOW) {
         // Cancel, to fix dupe #740
         return false;
       }
-      Slimefun.getJumpState().put(uuid, player.getInventory().getItemInMainHand().getType() != Material.SHEARS);
+      jumpState.put(uuid, player.getInventory().getItemInMainHand().getType() != Material.SHEARS);
 
       if (item.getType() == Material.LEAD) {
         item.setAmount(item.getAmount() - 1);
@@ -56,24 +64,24 @@ public class GrapplingHook extends SlimefunReloadedItem {
       b.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 100000));
       b.setLeashHolder(arrow);
 
-      Slimefun.getDamage().add(uuid);
-      Slimefun.getRemove().put(uuid, new Entity[]{b, arrow});
+      damage.add(uuid);
+      remove.put(uuid, new Entity[]{b, arrow});
 
       // To fix issue #253
       Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
-        if (Slimefun.getJumpState().containsKey(uuid)) {
-          Slimefun.getArrows().remove(uuid);
+        if (jumpState.containsKey(uuid)) {
+          arrows.remove(uuid);
 
-          for (Entity n : Slimefun.getRemove().get(uuid)) {
+          for (Entity n : remove.get(uuid)) {
             if (n.isValid()) {
               n.remove();
             }
           }
 
           Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), () -> {
-            Slimefun.getDamage().remove(uuid);
-            Slimefun.getJumpState().remove(uuid);
-            Slimefun.getRemove().remove(uuid);
+            damage.remove(uuid);
+            jumpState.remove(uuid);
+            remove.remove(uuid);
           }, 20L);
         }
       }, despawnTicks);
