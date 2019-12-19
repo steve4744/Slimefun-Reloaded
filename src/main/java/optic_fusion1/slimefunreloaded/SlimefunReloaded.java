@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
 import optic_fusion1.slimefunreloaded.gps.GPSNetwork;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
+import optic_fusion1.slimefunreloaded.category.CategoryRegistery;
 import optic_fusion1.slimefunreloaded.command.DebugCommand;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
@@ -146,7 +147,7 @@ public class SlimefunReloaded extends JavaPlugin {
 //    MiscSetup.loadDescriptions();
     ResearchRegistry.registerResearches();
     ComponentRegistry.registerComponents();
-
+    CategoryRegistery.registerCategories();
     //TEMP DEBUG COMMAND
     Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
   }

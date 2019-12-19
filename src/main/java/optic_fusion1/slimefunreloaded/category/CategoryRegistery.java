@@ -13,7 +13,7 @@ public class CategoryRegistery {
   private static final CategoryManager CATEGORY_MANAGER = Slimefun.getCategoryManager();
   private static final String LORE = "&a> Click to open";
 
-  public void registerCategories() {
+  public static void registerCategories() {
     register(new Category("WEAPONS", new CustomItem(Material.GOLDEN_SWORD, "&7Weapons", LORE), 1));
     register(new Category("PORTABLE", new CustomItem(SlimefunReloadedItems.BACKPACK_MEDIUM, "&7Items", "", LORE), 1));
     register(new Category("FOOD", new CustomItem(Material.APPLE, "&7Food", "", LORE), 2));
@@ -40,7 +40,7 @@ public class CategoryRegistery {
     register(new SeasonalCategory("EASTER", new CustomItem(Material.EGG, "&6Easter", "", "&a> Click to paint some eggs"), 4, 2));
   }
 
-  private void register(Category category) {
+  public static void register(Category category) {
     CATEGORY_MANAGER.addCategory(category);
   }
 
