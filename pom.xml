@@ -1,120 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>optic_fusion1</groupId>
-    <artifactId>SlimeFun-Reloaded</artifactId>
-    <version>1</version>
-    <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <configuration>
-                                <minimizeJar>true</minimizeJar>
-                            </configuration>
-                            <finalName>${project.artifactId}</finalName>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>org.spigotmc:spigot-api</exclude>
-                                    <exclude>org.bukkit:craftbukkit</exclude>
-                                    <exclude>net.md-5:bungeecord-chat</exclude>
-                                    <exclude>me.clip:placeholderapi</exclude>
-                                    <exclude>org.yaml:snakeyaml</exclude>
-                                    <exclude>com.google.code.gson:gson</exclude>
-                                    <exclude>com.google.guava:guava</exclude>
-                                    <exclude>org.hamcrest:hamcrest-core</exclude>
-                                    <exclude>junit:junit</exclude>
-                                    <exclude>com.googlecode.json-simple:json-simple</exclude>
-                                    <exclude>commons-lang:commons-lang</exclude>
-                                </excludes>
-                            </artifactSet>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>optic_fusion1.slimefunreloaded.SlimefunReloaded</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
+	<packaging>jar</packaging>
+	
+	<groupId>optic_fusion1</groupId>
+	<artifactId>SlimeFun-Reloaded</artifactId>
+	<version>1</version>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	
     <repositories>
+		<!-- PaperMC Repository -->
         <repository>
             <id>paper-repo</id>
             <url>https://repo.destroystokyo.com/repository/maven-public/</url>
         </repository>
+		
+		<!-- SpigotMC Repository -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+		
+		<!-- Jitpack -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+		
+		<!-- sk89q Repository -->
         <repository>
             <id>worldedit-worldguard-repo</id>
             <url>https://maven.sk89q.com/repo/</url>
         </repository>
+		
+		<!-- CodeMC Repository -->
         <repository>
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
+		
+		<!-- PlaceholderAPI Repository -->
         <repository>
             <id>placeholderapi-repo</id>
             <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+		
+		<!-- PaperMC Repository 2 -->
         <repository>
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
+		
+		<!-- Tastybento Bintray Repository -->
         <repository>
             <id>bintray-tastybento-maven-repo</id>
             <name>bintray</name>
             <url>http://dl.bintray.com/tastybento/maven-repo</url>
         </repository>
+		
+		<!-- CoreProtect Repository -->
         <repository>
             <id>coreprotect-repo</id>
             <url>https://maven.playpro.com/</url>
         </repository>
+		
+		<!-- Redprotect Repository -->
         <repository>
             <id>redprotect-repo</id>
             <url>https://raw.github.com/FabioZumbi12/RedProtect/mvn-repo/</url>
         </repository>
+		
+		<!-- PlotSquared Repository -->
         <repository>
             <id>plotsquared-ci</id>
             <url>http://ci.athion.net/job/PlotSquared-Releases/ws/mvn/</url>
         </repository>
+		
+		<!-- FactionsUUID Repository -->
         <repository>
             <id>FactionsUUID-repo</id>
             <url>https://ci.ender.zone/job/FactionsUUID/122/maven-repository/repository</url>
         </repository>
+		
+		<!-- Ruger Repository -->
         <repository>
             <id>rutger-repo</id>
             <url>http://www.rutgerkok.nl/repo</url>
         </repository>
     </repositories>
+	
     <dependencies>
+		<!-- MassiveCore -->
         <dependency>
             <groupId>com.massivecraft.massivecore</groupId>
             <artifactId>MassiveCore</artifactId>
@@ -122,6 +103,8 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/MassiveCore.jar</systemPath>
         </dependency>
+		
+		<!-- MassiveCore Factions -->
         <dependency>
             <groupId>com.massivecraft.factions</groupId>
             <artifactId>Factions</artifactId>
@@ -129,18 +112,24 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/Factions.jar</systemPath>
         </dependency>
+		
+		<!-- WorldEdit -->
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
             <version>7.0.1</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- PlaceholderAPI -->
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.10.4</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- ClearLag -->
         <dependency>
             <groupId>me.minebuilders</groupId>
             <artifactId>clearlag-core</artifactId>
@@ -148,97 +137,130 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/Clearlag.jar</systemPath>
         </dependency>
+		
         <!-- Protection Plugins -->
+		
+		<!-- WorldGuard -->
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-legacy</artifactId>
             <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- PreciousStones -->
         <dependency>
             <groupId>com.github.marcelo-mason</groupId>
             <artifactId>PreciousStones</artifactId>
             <version>24e3d4bf67</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- CoreProtect -->
         <dependency>
             <groupId>net.coreprotect</groupId>
             <artifactId>coreprotect</artifactId>
             <version>2.16.3</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- LogBlock -->
         <dependency>
             <groupId>com.github.LogBlock</groupId>
             <artifactId>LogBlock</artifactId>
             <version>d98d46d0c9</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- SimpleClans -->
         <dependency>
             <groupId>com.github.marcelo-mason</groupId>
             <artifactId>SimpleClans</artifactId>
             <version>7c3db52796</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- GriefPrevention -->
         <dependency>
             <groupId>com.github.TechFortress</groupId>
             <artifactId>GriefPrevention</artifactId>
             <version>16.12.0</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- ASkyBlock -->
         <dependency>
             <groupId>com.wasteofplastic</groupId>
             <artifactId>askyblock</artifactId>
             <version>3.0.9.4</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- LWC -->
         <dependency>
             <groupId>com.github.dmulloy2.LWC</groupId>
             <artifactId>lwc</artifactId>
             <version>master-4.5.1-g2100b5e-18</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- Towny -->
         <dependency>
             <groupId>com.github.LlmDl</groupId>
             <artifactId>Towny</artifactId>
             <version>1b86d017c5</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- Lockette -->
         <dependency>
             <groupId>com.github.fubira</groupId>
             <artifactId>Lockette</artifactId>
             <version>9dac96e8f8</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- PlotSquared -->
         <dependency>
             <groupId>com.github.intellectualsites.plotsquared</groupId>
             <artifactId>PlotSquared-API</artifactId>
             <version>4.226</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- RedProtect Core -->
         <dependency>
             <groupId>br.net.fabiozumbi12.RedProtect</groupId>
             <artifactId>RedProtect-Core</artifactId>
             <version>7.6.2</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- RedProtect Spigot -->
         <dependency>
             <groupId>br.net.fabiozumbi12.RedProtect</groupId>
             <artifactId>RedProtect-Spigot</artifactId>
             <version>7.6.2</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- BentoBox -->
         <dependency>
             <groupId>world.bentobox</groupId>
             <artifactId>bentobox</artifactId>
             <version>1.8.0</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- BlockLocker -->
         <dependency>
             <groupId>nl.rutgerkok</groupId>
             <artifactId>blocklocker</artifactId>
             <version>0.1</version>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- FactionsUUID -->
         <dependency>
             <groupId>com.massivecraft</groupId>
             <artifactId>Factions</artifactId>
@@ -246,15 +268,58 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
+		
+		<!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.15.1-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
         </dependency>
+		
+		<!-- Bukkit -->
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.15.1-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
         </dependency>
     </dependencies>
+	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.1</version>
+				
+				<configuration>
+					<minimizeJar>true</minimizeJar>
+					<transformers>
+						<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<mainClass>optic_fusion1.slimefunreloaded.SlimefunReloaded</mainClass>
+						</transformer>
+					</transformers>
+				</configuration>
+				
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
