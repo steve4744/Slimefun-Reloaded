@@ -16,4 +16,8 @@ public class SimpleSlimefunReloadedItem extends SlimefunReloadedItem {
     super(key, category, item, recipeType, recipe, keys, values);
   }
 
+  public SimpleSlimefunReloadedItem(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
+    super(key, category, item, recipeType, recipe, recipeOutput);
+  }
+
 }

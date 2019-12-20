@@ -42,6 +42,7 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   protected boolean useableInWorkbench = false;
   private String permission = "";
   private List<String> noPermissionTooltip;
+  private ItemStack recipeOutput;
 
   protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     this.key = key;
@@ -122,6 +123,11 @@ public abstract class SlimefunReloadedComponent implements Keyed {
         ITEM_CONFIG.setDefaultValue(componentKey + '.' + this.keys[i], this.values[i]);
       }
     }
+  }
+
+  protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
+    this(key, category, item, recipeType, recipe);
+    this.recipeOutput = recipeOutput;
   }
 
   @Override
@@ -219,9 +225,13 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   public boolean isDisabled() {
     return state != ComponentState.ENABLED;
   }
-  
-  public String getPermission(){
+
+  public String getPermission() {
     return permission;
+  }
+
+  public ItemStack getRecipeOutput() {
+    return recipeOutput;
   }
 
 }
