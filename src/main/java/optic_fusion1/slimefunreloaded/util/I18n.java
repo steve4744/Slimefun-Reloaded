@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -38,6 +39,10 @@ public class I18n {
 
   public static void tl(Player player, String string) {
     player.sendMessage(tl(string));
+  }
+
+  public static void tl(Player player, String string, UnaryOperator<String> function) {
+    player.sendMessage(tl(function.apply(string)));
   }
 
   public static void tl(Player player, String string, Object... objects) {
