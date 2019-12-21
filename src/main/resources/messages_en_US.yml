@@ -40,7 +40,7 @@ messages:
   - "&7Whatever you do, do not hug a Creeper... I tried it. It feels good, but it's not worth it."
  only-players: &4This Command is only for Players
  no-permission: &4You do not have the required Permission to do this
- usage: "&4Usage \: &c%usage%"
+ usage: "&4Usage : &c%usage%"
  not-online: &4%player% &cis not online!
  not-valid-item: &4%item% &cis not a valid Item!
  not-valid-amount: "&4%amount% &cis not a valid amount \: it must be higher than 0!"

@@ -110,12 +110,12 @@ public class SlimefunReloaded extends JavaPlugin {
     version = getDescription().getVersion();
     logger = getLogger();
     String nmsVersion = ReflectionUtils.getVersion();
-    if (!nmsVersion.startsWith("v1_14")) {
+    if (!nmsVersion.startsWith("v1_15")) {
       logger.severe("Slimefun Reloaded was not installed correctly!");
       logger.severe("You are using the wrong version of Minecraft!");
       logger.log(Level.SEVERE, "You are using Minecraft {0}", nmsVersion);
       logger.log(Level.SEVERE, "but Slimefun Reloaded v{0} requires you to be using", getDescription().getVersion());
-      logger.severe("Minecraft 1.14");
+      logger.severe("Minecraft 1.15");
       logger.severe("Please use an older version of Slimefun or Slimefun Reloaded and disable auto-updating");
       logger.severe("or consider updating your server software");
       Bukkit.getPluginManager().disablePlugin(this);
