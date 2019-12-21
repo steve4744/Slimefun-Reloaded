@@ -23,7 +23,7 @@ public final class OreGenSystem {
     return resources.values();
   }
 
-  public  void registerResource(OreGenResource resource) {
+  public static void registerResource(OreGenResource resource) {
     Config cfg = new Config("plugins/Slimefun/generators/" + resource.getName() + ".yml");
     cfg.setDefaultValue("enabled", true);
 
