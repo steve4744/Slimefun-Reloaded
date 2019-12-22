@@ -167,7 +167,7 @@ public final class ResearchRegistry {
     register(new Research(new NamespacedKey(PLUGIN, "Holograms"), 36));
     register(new Research(new NamespacedKey(PLUGIN, "Tier_1_Capacitors"), 25));
     register(new Research(new NamespacedKey(PLUGIN, "Tier_2_Capacitors"), 32));
-    register(new Research(new NamespacedKey(PLUGIN, "Solar Power_Plant"), 14));
+    register(new Research(new NamespacedKey(PLUGIN, "Solar_Power_Plant"), 14));
     register(new Research(new NamespacedKey(PLUGIN, "Powered_Furnace"), 15));
     register(new Research(new NamespacedKey(PLUGIN, "Crushing_and_Grinding"), 20));
     register(new Research(new NamespacedKey(PLUGIN, "Heated_Pressure_Chamber"), 22));

@@ -17,7 +17,7 @@ public class CategoryRegistery {
     register(new Category("WEAPONS", new CustomItem(Material.GOLDEN_SWORD, "&7Weapons", LORE), 1));
     register(new Category("PORTABLE", new CustomItem(SlimefunReloadedItems.BACKPACK_MEDIUM, "&7Items", "", LORE), 1));
     register(new Category("FOOD", new CustomItem(Material.APPLE, "&7Food", "", LORE), 2));
-    register(new Category("BASIC MACHINES", new CustomItem(Material.SMITHING_TABLE, "&7Basic Machines", "", LORE), 1));
+    register(new Category("BASIC_MACHINES", new CustomItem(Material.SMITHING_TABLE, "&7Basic Machines", "", LORE), 1));
 //    	public static final LockedCategory ELECTRICITY = new LockedCategory(new CustomItem(SlimefunReloadedItems.NUCLEAR_REACTOR, "&bEnergy and Electricity", "", LORE), 4, MACHINES_1);
 //	public static final LockedCategory GPS = new LockedCategory(new CustomItem(SlimefunReloadedItems.GPS_TRANSMITTER, "&bGPS-based Machines", "", LORE), 4, MACHINES_1);
     register(new Category("ARMOR", new CustomItem(Material.IRON_CHESTPLATE, "&7Armor", "", LORE)));
