@@ -233,5 +233,9 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   public ItemStack getRecipeOutput() {
     return recipeOutput;
   }
+  
+  public void setRecipe(ItemStack[] recipe){
+    this.recipe = recipe;
+  }
 
 }

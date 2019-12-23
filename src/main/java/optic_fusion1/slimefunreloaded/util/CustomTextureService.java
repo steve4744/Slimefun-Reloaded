@@ -1,7 +1,9 @@
 package optic_fusion1.slimefunreloaded.util;
 
 import java.util.Collection;
-import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import java.util.Iterator;
+import java.util.Map;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
@@ -14,15 +16,17 @@ public class CustomTextureService {
     this.config = new Config(plugin, "item-models.yml");
   }
 
-  public void setup(Collection<SlimefunReloadedItem> items) {
-    config.setDefaultValue("SLIMEFUN_GUIDE", 0);
-
-    for (SlimefunReloadedItem item : items) {
-      if (item != null && item.getID() != null) {
-        config.setDefaultValue(item.getID(), 0);
+  public void setup(Map<String, SlimefunReloadedComponent> components) {
+    config.setDefaultValue("SLIMEFUNRELOADED_GUIDE", 0);
+    Iterator it = components.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry pair = (Map.Entry) it.next();
+      SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
+      if (component != null && component.getID() != null) {
+        config.setDefaultValue(component.getID(), 0);
       }
+      it.remove();
     }
-
     config.save();
   }
 

@@ -1,6 +1,12 @@
 package optic_fusion1.slimefunreloaded;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import optic_fusion1.slimefunreloaded.ancient_altar.AltarRecipe;
 
 import org.bukkit.Bukkit;
@@ -42,8 +49,11 @@ import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -123,29 +133,182 @@ public class SlimefunReloaded extends JavaPlugin {
     }
     Slimefun.setSlimefunReloaded(this);
     new I18n();
-    new MetricsLite(this);
-    if (!DATABASE_FOLDER.exists()) {
-      DATABASE_FOLDER.mkdirs();
-    }
+    logger.info("Loading files...");
     a();
+    cleanup();
+    logger.info("loading config...");
     setupConfig();
     loadSettings();
+    new MetricsLite(this);
     gps = new GPSNetwork();
     if (CONFIG.getBoolean("options.auto-update")) {
       Updater updater = new Updater(this, 0, false);
       updater.downloadUpdate();
     }
     createFiles();
-//    MiscSetup.loadDescriptions();
+    logger.info("Loading Items...");
+    setupItemSettings();
+    loadDescriptions();
+    logger.info("Loading Researches...");
     ResearchRegistry.registerResearches();
+    logger.info("Loading components...");
     ComponentRegistry.registerComponents();
+    logger.info("Loading categories...");
     CategoryRegistery.registerCategories();
-    //TEMP DEBUG COMMAND
+    setupMisc();
+    addWikiPages();
+    textureService.setup(COMPONENT_MANAGER.getComponents());
+    
+//    //TEMP DEBUG COMMAND
     Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
   }
 
   @Override
   public void onDisable() {
+  }
+
+  private void addWikiPages() {
+    JsonParser parser = new JsonParser();
+    Slimefun.getLogger().log(Level.INFO, "Loading Wiki pages...");
+
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/wiki.json")))) {
+      JsonElement element = parser.parse(reader.lines().collect(Collectors.joining("")));
+      JsonObject json = element.getAsJsonObject();
+
+      for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
+        SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByNamespace(entry.getKey());
+
+        if (component != null) {
+//          component.addWikipage(entry.getValue().getAsString());
+        }
+      }
+    } catch (IOException e) {
+      Slimefun.getLogger().log(Level.SEVERE, "Failed to load wiki.json file", e);
+    }
+  }
+
+  private void setupMisc() {
+    SlimefunReloadedComponent talisman = COMPONENT_MANAGER.getComponentByNamespace("COMMON_TALISMAN");
+    if (talisman != null && (boolean) getItemValue(talisman.getID(), "recipe-requires-nether-stars")) {
+      talisman.setRecipe(new ItemStack[]{SlimefunReloadedItems.MAGIC_LUMP_2, SlimefunReloadedItems.GOLD_8K, SlimefunReloadedItems.MAGIC_LUMP_2, null, new ItemStack(Material.NETHER_STAR), null, SlimefunReloadedItems.MAGIC_LUMP_2, SlimefunReloadedItems.GOLD_8K, SlimefunReloadedItems.MAGIC_LUMP_2});
+    }
+    //    SlimefunItem.setRadioactive(SlimefunReloadedItems.URANIUM);
+//    SlimefunItem.setRadioactive(SlimefunReloadedItems.SMALL_URANIUM);
+//    SlimefunItem.setRadioactive(SlimefunReloadedItems.BLISTERING_INGOT);
+//    SlimefunItem.setRadioactive(SlimefunReloadedItems.BLISTERING_INGOT_2);
+//    SlimefunItem.setRadioactive(SlimefunReloadedItems.BLISTERING_INGOT_3);
+//    SlimefunItem.setRadioactive(SlimefunReloadedItems.NETHER_ICE);
+//    SlimefunItem.setRadioactive(SlimefunReloadedItems.ENRICHED_NETHER_ICE);
+  }
+
+  private void loadDescriptions() {
+//    Slimefun.addYoutubeVideo("ANCIENT_ALTAR", "https://youtu.be/mx2Y5DP8uZI");
+//    Slimefun.addYoutubeVideo("ANCIENT_PEDESTAL", "https://youtu.be/mx2Y5DP8uZI");
+//
+//    Slimefun.addYoutubeVideo("BLISTERING_INGOT", "https://youtu.be/mPhKUv4JR_Y");
+//    Slimefun.addYoutubeVideo("BLISTERING_INGOT_2", "https://youtu.be/mPhKUv4JR_Y");
+//    Slimefun.addYoutubeVideo("BLISTERING_INGOT_3", "https://youtu.be/mPhKUv4JR_Y");
+//
+//    Slimefun.addYoutubeVideo("INFERNAL_BONEMEAL", "https://youtu.be/gKxWqMlJDXY");
+//
+//    Slimefun.addYoutubeVideo("RAINBOW_WOOL", "https://youtu.be/csvb0CxofdA");
+//    Slimefun.addYoutubeVideo("RAINBOW_GLASS", "https://youtu.be/csvb0CxofdA");
+//    Slimefun.addYoutubeVideo("RAINBOW_CLAY", "https://youtu.be/csvb0CxofdA");
+//    Slimefun.addYoutubeVideo("RAINBOW_GLASS_PANE", "https://youtu.be/csvb0CxofdA");
+//
+//    Slimefun.addYoutubeVideo("RAINBOW_WOOL_XMAS", "https://youtu.be/l4pKk4SDE");
+//    Slimefun.addYoutubeVideo("RAINBOW_GLASS_XMAS", "https://youtu.be/l4pKk4SDE");
+//    Slimefun.addYoutubeVideo("RAINBOW_CLAY_XMAS", "https://youtu.be/l4pKk4SDE");
+//    Slimefun.addYoutubeVideo("RAINBOW_GLASS_PANE_XMAS", "https://youtu.be/l4pKk4SDE");
+//
+//    Slimefun.addYoutubeVideo("OIL_PUMP", "https://youtu.be/_XmJ6hrv9uY");
+//    Slimefun.addYoutubeVideo("GPS_GEO_SCANNER", "https://youtu.be/_XmJ6hrv9uY");
+//    Slimefun.addYoutubeVideo("REFINERY", "https://youtu.be/_XmJ6hrv9uY");
+//    Slimefun.addYoutubeVideo("BUCKET_OF_OIL", "https://youtu.be/_XmJ6hrv9uY");
+//    Slimefun.addYoutubeVideo("BUCKET_OF_FUEL", "https://youtu.be/_XmJ6hrv9uY");
+//
+//    Slimefun.addYoutubeVideo("GPS_TELEPORTER_PYLON", "https://youtu.be/ZnEhG8Kw6zU");
+//    Slimefun.addYoutubeVideo("GPS_TELEPORTATION_MATRIX", "https://youtu.be/ZnEhG8Kw6zU");
+//    Slimefun.addYoutubeVideo("GPS_TELEPORTER_PYLON", "https://youtu.be/ZnEhG8Kw6zU");
+//
+//    Slimefun.addYoutubeVideo("PROGRAMMABLE_ANDROID_WOODCUTTER", "https://youtu.be/AGLsWSMs6A0");
+//    Slimefun.addYoutubeVideo("PROGRAMMABLE_ANDROID_BUTCHER", "https://youtu.be/G-re3qV-LJQ");
+//    Slimefun.addYoutubeVideo("PROGRAMMABLE_ANDROID_2_BUTCHER", "https://youtu.be/G-re3qV-LJQ");
+//
+//    Slimefun.addYoutubeVideo("INFUSED_HOPPER", "https://youtu.be/_H2HGwkfBh8");
+//
+//    Slimefun.addYoutubeVideo("ELEVATOR_PLATE", "https://youtu.be/OdKMjo6vNIs");
+//
+//    Slimefun.addYoutubeVideo("ENERGY_REGULATOR", "https://youtu.be/QvSUfBYagXk");
+//    Slimefun.addYoutubeVideo("COMBUSTION_REACTOR", "https://youtu.be/QvSUfBYagXk");
+//    Slimefun.addYoutubeVideo("MULTIMETER", "https://youtu.be/QvSUfBYagXk");
+//
+//    Slimefun.addYoutubeVideo("FOOD_FABRICATOR", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("AUTO_BREEDER", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ORGANIC_FOOD_MELON", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ORGANIC_FOOD_WHEAT", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ORGANIC_FOOD_APPLE", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ORGANIC_FOOD_CARROT", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ORGANIC_FOOD_SEEDS", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ORGANIC_FOOD_BEETROOT", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ORGANIC_FOOD_POTATO", "https://youtu.be/qJdFfvTGOmI");
+//    Slimefun.addYoutubeVideo("ANIMAL_GROWTH_ACCELERATOR", "https://youtu.be/bV4wEaSxXFw");
+//
+//    Slimefun.addYoutubeVideo("FOOD_COMPOSTER", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("FERTILIZER_WHEAT", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("FERTILIZER_APPLE", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("FERTILIZER_POTATO", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("FERTILIZER_CARROT", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("FERTILIZER_SEEDS", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("FERTILIZER_BEETROOT", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("FERTILIZER_MELON", "https://youtu.be/LjzUlFKAHCI");
+//    Slimefun.addYoutubeVideo("CROP_GROWTH_ACCELERATOR", "https://youtu.be/LjzUlFKAHCI");
+//
+//    Slimefun.addYoutubeVideo("XP_COLLECTOR", "https://youtu.be/fHtJDPeLMlg");
+//
+//    Slimefun.addYoutubeVideo("ELECTRIC_ORE_GRINDER", "https://youtu.be/A6OuK7sfnaI");
+//    Slimefun.addYoutubeVideo("ELECTRIC_GOLD_PAN", "https://youtu.be/A6OuK7sfnaI");
+//    Slimefun.addYoutubeVideo("ELECTRIC_DUST_WASHER", "https://youtu.be/A6OuK7sfnaI");
+//    Slimefun.addYoutubeVideo("ELECTRIC_INGOT_FACTORY", "https://youtu.be/A6OuK7sfnaI");
+//
+//    Slimefun.addYoutubeVideo("AUTOMATED_CRAFTING_CHAMBER", "https://youtu.be/FZj7nu9sOYA");
+//
+//    Slimefun.addYoutubeVideo("CARGO_MANAGER", "https://youtu.be/Lt2aGw5lQPI");
+//    Slimefun.addYoutubeVideo("CARGO_NODE_INPUT", "https://youtu.be/Lt2aGw5lQPI");
+//    Slimefun.addYoutubeVideo("CARGO_NODE_OUTPUT", "https://youtu.be/Lt2aGw5lQPI");
+//
+//    Slimefun.addYoutubeVideo("GPS_CONTROL_PANEL", "https://youtu.be/kOopBkiRzjs");
+//
+//    Slimefun.addYoutubeVideo("GPS_TRANSMITTER", "https://youtu.be/kOopBkiRzjs");
+//    Slimefun.addYoutubeVideo("GPS_TRANSMITTER_2", "https://youtu.be/kOopBkiRzjs");
+//    Slimefun.addYoutubeVideo("GPS_TRANSMITTER_3", "https://youtu.be/kOopBkiRzjs");
+//    Slimefun.addYoutubeVideo("GPS_TRANSMITTER_4", "https://youtu.be/kOopBkiRzjs");
+//
+//    Slimefun.addYoutubeVideo("SOLAR_GENERATOR", "https://youtu.be/kOopBkiRzjs");
+//    Slimefun.addYoutubeVideo("SOLAR_GENERATOR_2", "https://youtu.be/kOopBkiRzjs");
+//    Slimefun.addYoutubeVideo("SOLAR_GENERATOR_3", "https://youtu.be/kOopBkiRzjs");
+//    Slimefun.addYoutubeVideo("SOLAR_GENERATOR_4", "https://youtu.be/kOopBkiRzjs");
+  }
+
+  private void cleanup() {
+    if (!RESEARCHES_CONFIG.getFile().exists()) {
+      Slimefun.getLogger().log(Level.WARNING, "###############################################");
+      Slimefun.getLogger().log(Level.WARNING, "############## = -  INFO  - = #################");
+      Slimefun.getLogger().log(Level.WARNING, "###############################################");
+      Slimefun.getLogger().log(Level.WARNING, " ");
+      Slimefun.getLogger().log(Level.WARNING, "Slimefun Reloaded Warning:");
+      Slimefun.getLogger().log(Level.WARNING, " ");
+      Slimefun.getLogger().log(Level.WARNING, "Slimefun Reloaded has detected that your Files are either");
+      Slimefun.getLogger().log(Level.WARNING, "outdated or do not exist. We generated new Files");
+      Slimefun.getLogger().log(Level.WARNING, "instead otherwise Slimefun Reloaded would not work. If you");
+      Slimefun.getLogger().log(Level.WARNING, "have used Slimefun Reloaded before, your Settings are now");
+      Slimefun.getLogger().log(Level.WARNING, "gone. But therefore Slimefun Reloaded works!");
+      new File("plugins/SlimefunReloaded").delete();
+      new File("plugins/SlimefunReloaded/data-storage").delete();
+    }
+    if (!DATABASE_FOLDER.exists()) {
+      DATABASE_FOLDER.mkdirs();
+    }
   }
 
   private void createFiles() {
@@ -502,6 +665,20 @@ public class SlimefunReloaded extends JavaPlugin {
       }
     }
     return true;
+  }
+
+  private void setupItemSettings() {
+    for (World world : Bukkit.getWorlds()) {
+      WHITELIST_CONFIG.setDefaultValue(world.getName() + ".enabled-items.SLIMEFUN_GUIDE", true);
+    }
+
+    setItemVariable("ORE_CRUSHER", "double-ores", true);
+
+    for (Enchantment e : Enchantment.values()) {
+      for (int i = 1; i <= e.getMaxLevel(); i++) {
+        setItemVariable("MAGICIAN_TALISMAN", "allow-enchantments." + e.getKey().getKey() + ".level." + i, true);
+      }
+    }
   }
 
 }
