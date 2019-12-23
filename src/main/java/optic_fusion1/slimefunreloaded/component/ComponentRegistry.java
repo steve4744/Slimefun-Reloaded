@@ -1,7 +1,5 @@
 package optic_fusion1.slimefunreloaded.component;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
@@ -13,25 +11,17 @@ import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedBackpack;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedJuice;
 import optic_fusion1.slimefunreloaded.component.item.SoulboundBackpack;
 import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
-import optic_fusion1.slimefunreloaded.component.item.impl.Alloy;
-import optic_fusion1.slimefunreloaded.component.item.impl.Bandage;
 import optic_fusion1.slimefunreloaded.component.item.impl.DietCookie;
-import optic_fusion1.slimefunreloaded.component.item.impl.EasterEgg;
 import optic_fusion1.slimefunreloaded.component.item.impl.EnderBackpack;
-import optic_fusion1.slimefunreloaded.component.item.impl.ExplosivePickaxe;
-import optic_fusion1.slimefunreloaded.component.item.impl.ExplosiveShovel;
 import optic_fusion1.slimefunreloaded.component.item.impl.FortuneCookie;
 import optic_fusion1.slimefunreloaded.component.item.impl.GoldPan;
-import optic_fusion1.slimefunreloaded.component.item.impl.GrapplingHook;
 import optic_fusion1.slimefunreloaded.component.item.impl.HerculesPickaxe;
-import optic_fusion1.slimefunreloaded.component.item.impl.InfernalBonemeal;
+import optic_fusion1.slimefunreloaded.component.item.impl.InfusedHopper;
 import optic_fusion1.slimefunreloaded.component.item.impl.JetBoots;
 import optic_fusion1.slimefunreloaded.component.item.impl.Jetpack;
-import optic_fusion1.slimefunreloaded.component.item.impl.KnowledgeFlask;
 import optic_fusion1.slimefunreloaded.component.item.impl.KnowledgeTome;
 import optic_fusion1.slimefunreloaded.component.item.impl.LumberAxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.MagicEyeOfEnder;
-import optic_fusion1.slimefunreloaded.component.item.impl.MagicSugar;
 import optic_fusion1.slimefunreloaded.component.item.impl.MeatJerky;
 import optic_fusion1.slimefunreloaded.component.item.impl.Medicine;
 import optic_fusion1.slimefunreloaded.component.item.impl.MonsterJerky;
@@ -47,7 +37,6 @@ import optic_fusion1.slimefunreloaded.component.item.impl.SimpleSlimefunReloaded
 import optic_fusion1.slimefunreloaded.component.item.impl.SmeltersPickaxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.SoulboundItem;
 import optic_fusion1.slimefunreloaded.component.item.impl.SoulboundRune;
-import optic_fusion1.slimefunreloaded.component.item.impl.Splint;
 import optic_fusion1.slimefunreloaded.component.item.impl.StormStaff;
 import optic_fusion1.slimefunreloaded.component.item.impl.Vitamins;
 import optic_fusion1.slimefunreloaded.component.item.impl.WaterStaff;
@@ -291,6 +280,7 @@ public final class ComponentRegistry {
     register(new SoulboundRune(new NamespacedKey(plugin, "rune_soulbound"), LUMPS_AND_MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.RUNE_SOULBOUND, RecipeType.ANCIENT_ALTAR, new ItemStack[]{SlimefunReloadedItems.MAGIC_LUMP_3, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, SlimefunReloadedItems.MAGIC_LUMP_3, SlimefunReloadedItems.ENDER_LUMP_3, SlimefunReloadedItems.RUNE_ENDER, SlimefunReloadedItems.ENDER_LUMP_3, SlimefunReloadedItems.MAGIC_LUMP_3, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, SlimefunReloadedItems.MAGIC_LUMP_3}));
     //MAGIC Registery
     Category MAGIC = CATEGORY_MANAGER.getCategoryByName("Magic");
+    register(new InfusedHopper(new NamespacedKey(plugin, "infused_hopper"), MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.INFUSED_HOPPER, RecipeType.ANCIENT_ALTAR,		new ItemStack[] {new ItemStack(Material.OBSIDIAN), SlimefunReloadedItems.RUNE_EARTH, new ItemStack(Material.HOPPER), SlimefunReloadedItems.RUNE_ENDER, SlimefunReloadedItems.INFUSED_MAGNET, SlimefunReloadedItems.RUNE_ENDER, new ItemStack(Material.HOPPER), SlimefunReloadedItems.RUNE_EARTH, new ItemStack(Material.OBSIDIAN)}));
     register(new EnderBackpack(new NamespacedKey(plugin, "ender_backpack"), MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENDER_BACKPACK, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.LEATHER), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.LEATHER), new ItemStack(Material.CHEST), new ItemStack(Material.LEATHER), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.LEATHER), SlimefunReloadedItems.ENDER_LUMP_2}));
     register(new MagicEyeOfEnder(new NamespacedKey(plugin, "magic_eye_of_ender"), MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.MAGIC_EYE_OF_ENDER, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.ENDER_PEARL), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.ENDER_EYE), new ItemStack(Material.ENDER_PEARL), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.ENDER_PEARL), SlimefunReloadedItems.ENDER_LUMP_2}));
     registerSimpleSlimefunReloadedItem("staff_elemental", MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.STAFF_ELEMENTAL, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{null, SlimefunReloadedItems.MAGICAL_BOOK_COVER, SlimefunReloadedItems.MAGIC_LUMP_3, null, new ItemStack(Material.STICK), SlimefunReloadedItems.MAGICAL_BOOK_COVER, SlimefunReloadedItems.MAGIC_LUMP_3, null, null});

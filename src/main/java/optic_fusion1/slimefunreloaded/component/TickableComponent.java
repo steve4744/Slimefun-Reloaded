@@ -1,5 +1,8 @@
 package optic_fusion1.slimefunreloaded.component;
 
+import optic_fusion1.slimefunreloaded.util.Config;
+import org.bukkit.block.Block;
+
 /**
  * A component definition to declare a {@link SlimefunReloadedComponent} as one to be ticked
  * every server update (20 times per second).
@@ -13,8 +16,10 @@ public interface TickableComponent<T extends SlimefunReloadedComponent> {
   /**
    * Tick the component.
    *
-   * @param object the object being ticked
+   * @param block
+   * @param component the component being ticked
+   * @param data
    */
-  public void tick(T object);
+  public void tick(Block block, T component, Config data);
 
 }

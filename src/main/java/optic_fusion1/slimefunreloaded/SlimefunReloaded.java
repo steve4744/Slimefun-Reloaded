@@ -23,7 +23,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
-import optic_fusion1.slimefunreloaded.gps.GPSNetwork;
+import optic_fusion1.slimefunreloaded.GPS.GPSNetwork;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.category.CategoryRegistery;
 import optic_fusion1.slimefunreloaded.command.DebugCommand;

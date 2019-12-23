@@ -1,4 +1,4 @@
-package optic_fusion1.slimefunreloaded.gps;
+package optic_fusion1.slimefunreloaded.GPS;
 
 import java.util.Set;
 import java.util.UUID;

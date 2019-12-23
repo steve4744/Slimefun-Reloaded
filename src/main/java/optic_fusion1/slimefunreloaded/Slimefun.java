@@ -11,7 +11,7 @@ import optic_fusion1.slimefunreloaded.ancient_altar.AltarRecipe;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
-import optic_fusion1.slimefunreloaded.gps.GPSNetwork;
+import optic_fusion1.slimefunreloaded.GPS.GPSNetwork;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
