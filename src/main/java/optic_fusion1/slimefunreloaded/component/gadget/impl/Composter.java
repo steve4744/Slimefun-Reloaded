@@ -25,7 +25,7 @@ import org.bukkit.inventory.ItemStack;
 public class Composter extends SlimefunReloadedGadget {
 
   public Composter(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-    super(key, category, item, recipeType, recipe, getGadgetRecipes());
+    super(key, category, item, recipeType, recipe/*, getGadgetRecipes()*/);
   }
 
   private static ItemStack[] getGadgetRecipes() {

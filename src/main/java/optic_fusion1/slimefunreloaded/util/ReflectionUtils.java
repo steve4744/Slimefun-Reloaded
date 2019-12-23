@@ -30,7 +30,7 @@ public final class ReflectionUtils {
       handle_entity = getClass(PackageName.OBC, "entity.CraftEntity").getMethod("getHandle");
       handle_animals = getClass(PackageName.OBC, "entity.CraftAnimals").getMethod("getHandle");
       player_connection = getClass(PackageName.NMS, "EntityPlayer").getField("playerConnection");
-      sendPacket = getMethod(getClass(PackageName.NMS, "PlayerConnection"), "sendPacket");
+      sendPacket = getMethod(getClass(PackageName.NMS, "PlayerConnection"), "sendPacket", getClass(PackageName.NMS, "Packet"));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -54,10 +54,10 @@ public final class ReflectionUtils {
     }
   }
 
-  public static Class<?> getClass(PackageName pkg, String name){
+  public static Class<?> getClass(PackageName pkg, String name) {
     return getClass(pkg.toPackage() + getVersion() + "." + name);
   }
-  
+
   public static Class<?> getNMSClass(String name) {
     return getClass("net.minecraft.server." + getVersion() + "." + name);
   }
@@ -201,15 +201,19 @@ public final class ReflectionUtils {
     }
   }
 
-  @SuppressWarnings("deprecation")
-  public static Method getMethod(Object o, String methodName, Class<?>... params) {
+  public static Method getMethod(Class o, String methodName, Class<?>... params) {
     try {
-      Method method = o.getClass().getMethod(methodName, params);
+      Method method = o.getMethod(methodName, params);
       if (!method.isAccessible()) {
         method.setAccessible(true);
       }
       return method;
     } catch (NoSuchMethodException | SecurityException e) {
+      for (Method method : o.getDeclaredMethods()) {
+        if (method.getName().equals(methodName)) {
+          return method;
+        }
+      }
       return null;
     }
   }

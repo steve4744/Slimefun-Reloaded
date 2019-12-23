@@ -6,12 +6,14 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.UUID;
 import optic_fusion1.slimefunreloaded.Slimefun;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+@Deprecated
 public class CustomSkull {
 
   private static Method tileentity, gameprofile, getgameprofile, property, insert_property, map_list, get_name, get_value, getOwner;
@@ -32,7 +34,7 @@ public class CustomSkull {
       gameprofile = ReflectionUtils.getClass(PackageName.NMS, "TileEntitySkull").getMethod("setGameProfile", profile_class);
 
       // Removed from 1.14			
-      if (!ReflectionUtils.isVersion("v1_14_")) {
+      if (!ReflectionUtils.isVersion("v1_14_", "v1_15_", "v1_15_R1")) {
         getgameprofile = ReflectionUtils.getClass(PackageName.NMS, "TileEntitySkull").getMethod("getGameProfile");
       }
 
@@ -172,7 +174,7 @@ public class CustomSkull {
 
     Object profile;
 
-    if (ReflectionUtils.isVersion("v1_14_")) {
+    if (ReflectionUtils.isVersion("v1_14_", "v1_15_", "v1_15_R1")) {
       profile = ReflectionUtils.getValue(tile, "gameProfile");
     } else {
       profile = getgameprofile.invoke(tile);

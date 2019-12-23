@@ -72,8 +72,8 @@ public final class ResearchRegistry {
     register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Anvil"), 18));
     register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Miner"), 18));
     register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Hunter"), 18));
-    register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Lava Walker"), 18));
-    register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Water Breather"), 18));
+    register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Lava_Walker"), 18));
+    register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Water_Breather"), 18));
     register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Angel"), 18));
     register(new Research(new NamespacedKey(PLUGIN, "Talisman_of_the_Firefighter"), 18));
     register(new Research(new NamespacedKey(PLUGIN, "Firey_Situation"), 14));
@@ -131,8 +131,8 @@ public final class ResearchRegistry {
     register(new Research(new NamespacedKey(PLUGIN, "Soulbound_Armor"), 29));
     register(new Research(new NamespacedKey(PLUGIN, "Soulbound_Drinks"), 29));
     register(new Research(new NamespacedKey(PLUGIN, "Soulbound_Armor"), 29));
-    register(new Research(new NamespacedKey(PLUGIN, "Delicious Drinks"), 29));
-    register(new Research(new NamespacedKey(PLUGIN, "Repairing Spawners"), 15));
+    register(new Research(new NamespacedKey(PLUGIN, "Delicious_Drinks"), 29));
+    register(new Research(new NamespacedKey(PLUGIN, "Repairing_Spawners"), 15));
     register(new Research(new NamespacedKey(PLUGIN, "HO_HO_HO"), 1));
     register(new Research(new NamespacedKey(PLUGIN, "Enhanced_Furnace"), 7));
     register(new Research(new NamespacedKey(PLUGIN, "Better_Furnaces"), 18));
@@ -192,7 +192,7 @@ public final class ResearchRegistry {
     register(new Research(new NamespacedKey(PLUGIN, "Energy_Networks_101"), 6));
     register(new Research(new NamespacedKey(PLUGIN, "Butcher_Androids"), 32));
     register(new Research(new NamespacedKey(PLUGIN, "Organic_Food"), 25));
-    register(new Research(new NamespacedKey(PLUGIN, "Automated Feeding"), 25));
+    register(new Research(new NamespacedKey(PLUGIN, "Automated_Feeding"), 25));
     register(new Research(new NamespacedKey(PLUGIN, "Advanced_Androids"), 60));
     register(new Research(new NamespacedKey(PLUGIN, "Advanced_Androids_-_Butcher"), 30));
     register(new Research(new NamespacedKey(PLUGIN, "Advanced_Androids_-_Fisherman"), 30));
@@ -220,7 +220,7 @@ public final class ResearchRegistry {
     register(new Research(new NamespacedKey(PLUGIN, "Carbon_Press"), 28));
     register(new Research(new NamespacedKey(PLUGIN, "Electric_Smeltery"), 28));
     register(new Research(new NamespacedKey(PLUGIN, "Upgraded_Electric_Furnace"), 20));
-    register(new Research(new NamespacedKey(PLUGIN, "Upgraded_Carbon Press"), 26));
+    register(new Research(new NamespacedKey(PLUGIN, "Upgraded_Carbon_Press"), 26));
     register(new Research(new NamespacedKey(PLUGIN, "Empowered_Androids"), 60));
     register(new Research(new NamespacedKey(PLUGIN, "Empowered_Androids_-_Butcher"), 30));
     register(new Research(new NamespacedKey(PLUGIN, "Empowered_Androids_-_Fisherman"), 30));

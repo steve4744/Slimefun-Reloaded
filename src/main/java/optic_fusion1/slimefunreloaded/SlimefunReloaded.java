@@ -158,7 +158,7 @@ public class SlimefunReloaded extends JavaPlugin {
     setupMisc();
     addWikiPages();
     textureService.setup(COMPONENT_MANAGER.getComponents());
-    
+
 //    //TEMP DEBUG COMMAND
     Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
   }
@@ -357,6 +357,10 @@ public class SlimefunReloaded extends JavaPlugin {
     File researches = new File("plugins/Slimefun/Researches.yml");
     if (researches.exists() && !RESEARCHES_CONFIG.getFile().exists()) {
       researches.renameTo(RESEARCHES_CONFIG.getFile());
+    } else {
+      if (!RESEARCHES_CONFIG.getFile().exists()) {
+        RESEARCHES_CONFIG.createFile();
+      }
     }
     File config = new File("plugins/Slimefun/config.yml");
     if (config.exists() && !CONFIG.getFile().exists()) {
@@ -365,6 +369,10 @@ public class SlimefunReloaded extends JavaPlugin {
     File items = new File("plugins/Slimefun/Items.yml");
     if (items.exists() && !ITEMS_CONFIG.getFile().exists()) {
       items.renameTo(ITEMS_CONFIG.getFile());
+    } else {
+      if (!ITEMS_CONFIG.getFile().exists()) {
+        ITEMS_CONFIG.createFile();
+      }
     }
     File playerDatabase = new File("data-storage/Slimefun/Players");
     if (playerDatabase.exists() && !DATABASE_FOLDER.exists()) {
@@ -389,6 +397,10 @@ public class SlimefunReloaded extends JavaPlugin {
     File whitelist = new File("plugins/Slimefun/whitelist.yml");
     if (whitelist.exists() && !WHITELIST_CONFIG.getFile().exists()) {
       whitelist.renameTo(WHITELIST_CONFIG.getFile());
+    } else {
+      if (!WHITELIST_CONFIG.getFile().exists()) {
+        WHITELIST_CONFIG.createFile();
+      }
     }
   }
 

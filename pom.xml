@@ -95,6 +95,21 @@
     </repositories>
     
     <dependencies>
+        <!-- Spigot -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.15.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Bukkit -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.15.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- MassiveCore -->
         <dependency>
             <groupId>com.massivecraft.massivecore</groupId>
@@ -266,22 +281,6 @@
             <artifactId>Factions</artifactId>
             <version>1.6.9.5-U0.2.2</version>
             <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- Spigot -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.15.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- Bukkit -->
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.15.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

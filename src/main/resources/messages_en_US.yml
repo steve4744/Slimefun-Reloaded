@@ -41,12 +41,12 @@ messages:
  only-players: &4This Command is only for Players
  no-permission: &4You do not have the required Permission to do this
  usage: "&4Usage : &c%usage%"
- not-online: &4%player% &cis not online!
- not-valid-item: &4%item% &cis not a valid Item!
- not-valid-amount: "&4%amount% &cis not a valid amount \: it must be higher than 0!"
+ not-online: "&4%player% &cis not online!"
+ not-valid-item: "&4%item% &cis not a valid Item!"
+ not-valid-amount: "&4%amount% &cis not a valid amount : it must be higher than 0!"
  given-item: &bYou have been given &a%amount% &7\"%item&7%\"
  give-item: &bYou have given %player% &a%amount% &7\"%item%&7\"
- not-valid-research: &4%research% &cis not a valid Research
+ not-valid-research: "&4%research% &cis not a valid Research"
  give-research: &bYou have given %player% the Research &7\"%research%&7\"
  battery:
   add: "&2+ &7%charge% J &8(%machine%)"
@@ -110,7 +110,7 @@ anvil-not-working: "&4You cannot use Slimefun Items in an Anvil"
 backpack:
  already-open: "&cSorry, this backpack is open somewhere else!"
  no-stack: "&cYou cannot stack Backpacks" 
-miner-no-ores: &eSorry, I could not find any Ores nearby!
+miner-no-ores: "&eSorry, I could not find any Ores nearby!"
 workbench-not-enhanced: "&4You cannot use Slimefun Items in a normal Workbench"
 
 gps:
