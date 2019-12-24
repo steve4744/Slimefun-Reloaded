@@ -3,6 +3,8 @@ package optic_fusion1.slimefunreloaded.component.item.impl;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import optic_fusion1.slimefunreloaded.util.CustomItem;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -17,6 +19,14 @@ public class InfernalBonemeal extends SlimefunReloadedItem {
 
   public InfernalBonemeal(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     super(key, category, item, recipeType, recipe);
+  }
+
+  public InfernalBonemeal(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
+    super(key, category, item, recipeType, recipe, keys, values);
+  }
+
+  public InfernalBonemeal(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
+    super(key, category, item, recipeType, recipe, recipeOutput);
   }
 
   @Override

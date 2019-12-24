@@ -17,14 +17,9 @@ public class MagicSugar extends SlimefunReloadedItem {
 
   private int speed;
 
-  public MagicSugar(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, int speed) {
-    super(key, category, item, recipeType, recipe);
-    this.speed = speed;
-  }
-
-  public MagicSugar(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values, int speed) {
+  public MagicSugar(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
     super(key, category, item, recipeType, recipe, keys, values);
-    this.speed = speed;
+    speed = (int) values[0];
   }
 
   @Override
