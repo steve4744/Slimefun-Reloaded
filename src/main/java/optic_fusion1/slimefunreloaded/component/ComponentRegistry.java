@@ -2066,7 +2066,7 @@ new GrindStone().register();
 
   private static void registerSoulboundItem(String namespace, Category category, ItemStack item,
    RecipeType recipeType, ItemStack[] recipe) {
-    register(new SoulboundItem(new NamespacedKey(plugin, namespace), category, (SlimefunReloadedItemStack) item, recipe));
+    register(new SoulboundItem(new NamespacedKey(plugin, namespace), category, item, recipeType, recipe));
   }
 
   public static void registerSimpleSlimefunReloadedItem(String namespace, Category category, ItemStack item, RecipeType type,
