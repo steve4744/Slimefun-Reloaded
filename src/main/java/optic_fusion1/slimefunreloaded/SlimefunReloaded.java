@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +34,8 @@ import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
+import optic_fusion1.slimefunreloaded.listener.PlayerQuitListener;
+import optic_fusion1.slimefunreloaded.listener.WorldListener;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
 import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
 import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
@@ -55,7 +56,9 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginManager;
 
 //TODO: Finish & clean this class up see me.mrCookieSlime.Slimefun.SlimefunPlugin for the Slimefun equivalent of this class
 public class SlimefunReloaded extends JavaPlugin {
@@ -105,15 +108,13 @@ public class SlimefunReloaded extends JavaPlugin {
   private String version;
   public final Map<UUID, PlayerProfile> profiles = new HashMap<>();
 
-  //Required for the SeismicAxe
-  public final List<UUID> blocks = new ArrayList<>();
-
   public final Set<Location> altarinuse = new HashSet<>();
   public final Set<AltarRecipe> altarRecipes = new HashSet<>();
   public final Map<String, BlockMenuPreset> blockMenuPresets = new HashMap<>();
   public final Set<UUID> teleporterUsers = new HashSet<>();
   public final Set<UUID> elevatorUsers = new HashSet<>();
   public final Map<String, SlimefunReloadedComponent> itemIDs = new HashMap<>();
+  private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 
   @Override
   public void onEnable() {
@@ -159,12 +160,20 @@ public class SlimefunReloaded extends JavaPlugin {
     addWikiPages();
     textureService.setup(COMPONENT_MANAGER.getComponents());
 
-//    //TEMP DEBUG COMMAND
+    //All Slimefun Reloaded Listeners
+    registerListener(new WorldListener());
+    registerListener(new PlayerQuitListener());
+    
+    //TEMP DEBUG COMMAND
     Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
   }
 
   @Override
   public void onDisable() {
+  }
+
+  private void registerListener(Listener listener) {
+    PLUGIN_MANAGER.registerEvents(listener, this);
   }
 
   private void addWikiPages() {
@@ -531,10 +540,6 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public RecipeSnapshot getMinecraftRecipes() {
     return recipeSnapshot;
-  }
-
-  public List<UUID> getBlocks() {
-    return blocks;
   }
 
   public Set<Location> getAltarinuse() {

@@ -179,10 +179,6 @@ public final class Slimefun {
     return plugin.getMinecraftRecipes();
   }
 
-  public static List<UUID> getBlocks() {
-    return plugin.getBlocks();
-  }
-
   public static Set<Location> getAltarinuse() {
     return plugin.getAltarinuse();
   }

@@ -1,6 +1,8 @@
 package optic_fusion1.slimefunreloaded.component.item.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
@@ -25,6 +27,8 @@ import org.bukkit.util.Vector;
 
 public class SeismicAxe extends SlimefunReloadedItem implements DamageableItem {
 
+  private List<UUID> blocks = new ArrayList<>();
+  
   public SeismicAxe(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     super(key, category, item, recipeType, recipe);
   }
@@ -52,7 +56,8 @@ public class SeismicAxe extends SlimefunReloadedItem implements DamageableItem {
         FallingBlock block = ground.getWorld().spawnFallingBlock(loc, ground.getBlock().getBlockData());
         block.setDropItem(false);
         block.setVelocity(new Vector(0, 0.4 + i * 0.01, 0));
-        Slimefun.getBlocks().add(block.getUniqueId());
+        //TODO: Figure out wtf this is for
+        this.blocks.add(block.getUniqueId());
       }
       for (Entity n : ground.getChunk().getEntities()) {
         if (n instanceof LivingEntity && n.getLocation().distance(ground) <= 2.0D && !n.getUniqueId().equals(player.getUniqueId())) {
