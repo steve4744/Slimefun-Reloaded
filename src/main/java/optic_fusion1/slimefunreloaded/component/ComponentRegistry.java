@@ -16,8 +16,8 @@ import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedJuice;
 import optic_fusion1.slimefunreloaded.component.item.SoulboundBackpack;
 import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
 import optic_fusion1.slimefunreloaded.component.item.impl.Alloy;
-import optic_fusion1.slimefunreloaded.component.item.impl.Bandage;
 import optic_fusion1.slimefunreloaded.component.item.impl.DietCookie;
+import optic_fusion1.slimefunreloaded.component.item.impl.EasterEgg;
 import optic_fusion1.slimefunreloaded.component.item.impl.EnderBackpack;
 import optic_fusion1.slimefunreloaded.component.item.impl.ExplosivePickaxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.ExplosiveShovel;
@@ -48,7 +48,6 @@ import optic_fusion1.slimefunreloaded.component.item.impl.SimpleSlimefunReloaded
 import optic_fusion1.slimefunreloaded.component.item.impl.SmeltersPickaxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.SoulboundItem;
 import optic_fusion1.slimefunreloaded.component.item.impl.SoulboundRune;
-import optic_fusion1.slimefunreloaded.component.item.impl.Splint;
 import optic_fusion1.slimefunreloaded.component.item.impl.StormStaff;
 import optic_fusion1.slimefunreloaded.component.item.impl.Vitamins;
 import optic_fusion1.slimefunreloaded.component.item.impl.WaterStaff;
@@ -1793,7 +1792,7 @@ public final class ComponentRegistry {
     Category EASTER = CATEGORY_MANAGER.getCategoryByName("Easter");
     registerSimpleSlimefunReloadedItem("easter_carrot_pie", EASTER, SlimefunReloadedItems.EASTER_CARROT_PIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.SUGAR), new ItemStack(Material.CARROT), new ItemStack(Material.EGG), null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.EASTER_CARROT_PIE, 2));
     registerSimpleSlimefunReloadedItem("easter_apple_pie", EASTER, SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.SUGAR), new ItemStack(Material.APPLE), new ItemStack(Material.EGG), null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, 2));
-//    register(new EasterEgg(new NamespacedKey(plugin, "easter_egg"), EASTER, (SlimefunReloadedItemStack) SlimefunReloadedItems.EASTER_EGG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.LIME_DYE), new ItemStack(Material.EGG), new ItemStack(Material.PURPLE_DYE), null, null, null}, new CustomItem(SlimefunReloadedItems.EASTER_EGG, 2)));
+    register(new EasterEgg(new NamespacedKey(plugin, "easter_egg"), EASTER, (SlimefunReloadedItemStack) SlimefunReloadedItems.EASTER_EGG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.LIME_DYE), new ItemStack(Material.EGG), new ItemStack(Material.PURPLE_DYE), null, null, null}, new CustomItem(SlimefunReloadedItems.EASTER_EGG, 2)));
     /*
 		RainbowTicker valentine = new RainbowTicker(2, 6, 10);
 

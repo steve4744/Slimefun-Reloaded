@@ -10,6 +10,7 @@ import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
 import optic_fusion1.slimefunreloaded.util.FireworkShow;
 import optic_fusion1.slimefunreloaded.util.ItemUtils;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -22,13 +23,17 @@ import org.bukkit.inventory.ItemStack;
 public class EasterEgg extends SlimefunReloadedItem {
 
   private Random random = new Random();
-  
+
   public EasterEgg(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     super(key, category, item, recipeType, recipe);
   }
 
   public EasterEgg(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
     super(key, category, item, recipeType, recipe, keys, values);
+  }
+
+  public EasterEgg(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
+    super(key, category, item, recipeType, recipe, recipeOutput);
   }
 
   @Override
