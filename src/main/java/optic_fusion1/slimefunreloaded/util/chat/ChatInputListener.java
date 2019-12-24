@@ -50,7 +50,7 @@ class ChatInputListener implements Listener {
   }
 
   @EventHandler
-  public void onComamnd(PlayerCommandPreprocessEvent e) {
+  public void onCommand(PlayerCommandPreprocessEvent e) {
     Player p = e.getPlayer();
     IChatInput handler = handlers.get(p.getUniqueId());
     if (handler != null && handler.test(e.getMessage())) {
