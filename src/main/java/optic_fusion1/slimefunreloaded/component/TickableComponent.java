@@ -22,4 +22,6 @@ public interface TickableComponent<T extends SlimefunReloadedComponent> {
    */
   public void tick(Block block, T component, Config data);
 
+  public abstract boolean isSynchronized();
+  
 }

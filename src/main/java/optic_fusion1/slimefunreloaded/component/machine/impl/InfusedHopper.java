@@ -1,9 +1,13 @@
-package optic_fusion1.slimefunreloaded.component.item.impl;
+package optic_fusion1.slimefunreloaded.component.machine.impl;
 
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
+import optic_fusion1.slimefunreloaded.component.RecipeType;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.TickableComponent;
+import optic_fusion1.slimefunreloaded.component.TickableComponent;
+import optic_fusion1.slimefunreloaded.component.item.impl.SimpleSlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
 import org.bukkit.Location;
@@ -48,6 +52,11 @@ public class InfusedHopper extends SimpleSlimefunReloadedItem implements Tickabl
     if (sound) {
       block.getWorld().playSound(block.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1F, 2F);
     }
+  }
+
+  @Override
+  public boolean isSynchronized() {
+    return true;
   }
 
 }

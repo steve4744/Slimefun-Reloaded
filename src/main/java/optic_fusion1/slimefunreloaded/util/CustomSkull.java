@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-@Deprecated
+//TODO: FIGURE OUT WHAT THE FUCK IS GOING ON WITH THIS CLASS
 public class CustomSkull {
 
   private static Method tileentity, gameprofile, getgameprofile, property, insert_property, map_list, get_name, get_value, getOwner;

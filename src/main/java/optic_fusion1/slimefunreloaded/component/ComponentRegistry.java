@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.component;
 
+import optic_fusion1.slimefunreloaded.component.machine.impl.InfusedHopper;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import optic_fusion1.slimefunreloaded.Slimefun;
@@ -25,7 +26,6 @@ import optic_fusion1.slimefunreloaded.component.item.impl.GoldPan;
 import optic_fusion1.slimefunreloaded.component.item.impl.GrapplingHook;
 import optic_fusion1.slimefunreloaded.component.item.impl.HerculesPickaxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.InfernalBonemeal;
-import optic_fusion1.slimefunreloaded.component.item.impl.InfusedHopper;
 import optic_fusion1.slimefunreloaded.component.item.impl.JetBoots;
 import optic_fusion1.slimefunreloaded.component.item.impl.Jetpack;
 import optic_fusion1.slimefunreloaded.component.item.impl.KnowledgeFlask;
@@ -53,6 +53,7 @@ import optic_fusion1.slimefunreloaded.component.item.impl.StormStaff;
 import optic_fusion1.slimefunreloaded.component.item.impl.Vitamins;
 import optic_fusion1.slimefunreloaded.component.item.impl.WaterStaff;
 import optic_fusion1.slimefunreloaded.component.item.impl.WindStaff;
+import optic_fusion1.slimefunreloaded.component.machine.impl.EnchancedFurnace;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
@@ -1995,59 +1996,24 @@ new GrindStone().register();
     registerJetBoots("reinforced_alloy_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.REINFORCED_ALLOY_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.6);
     registerJetBoots("carbonado_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.LARGE_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.7);
     registerJetBoots("armored_jetboots", (SlimefunReloadedItemStack) SlimefunReloadedItems.ARMORED_JETBOOTS, new ItemStack[]{null, null, null, SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.POWER_CRYSTAL, SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.STEEL_THRUSTER, SlimefunReloadedItems.MEDIUM_CAPACITOR, SlimefunReloadedItems.STEEL_THRUSTER}, 0.45);
-    /*
- new EnhancedFurnace(1, 1, 1, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, new ItemStack(Material.FURNACE), SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
+    //EnchancedFurnace Registery
+    registerEnhancedFurnace("enchanced_furnace", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, new ItemStack(Material.FURNACE), SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 1, 1, 1);
+    registerEnhancedFurnace("enhanced_furnace_2", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_2, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 2, 1, 1);
+    registerEnhancedFurnace("enhanced_furnace_3", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_3, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_2, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 2, 2, 1);
+    registerEnhancedFurnace("enhanced_furnace_4", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_4, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_3, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 3, 2, 1);
+    registerEnhancedFurnace("enhanced_furnace_5", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_5, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_4, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 3, 2, 2);
+    registerEnhancedFurnace("enhanced_furnace_6", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_6, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_5, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 3, 3, 2);
+    registerEnhancedFurnace("enhanced_furnace_7", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_7, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_6, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 4, 3, 2);
+    registerEnhancedFurnace("enhanced_furnace_8", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_8, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_7, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 4, 4, 2);
+    registerEnhancedFurnace("enhanced_furnace_9", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_9, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_8, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 5, 4, 2);
+    registerEnhancedFurnace("enhanced_furnace_10", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_10, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_9, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 5, 5, 2);
+    registerEnhancedFurnace("enhanced_furnace_11", (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_11, new ItemStack[]{null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_10, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null}, 5, 5, 3);
+    registerEnhancedFurnace("reinforced_furnace", (SlimefunReloadedItemStack) SlimefunReloadedItems.REINFORCED_FURNACE, new ItemStack[]{SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_11, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.ELECTRIC_MOTOR, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT}, 10, 10, 3);
+    registerEnhancedFurnace("carbonado_edged_furnace", (SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO_EDGED_FURNACE, new ItemStack[]{SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.REINFORCED_FURNACE, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.ELECTRIC_MOTOR, SlimefunReloadedItems.CARBONADO}, 20, 10, 3);
+  }
 
-		new EnhancedFurnace(2, 1, 1, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_2,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(2, 2, 1, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_3,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_2, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(3, 2, 1, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_4,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_3, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(3, 2, 2, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_5,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_4, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(3, 3, 2, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_6,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_5, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(4, 3, 2, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_7,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_6, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(4, 4, 2, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_8,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_7, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(5, 4, 2, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_9,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_8, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(5, 5, 2, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_10,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_9, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(5, 5, 3, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENHANCED_FURNACE_11,
-		new ItemStack[] {null, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, null, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_10, SlimefunReloadedItems.HEATING_COIL, null, SlimefunReloadedItems.ELECTRIC_MOTOR, null})
-		.register(true);
-
-		new EnhancedFurnace(10, 10, 3, (SlimefunReloadedItemStack) SlimefunReloadedItems.REINFORCED_FURNACE,
-		new ItemStack[] {SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.ENHANCED_FURNACE_11, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT, SlimefunReloadedItems.ELECTRIC_MOTOR, SlimefunReloadedItems.REINFORCED_ALLOY_INGOT})
-		.register(true);
-
-		new EnhancedFurnace(20, 10, 3, (SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO_EDGED_FURNACE,
-		new ItemStack[] {SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.REINFORCED_FURNACE, SlimefunReloadedItems.HEATING_COIL, SlimefunReloadedItems.CARBONADO, SlimefunReloadedItems.ELECTRIC_MOTOR, SlimefunReloadedItems.CARBONADO})
-		.register(true);
-     */
+  public static void registerEnhancedFurnace(String namespace, ItemStack item, ItemStack[] recipe, int speed, int efficiency, int fortune) {
+    register(new EnchancedFurnace(new NamespacedKey(plugin, namespace), item, recipe, speed, efficiency, fortune));
   }
 
   public static void registerJuice(String namespace, Category category, ItemStack item, RecipeType type,
@@ -2098,12 +2064,11 @@ new GrindStone().register();
   public static void registerSlimefunReloadedAlloy(String namespace, ItemStack item, ItemStack[] recipe) {
 //    register(new Alloy(new NamespacedKey(plugin, namespace), item, recipe));
   }
-  
+
   private static void registerSlimefunReloadedAlloy(String namespace, Category category, ItemStack itemStack,
    ItemStack[] recipe) {
     register(new Alloy(new NamespacedKey(plugin, namespace), category, itemStack, RecipeType.MAGIC_WORKBENCH, recipe));
   }
-
 
   public static void registerJetBoots(String namespace, ItemStack item, ItemStack[] recipe, double speed) {
     register(new JetBoots(new NamespacedKey(plugin, namespace), item, recipe, speed));
