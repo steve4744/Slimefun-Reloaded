@@ -7,6 +7,7 @@ import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.component.item.interfaces.DamageableItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
+import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import optic_fusion1.slimefunreloaded.util.material.MaterialTools;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -16,13 +17,21 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class ExplosiveShovel extends SlimefunReloadedItem implements DamageableItem{
+public class ExplosiveShovel extends SlimefunReloadedItem implements DamageableItem {
 
   private boolean damageOnUse;
-  
+
   public ExplosiveShovel(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     super(key, category, item, recipeType, recipe);
+  }
+
+  public ExplosiveShovel(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
+    super(key, category, item, recipeType, recipe, keys, values);
     damageOnUse = ((boolean) Slimefun.getItemValue(getID(), "damage-on-use"));
+  }
+
+  public ExplosiveShovel(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
+    super(key, category, item, recipeType, recipe, recipeOutput);
   }
 
   @Override

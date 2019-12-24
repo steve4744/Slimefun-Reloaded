@@ -26,6 +26,10 @@ public class Splint extends SlimefunReloadedItem {
     super(key, category, item, recipeType, recipe, keys, values);
   }
 
+  public Splint(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
+    super(key, category, item, recipeType, recipe, recipeOutput);
+  }
+
   @Override
   public boolean onInteract(Player player, ItemStack item, Action action, Block clickedBlock) {
     if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {

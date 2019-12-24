@@ -163,7 +163,7 @@ public class SlimefunReloaded extends JavaPlugin {
     //All Slimefun Reloaded Listeners
     registerListener(new WorldListener());
     registerListener(new PlayerQuitListener());
-    
+
     //TEMP DEBUG COMMAND
     Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
   }
@@ -696,6 +696,14 @@ public class SlimefunReloaded extends JavaPlugin {
         setItemVariable("MAGICIAN_TALISMAN", "allow-enchantments." + e.getKey().getKey() + ".level." + i, true);
       }
     }
+  }
+
+  public void runSync(Runnable r) {
+    Bukkit.getScheduler().runTask(this, r);
+  }
+
+  public void runSync(Runnable r, long delay) {
+    Bukkit.getScheduler().runTaskLater(this, r, delay);
   }
 
 }

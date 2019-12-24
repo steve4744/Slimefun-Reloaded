@@ -34,7 +34,15 @@ public class GrapplingHook extends SlimefunReloadedItem {
 
   public GrapplingHook(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
     super(key, category, item, recipeType, recipe);
+  }
+
+  public GrapplingHook(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, String[] keys, Object[] values) {
+    super(key, category, item, recipeType, recipe, keys, values);
     despawnTicks = (int) Slimefun.getItemValue(getID(), "despawn-seconds") * 20L;
+  }
+
+  public GrapplingHook(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
+    super(key, category, item, recipeType, recipe, recipeOutput);
   }
 
   @Override

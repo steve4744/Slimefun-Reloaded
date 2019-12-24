@@ -1,20 +1,28 @@
 package optic_fusion1.slimefunreloaded.component;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.gadget.impl.Composter;
+import optic_fusion1.slimefunreloaded.component.gadget.impl.Crucible;
 import optic_fusion1.slimefunreloaded.component.item.ReplacingItem;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedArmorPiece;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedBackpack;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedJuice;
 import optic_fusion1.slimefunreloaded.component.item.SoulboundBackpack;
 import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
+import optic_fusion1.slimefunreloaded.component.item.impl.Alloy;
+import optic_fusion1.slimefunreloaded.component.item.impl.Bandage;
 import optic_fusion1.slimefunreloaded.component.item.impl.DietCookie;
 import optic_fusion1.slimefunreloaded.component.item.impl.EnderBackpack;
+import optic_fusion1.slimefunreloaded.component.item.impl.ExplosivePickaxe;
+import optic_fusion1.slimefunreloaded.component.item.impl.ExplosiveShovel;
 import optic_fusion1.slimefunreloaded.component.item.impl.FortuneCookie;
 import optic_fusion1.slimefunreloaded.component.item.impl.GoldPan;
+import optic_fusion1.slimefunreloaded.component.item.impl.GrapplingHook;
 import optic_fusion1.slimefunreloaded.component.item.impl.HerculesPickaxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.InfernalBonemeal;
 import optic_fusion1.slimefunreloaded.component.item.impl.InfusedHopper;
@@ -40,6 +48,7 @@ import optic_fusion1.slimefunreloaded.component.item.impl.SimpleSlimefunReloaded
 import optic_fusion1.slimefunreloaded.component.item.impl.SmeltersPickaxe;
 import optic_fusion1.slimefunreloaded.component.item.impl.SoulboundItem;
 import optic_fusion1.slimefunreloaded.component.item.impl.SoulboundRune;
+import optic_fusion1.slimefunreloaded.component.item.impl.Splint;
 import optic_fusion1.slimefunreloaded.component.item.impl.StormStaff;
 import optic_fusion1.slimefunreloaded.component.item.impl.Vitamins;
 import optic_fusion1.slimefunreloaded.component.item.impl.WaterStaff;
@@ -242,11 +251,8 @@ public final class ComponentRegistry {
 		});
      */
     register(new Composter(new NamespacedKey(plugin, "composter"), MACHINES_1, (SlimefunReloadedItemStack) SlimefunReloadedItems.COMPOSTER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.OAK_SLAB), null, new ItemStack(Material.OAK_SLAB), new ItemStack(Material.OAK_SLAB), null, new ItemStack(Material.OAK_SLAB), new ItemStack(Material.OAK_SLAB), new ItemStack(Material.CAULDRON), new ItemStack(Material.OAK_SLAB)}));
-
+    register(new Crucible(new NamespacedKey(plugin, "crucible"), MACHINES_1, (SlimefunReloadedItemStack) SlimefunReloadedItems.CRUCIBLE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.TERRACOTTA), null, new ItemStack(Material.TERRACOTTA), new ItemStack(Material.TERRACOTTA), null, new ItemStack(Material.TERRACOTTA), new ItemStack(Material.TERRACOTTA), new ItemStack(Material.FLINT_AND_STEEL), new ItemStack(Material.TERRACOTTA)}));
     /*
-    new Crucible(MACHINES_1, (SlimefunReloadedItemStack) SlimefunReloadedItems.CRUCIBLE, RecipeType.ENHANCED_CRAFTING_TABLE,
-		new ItemStack [] {new ItemStack(Material.TERRACOTTA), null, new ItemStack(Material.TERRACOTTA), new ItemStack(Material.TERRACOTTA), null, new ItemStack(Material.TERRACOTTA), new ItemStack(Material.TERRACOTTA), new ItemStack(Material.FLINT_AND_STEEL), new ItemStack(Material.TERRACOTTA)})
-		.register(true);
     new BlockPlacer(MACHINES_1, (SlimefunReloadedItemStack) SlimefunReloadedItems.BLOCK_PLACER, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {SlimefunReloadedItems.GOLD_4K, new ItemStack(Material.PISTON), SlimefunReloadedItems.GOLD_4K, new ItemStack(Material.IRON_INGOT), SlimefunReloadedItems.ELECTRIC_MOTOR, new ItemStack(Material.IRON_INGOT), SlimefunReloadedItems.GOLD_4K, new ItemStack(Material.PISTON), SlimefunReloadedItems.GOLD_4K}, 
 		new String[] {"unplaceable-blocks"}, new Object[] {Stream.of(Material.STRUCTURE_BLOCK, Material.COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.REPEATING_COMMAND_BLOCK).map(Material::toString).collect(Collectors.toList())})
@@ -351,7 +357,7 @@ public final class ComponentRegistry {
     registerSimpleSlimefunReloadedItem("power_crystal", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.POWER_CRYSTAL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.REDSTONE), SlimefunReloadedItems.SYNTHETIC_SAPPHIRE, new ItemStack(Material.REDSTONE), SlimefunReloadedItems.SYNTHETIC_SAPPHIRE, SlimefunReloadedItems.SYNTHETIC_DIAMOND, SlimefunReloadedItems.SYNTHETIC_SAPPHIRE, new ItemStack(Material.REDSTONE), SlimefunReloadedItems.SYNTHETIC_SAPPHIRE, new ItemStack(Material.REDSTONE)});
     registerSimpleSlimefunReloadedItem("solar_panel", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.SOLAR_PANEL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.GLASS), new ItemStack(Material.GLASS), new ItemStack(Material.GLASS), SlimefunReloadedItems.SILICON, SlimefunReloadedItems.SILICON, SlimefunReloadedItems.SILICON, SlimefunReloadedItems.FERROSILICON, SlimefunReloadedItems.FERROSILICON, SlimefunReloadedItems.FERROSILICON});
     //TODO: Figure out why this one errors, even though literally every other one is basically the exact same as this one
-//    registerSlimefunReloadedAlloy("magnet", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.MAGNET, new ItemStack[]{SlimefunReloadedItems.NICKEL_INGOT, SlimefunReloadedItems.ALUMINUM_DUST, SlimefunReloadedItems.IRON_DUST, SlimefunReloadedItems.COBALT_INGOT, null, null, null, null, null});
+    registerSlimefunReloadedAlloy("magnet", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.MAGNET, new ItemStack[]{SlimefunReloadedItems.NICKEL_INGOT, SlimefunReloadedItems.ALUMINUM_DUST, SlimefunReloadedItems.IRON_DUST, SlimefunReloadedItems.COBALT_INGOT, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("electro_magnet", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.ELECTRO_MAGNET, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.NICKEL_INGOT, SlimefunReloadedItems.MAGNET, SlimefunReloadedItems.COBALT_INGOT, null, SlimefunReloadedItems.BATTERY, null, null, null, null});
     registerSimpleSlimefunReloadedItem("electric_motor", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.ELECTRIC_MOTOR, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, null, SlimefunReloadedItems.ELECTRO_MAGNET, null, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE});
     registerSimpleSlimefunReloadedItem("heating_coil", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.HEATING_COIL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.ELECTRIC_MOTOR, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE, SlimefunReloadedItems.COPPER_WIRE});
@@ -388,7 +394,7 @@ public final class ComponentRegistry {
     registerSimpleSlimefunReloadedItem("compressed_carbon", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.COMPRESSED_CARBON, RecipeType.COMPRESSOR, new ItemStack[]{new CustomItem(SlimefunReloadedItems.CARBON, 4), null, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("carbon_chunk", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.CARBON_CHUNK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.COMPRESSED_CARBON, SlimefunReloadedItems.COMPRESSED_CARBON, SlimefunReloadedItems.COMPRESSED_CARBON, SlimefunReloadedItems.COMPRESSED_CARBON, new ItemStack(Material.FLINT), SlimefunReloadedItems.COMPRESSED_CARBON, SlimefunReloadedItems.COMPRESSED_CARBON, SlimefunReloadedItems.COMPRESSED_CARBON, SlimefunReloadedItems.COMPRESSED_CARBON});
     registerSimpleSlimefunReloadedItem("gold_24k", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_24K, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.GOLD_22K, null, null, null, null, null, null, null});
-//    registerSimpleSlimefunReloadedItem("gold_22k", RESOURCES, new SlimefunReloadedItemStack(RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_22K, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.GOLD_20K, null, null, null, null, null, null, null}));
+    registerSimpleSlimefunReloadedItem("gold_22k", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_22K, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.GOLD_20K, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("gold_20k", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_20K, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.GOLD_18K, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("gold_18k", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_18K, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.GOLD_16K, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("gold_16k", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_16K, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.GOLD_DUST, SlimefunReloadedItems.GOLD_14K, null, null, null, null, null, null, null});
@@ -417,13 +423,13 @@ public final class ComponentRegistry {
     Category TOOLS = CATEGORY_MANAGER.getCategoryByName("Tools");
     register(new GoldPan(new NamespacedKey(plugin, "gold_pan"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_PAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.STONE), new ItemStack(Material.BOWL), new ItemStack(Material.STONE), new ItemStack(Material.STONE), new ItemStack(Material.STONE), new ItemStack(Material.STONE)}));
     register(new NetherGoldPan(new NamespacedKey(plugin, "nether_gold_pan"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.NETHER_GOLD_PAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.NETHER_BRICK), SlimefunReloadedItems.GOLD_PAN, new ItemStack(Material.NETHER_BRICK), new ItemStack(Material.NETHER_BRICK), new ItemStack(Material.NETHER_BRICK), new ItemStack(Material.NETHER_BRICK)}));
-//    register(new GrapplingHook(new NamespacedKey(plugin, "grappling_hook"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.GRAPPLING_HOOK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, SlimefunReloadedItems.HOOK, null, SlimefunReloadedItems.CHAIN, null, SlimefunReloadedItems.CHAIN, null, null}, new String[]{"despawn-seconds"}, new Object[]{60}));
+    register(new GrapplingHook(new NamespacedKey(plugin, "grappling_hook"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.GRAPPLING_HOOK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, SlimefunReloadedItems.HOOK, null, SlimefunReloadedItems.CHAIN, null, SlimefunReloadedItems.CHAIN, null, null}, new String[]{"despawn-seconds"}, new Object[]{60}));
     register(new SmeltersPickaxe(new NamespacedKey(plugin, "smelters_pickaxe"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.AUTO_SMELT_PICKAXE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.LAVA_CRYSTAL, SlimefunReloadedItems.LAVA_CRYSTAL, SlimefunReloadedItems.LAVA_CRYSTAL, null, SlimefunReloadedItems.FERROSILICON, null, null, SlimefunReloadedItems.FERROSILICON, null}));
     register(new LumberAxe(new NamespacedKey(plugin, "lumber_axe"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.LUMBER_AXE, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{SlimefunReloadedItems.SYNTHETIC_DIAMOND, SlimefunReloadedItems.SYNTHETIC_DIAMOND, null, SlimefunReloadedItems.SYNTHETIC_EMERALD, SlimefunReloadedItems.GILDED_IRON, null, null, SlimefunReloadedItems.GILDED_IRON, null}));
     register(new PickaxeOfContainment(new NamespacedKey(plugin, "pickaxe_of_containment"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.PICKAXE_OF_CONTAINMENT, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{SlimefunReloadedItems.FERROSILICON, SlimefunReloadedItems.FERROSILICON, SlimefunReloadedItems.FERROSILICON, null, SlimefunReloadedItems.GILDED_IRON, null, null, SlimefunReloadedItems.GILDED_IRON, null}));
     register(new HerculesPickaxe(new NamespacedKey(plugin, "hercules_pickaxe"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.HERCULES_PICKAXE, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{SlimefunReloadedItems.HARDENED_METAL_INGOT, SlimefunReloadedItems.HARDENED_METAL_INGOT, SlimefunReloadedItems.HARDENED_METAL_INGOT, null, SlimefunReloadedItems.FERROSILICON, null, null, SlimefunReloadedItems.FERROSILICON, null}));
-//    register(new ExplosivePickaxe(new NamespacedKey(plugin, "explosive_pickaxe"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.EXPLOSIVE_PICKAXE, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{new ItemStack(Material.TNT), SlimefunReloadedItems.SYNTHETIC_DIAMOND, new ItemStack(Material.TNT), null, SlimefunReloadedItems.FERROSILICON, null, null, SlimefunReloadedItems.FERROSILICON, null}, new String[]{"unbreakable-blocks", "damage-on-use"}, new Object[]{Stream.of(Material.BEDROCK, Material.END_PORTAL_FRAME, Material.END_PORTAL, Material.NETHER_PORTAL, Material.BARRIER, Material.STRUCTURE_BLOCK, Material.COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.REPEATING_COMMAND_BLOCK).map(Material::toString).collect(Collectors.toList()), Boolean.FALSE}));
-//    register(new ExplosiveShovel(new NamespacedKey(plugin, "explosive_shovel"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.EXPLOSIVE_SHOVEL, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{null, SlimefunReloadedItems.SYNTHETIC_DIAMOND, null, null, new ItemStack(Material.TNT), null, null, SlimefunReloadedItems.FERROSILICON, null}, new String[]{"damage-on-use"}, new Object[]{Boolean.FALSE}));
+    register(new ExplosivePickaxe(new NamespacedKey(plugin, "explosive_pickaxe"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.EXPLOSIVE_PICKAXE, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{new ItemStack(Material.TNT), SlimefunReloadedItems.SYNTHETIC_DIAMOND, new ItemStack(Material.TNT), null, SlimefunReloadedItems.FERROSILICON, null, null, SlimefunReloadedItems.FERROSILICON, null}, new String[]{"unbreakable-blocks", "damage-on-use"}, new Object[]{Stream.of(Material.BEDROCK, Material.END_PORTAL_FRAME, Material.END_PORTAL, Material.NETHER_PORTAL, Material.BARRIER, Material.STRUCTURE_BLOCK, Material.COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.REPEATING_COMMAND_BLOCK).map(Material::toString).collect(Collectors.toList()), Boolean.FALSE}));
+    register(new ExplosiveShovel(new NamespacedKey(plugin, "explosive_shovel"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.EXPLOSIVE_SHOVEL, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{null, SlimefunReloadedItems.SYNTHETIC_DIAMOND, null, null, new ItemStack(Material.TNT), null, null, SlimefunReloadedItems.FERROSILICON, null}, new String[]{"damage-on-use"}, new Object[]{Boolean.FALSE}));
     registerSimpleSlimefunReloadedItem("cobalt_pickaxe", TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.COBALT_PICKAXE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.COBALT_INGOT, SlimefunReloadedItems.COBALT_INGOT, SlimefunReloadedItems.COBALT_INGOT, null, SlimefunReloadedItems.NICKEL_INGOT, null, null, SlimefunReloadedItems.NICKEL_INGOT, null});
     register(new PickaxeOfVeinMining(new NamespacedKey(plugin, "pickaxe_of_vein_mining"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.PICKAXE_OF_VEIN_MINING, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{new ItemStack(Material.EMERALD_ORE), SlimefunReloadedItems.SYNTHETIC_DIAMOND, new ItemStack(Material.EMERALD_ORE), null, SlimefunReloadedItems.GILDED_IRON, null, null, SlimefunReloadedItems.GILDED_IRON, null}));
     registerSoulboundItem("soulbound_pickaxe", TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.SOULBOUND_PICKAXE, new ItemStack[]{null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null, null, new ItemStack(Material.DIAMOND_PICKAXE), null, null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null});
@@ -1756,7 +1762,7 @@ public final class ComponentRegistry {
     registerSimpleSlimefunReloadedItem("christmas_cookie", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_COOKIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.COOKIE), new ItemStack(Material.SUGAR), new ItemStack(Material.LIME_DYE), null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_COOKIE, 16));
     registerSimpleSlimefunReloadedItem("christmas_fruit_cake", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_FRUIT_CAKE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.EGG), new ItemStack(Material.APPLE), new ItemStack(Material.MELON), new ItemStack(Material.SUGAR), null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_FRUIT_CAKE, 4));
     registerSimpleSlimefunReloadedItem("christmas_apple_pie", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.SUGAR), new ItemStack(Material.APPLE), new ItemStack(Material.EGG), null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, 2));
-//    registerSimpleSlimefunReloadedItem("christmas_hot_chocolate", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_HOT_CHOCOLATE, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.CHRISTMAS_CHOCOLATE_MILK, null, null, null, null, null, null, null, null}, SlimefunReloadedItems.CHRISTMAS_HOT_CHOCOLATE);
+    registerSimpleSlimefunReloadedItem("christmas_hot_chocolate", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_HOT_CHOCOLATE, RecipeType.SMELTERY, new ItemStack[]{SlimefunReloadedItems.CHRISTMAS_CHOCOLATE_MILK, null, null, null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_HOT_CHOCOLATE));
     registerSimpleSlimefunReloadedItem("christmas_cake", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_CAKE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.EGG), new ItemStack(Material.SUGAR), SlimefunReloadedItems.WHEAT_FLOUR, new ItemStack(Material.MILK_BUCKET), null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_CAKE, 4));
     registerSimpleSlimefunReloadedItem("christmas_caramel", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_CARAMEL, RecipeType.SMELTERY, new ItemStack[]{new ItemStack(Material.SUGAR), new ItemStack(Material.SUGAR), null, null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_CARAMEL, 4));
     registerSimpleSlimefunReloadedItem("christmas_caramel_apple", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_CARAMEL_APPLE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, new ItemStack(Material.SUGAR), null, null, new ItemStack(Material.APPLE), null, null, new ItemStack(Material.STICK), null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_CARAMEL_APPLE, 2));
@@ -2081,7 +2087,7 @@ new GrindStone().register();
 
   public static void registerSimpleSlimefunReloadedItem(String namespace, Category category, ItemStack item, RecipeType type,
    ItemStack[] recipe, CustomItem customItem) {
-//    register(new SimpleSlimefunReloadedItem(new NamespacedKey(plugin, namespace), category, item, type, recipe, customItem));
+    register(new SimpleSlimefunReloadedItem(new NamespacedKey(plugin, namespace), category, item, type, recipe, customItem));
   }
 
   public static void registerSlimefunReloadedArmorPiece(String namespace, Category category, ItemStack item, RecipeType type,
@@ -2092,6 +2098,12 @@ new GrindStone().register();
   public static void registerSlimefunReloadedAlloy(String namespace, ItemStack item, ItemStack[] recipe) {
 //    register(new Alloy(new NamespacedKey(plugin, namespace), item, recipe));
   }
+  
+  private static void registerSlimefunReloadedAlloy(String namespace, Category category, ItemStack itemStack,
+   ItemStack[] recipe) {
+    register(new Alloy(new NamespacedKey(plugin, namespace), category, itemStack, RecipeType.MAGIC_WORKBENCH, recipe));
+  }
+
 
   public static void registerJetBoots(String namespace, ItemStack item, ItemStack[] recipe, double speed) {
     register(new JetBoots(new NamespacedKey(plugin, namespace), item, recipe, speed));

@@ -208,15 +208,15 @@ public final class Slimefun {
     return plugin.getTeleporterUsers();
   }
 
-  public static Map<String, SlimefunReloadedComponent> getItemIds(){
+  public static Map<String, SlimefunReloadedComponent> getItemIds() {
     return plugin.getItemIds();
   }
- 
-  public static Set<UUID> getElevatorUsers(){
+
+  public static Set<UUID> getElevatorUsers() {
     return plugin.getElevatorUsers();
   }
-  
-  public static GPSNetwork getGPSNetwork(){
+
+  public static GPSNetwork getGPSNetwork() {
     return plugin.getGPSNetwork();
   }
 
@@ -239,7 +239,13 @@ public final class Slimefun {
   public static boolean isEnabled(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
     return plugin.isEnabled(player, component, sendMessage);
   }
-  
-  
-  
+
+  public static void runSync(Runnable r) {
+    plugin.runSync(r);
+  }
+
+  public static void runSync(Runnable r, long delay) {
+    plugin.runSync(r, delay);
+  }
+
 }
