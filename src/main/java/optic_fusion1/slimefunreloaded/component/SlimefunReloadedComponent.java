@@ -76,7 +76,9 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     if (ITEM_CONFIG.getBoolean(componentKey + ".enabled")) {
       CategoryManager categoryManager = Slimefun.getCategoryManager();
       if (!categoryManager.getCategories().contains(category)) {
-        categoryManager.addCategory(category);
+        if (category != null) {
+          categoryManager.addCategory(category);
+        }
       }
       this.state = ComponentState.ENABLED;
       this.useableInWorkbench = ITEM_CONFIG.getBoolean(componentKey + ".can-be-used-in-workbenches");
@@ -233,8 +235,8 @@ public abstract class SlimefunReloadedComponent implements Keyed {
   public ItemStack getRecipeOutput() {
     return recipeOutput;
   }
-  
-  public void setRecipe(ItemStack[] recipe){
+
+  public void setRecipe(ItemStack[] recipe) {
     this.recipe = recipe;
   }
 
