@@ -5,24 +5,62 @@ import java.util.Set;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
 
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
+import optic_fusion1.slimefunreloaded.util.Config;
 
 public class Research implements Keyed {
 
   private int cost;
   private boolean enabled = true;
-  private Set<SlimefunReloadedComponent> components;
+  private Set<SlimefunReloadedComponent> components = new HashSet<>();
+  private List<SlimefunReloadedItem> items = new ArrayList<>();
 
-  private final NamespacedKey key;
+  private NamespacedKey key;
+  private final Config RESEARCH_CONFIG = Slimefun.getResearchesConfig();
 
   public Research(NamespacedKey key, int cost) {
     this.key = key;
     this.cost = cost;
+    RESEARCH_CONFIG.setDefaultValue("enable-researching", true);
+    if (RESEARCH_CONFIG.contains(key.getKey() + ".enabled") && !RESEARCH_CONFIG.getBoolean(key.getKey() + ".enabled")) {
+      Iterator<SlimefunReloadedItem> itemIterator = items.iterator();
+      while (itemIterator.hasNext()) {
+        SlimefunReloadedItem item = itemIterator.next();
+        if (item != null) {
+          item.setResearch(null);
+        }
+        itemIterator.remove();
+      }
+      Iterator<SlimefunReloadedComponent> componentIterator = components.iterator();
+      while (componentIterator.hasNext()) {
+        SlimefunReloadedComponent component = componentIterator.next();
+        if (component != null) {
+          component.setResearch(null);
+        }
+        componentIterator.remove();
+      }
+    }
+    RESEARCH_CONFIG.setDefaultValue(key.getKey() + ".name", key.getKey());
+    RESEARCH_CONFIG.setDefaultValue(key.getKey() + ".cost", cost);
+    RESEARCH_CONFIG.setDefaultValue(key.getKey() + ".enabled", true);
+    RESEARCH_CONFIG.save();
+    this.key = new NamespacedKey(Slimefun.getSlimefunReloaded(), RESEARCH_CONFIG.getString(key.getKey() + ".name"));
+    this.cost = RESEARCH_CONFIG.getInt(key.getKey() + ".cost");
+    this.enabled = RESEARCH_CONFIG.getBoolean(key.getKey() + ".enabled");
+    if (Slimefun.isPrintOutLoading()) {
+      Slimefun.getLogger().log(Level.INFO, "Loaded Research \"{0}\"", key.getKey());
+    }
   }
 
   public void setCost(int cost) {
@@ -35,6 +73,18 @@ public class Research implements Keyed {
 
   public boolean isEnabled() {
     return Slimefun.isResearchesEnabled() && enabled;
+  }
+
+  public void addItems(SlimefunReloadedItem... items) {
+    for (SlimefunReloadedItem item : items) {
+      if (item != null) {
+        item.setResearch(this);
+      }
+    }
+  }
+
+  public List<SlimefunReloadedItem> getAffectedItems() {
+    return items;
   }
 
   public void addComponent(SlimefunReloadedComponent component) {

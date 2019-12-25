@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.google.common.base.Preconditions;
 import java.util.Iterator;
+import java.util.logging.Level;
+import optic_fusion1.slimefunreloaded.Slimefun;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -21,12 +23,17 @@ public class ComponentManager {
   public void registerComponent(SlimefunReloadedComponent component) {
     Preconditions.checkArgument(component != null, "Cannot register null component");
     Preconditions.checkArgument(component.getKey() != null, "Component must not have a null key");
-    Preconditions.checkArgument(components.containsKey(component.getKey().toString()), "Component with the key %s already exists", component.getKey());
-
+    if (components.containsKey(component.getKey().toString())) {
+      Slimefun.getLogger().log(Level.WARNING, "Component with key {0} already exists", component.getKey());
+      return;
+    }
     this.components.put(component.getKey().toString(), component);
 
     if (component instanceof TickableComponent) {
       this.tickables.add((TickableComponent<? extends SlimefunReloadedComponent>) component);
+    }
+    if (Slimefun.getSlimefunReloaded().isPrintOutLoading()) {
+      Slimefun.getLogger().log(Level.INFO, "Loaded Item \"{0}\"", component.getKey());
     }
   }
 

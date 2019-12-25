@@ -24,17 +24,17 @@ public class GoldPan extends SlimefunReloadedItem {
   private int weights;
 
   public GoldPan(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-    super(key, category, item, recipeType, recipe/*, new String[] {"chance.FLINT", "chance.CLAY", "chance.SIFTED_ORE", "chance.IRON_NUGGET"}, new Integer[] {40, 20, 35, 5}*/);
+    super(key, category, item, recipeType, recipe, new String[] {"chance.FLINT", "chance.CLAY", "chance.SIFTED_ORE", "chance.IRON_NUGGET"}, new Integer[] {40, 20, 35, 5});
     recipes = Arrays.asList(
      new ItemStack(Material.GRAVEL), new ItemStack(Material.FLINT),
      new ItemStack(Material.GRAVEL), new ItemStack(Material.CLAY_BALL),
      //     new ItemStack(Material.GRAVEL), SlimefunItems.SIFTED_ORE,
      new ItemStack(Material.GRAVEL), new ItemStack(Material.IRON_NUGGET)
     );
-    add(SlimefunReloadedItems.SIFTED_ORE, (int) Slimefun.getItemValue(getID(), "chance.SIFTED_ORE"));
-    add(new ItemStack(Material.CLAY_BALL), (int) Slimefun.getItemValue(getID(), "chance.CLAY"));
-    add(new ItemStack(Material.FLINT), (int) Slimefun.getItemValue(getID(), "chance.FLINT"));
-    add(new ItemStack(Material.IRON_NUGGET), (int) Slimefun.getItemValue(getID(), "chance.IRON_NUGGET"));
+    add(SlimefunReloadedItems.SIFTED_ORE, (int) Slimefun.getItemValue(key.getKey(), "chance.SIFTED_ORE"));
+    add(new ItemStack(Material.CLAY_BALL), (int) Slimefun.getItemValue(key.getKey(), "chance.CLAY"));
+    add(new ItemStack(Material.FLINT), (int) Slimefun.getItemValue(key.getKey(), "chance.FLINT"));
+    add(new ItemStack(Material.IRON_NUGGET), (int) Slimefun.getItemValue(key.getKey(), "chance.IRON_NUGGET"));
 
     if (weights < 100) {
       add(new ItemStack(Material.AIR), 100 - weights);
@@ -42,6 +42,9 @@ public class GoldPan extends SlimefunReloadedItem {
   }
 
   private void add(ItemStack item, int chance) {
+    if(item == null){
+      System.out.println("ADD ITEM IS NULL");
+    }
     randomizer.add(item, chance);
     weights += chance;
   }

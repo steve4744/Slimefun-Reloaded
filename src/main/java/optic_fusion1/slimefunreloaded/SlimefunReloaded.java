@@ -34,6 +34,7 @@ import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
+import optic_fusion1.slimefunreloaded.listener.ItemUseListener;
 import optic_fusion1.slimefunreloaded.listener.PlayerQuitListener;
 import optic_fusion1.slimefunreloaded.listener.WorldListener;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
@@ -143,7 +144,7 @@ public class SlimefunReloaded extends JavaPlugin {
     new MetricsLite(this);
     gps = new GPSNetwork();
     if (CONFIG.getBoolean("options.auto-update")) {
-      Updater updater = new Updater(this, 0, false);
+      Updater updater = new Updater(this, 73726, false);
       updater.downloadUpdate();
     }
     createFiles();
@@ -152,10 +153,10 @@ public class SlimefunReloaded extends JavaPlugin {
     loadDescriptions();
     logger.info("Loading Researches...");
     ResearchRegistry.registerResearches();
-    logger.info("Loading components...");
-    ComponentRegistry.registerComponents();
     logger.info("Loading categories...");
     CategoryRegistery.registerCategories();
+    logger.info("Loading components...");
+    ComponentRegistry.registerComponents();
     setupMisc();
     addWikiPages();
     textureService.setup(COMPONENT_MANAGER.getComponents());
@@ -163,6 +164,7 @@ public class SlimefunReloaded extends JavaPlugin {
     //All Slimefun Reloaded Listeners
     registerListener(new WorldListener());
     registerListener(new PlayerQuitListener());
+    registerListener(new ItemUseListener());
 
     //TEMP DEBUG COMMAND
     Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
@@ -665,6 +667,7 @@ public class SlimefunReloaded extends JavaPlugin {
       if (WHITELIST_CONFIG.getBoolean(worldName + ".enabled")) {
         if (!WHITELIST_CONFIG.contains(worldName + ".enabled-items." + component.getID())) {
           WHITELIST_CONFIG.setDefaultValue(worldName + ".enabled-items." + component.getID(), true);
+          WHITELIST_CONFIG.save();
         }
         if (WHITELIST_CONFIG.getBoolean(worldName + ".enabled-items." + component.getID())) {
           return true;
@@ -688,7 +691,7 @@ public class SlimefunReloaded extends JavaPlugin {
     for (World world : Bukkit.getWorlds()) {
       WHITELIST_CONFIG.setDefaultValue(world.getName() + ".enabled-items.SLIMEFUN_GUIDE", true);
     }
-
+    WHITELIST_CONFIG.save();
     setItemVariable("ORE_CRUSHER", "double-ores", true);
 
     for (Enchantment e : Enchantment.values()) {

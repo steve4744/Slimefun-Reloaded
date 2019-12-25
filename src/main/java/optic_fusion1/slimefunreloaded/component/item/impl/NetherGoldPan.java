@@ -23,7 +23,7 @@ public class NetherGoldPan extends SlimefunReloadedItem {
   private int weights;
 
   public NetherGoldPan(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-    super(key, category, item, recipeType, recipe /*new String[] {"chance.QUARTZ", "chance.GOLD_NUGGET", "chance.NETHER_WART", "chance.BLAZE_POWDER", "chance.GLOWSTONE_DUST", "chance.GHAST_TEAR"}, new Integer[] {50, 25, 10, 8, 5, 2}*/);
+    super(key, category, item, recipeType, recipe, new String[] {"chance.QUARTZ", "chance.GOLD_NUGGET", "chance.NETHER_WART", "chance.BLAZE_POWDER", "chance.GLOWSTONE_DUST", "chance.GHAST_TEAR"}, new Integer[] {50, 25, 10, 8, 5, 2});
     recipes = Arrays.asList(
      new ItemStack(Material.SOUL_SAND), new ItemStack(Material.QUARTZ),
      new ItemStack(Material.SOUL_SAND), new ItemStack(Material.GOLD_NUGGET),

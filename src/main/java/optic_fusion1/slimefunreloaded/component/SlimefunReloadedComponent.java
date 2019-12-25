@@ -64,10 +64,12 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     ITEM_CONFIG.setDefaultValue(componentKey + ".allow-disenchanting", disenchantable);
     ITEM_CONFIG.setDefaultValue(componentKey + ".required-permission", permission);
     ITEM_CONFIG.setDefaultValue(componentKey + ".no-permission-tooltip", new String[]{"&4&lLOCKED", "", "&rYou do not have Permission", "&rto access this Item"});
+    ITEM_CONFIG.save();
     Config whitelistConfig = Slimefun.getWhitelistConfig();
     for (World world : Bukkit.getWorlds()) {
       whitelistConfig.setDefaultValue(world.getName() + ".enabled", true);
       whitelistConfig.setDefaultValue(world.getName() + ".enabled-items." + componentKey, true);
+      whitelistConfig.save();
     }
     if (this.ticking && !Slimefun.getCfg().getBoolean("URID.enable-tickers")) {
       this.state = ComponentState.DISABLED;
@@ -88,30 +90,12 @@ public abstract class SlimefunReloadedComponent implements Keyed {
       this.permission = ITEM_CONFIG.getString(componentKey + ".required-permission");
       this.noPermissionTooltip = ITEM_CONFIG.getStringList(componentKey + ".no-permission-tooltip");
       COMPONENT_MANAGER.addEnabledComponent(this);
-
-//      if (slimefun) {
-//        SlimefunPlugin.getUtilities().vanillaItems++;
-//      }
-      COMPONENT_MANAGER.registerComponent(this);
-
-//      for (ItemHandler handler : itemhandlers) {
-//        if (areItemHandlersPrivate()) {
-//          continue;
-//        }
-//
-//        Set<ItemHandler> handlerset = getHandlers(handler.toCodename());
-//        handlerset.add(handler);
-//
-//        SlimefunPlugin.getUtilities().itemHandlers.put(handler.toCodename(), handlerset);
     } else {
       if (this instanceof VanillaItem) {
         this.state = ComponentState.VANILLA;
       } else {
         this.state = ComponentState.DISABLED;
       }
-    }
-    if (Slimefun.getSlimefunReloaded().isPrintOutLoading()) {
-      Slimefun.getLogger().log(Level.INFO, "Loaded Item \"{0}\"", componentKey);
     }
   }
 
@@ -125,6 +109,7 @@ public abstract class SlimefunReloadedComponent implements Keyed {
         ITEM_CONFIG.setDefaultValue(componentKey + '.' + this.keys[i], this.values[i]);
       }
     }
+    ITEM_CONFIG.save();
   }
 
   protected SlimefunReloadedComponent(NamespacedKey key, Category category, ItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
