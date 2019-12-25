@@ -55,6 +55,7 @@ public class ComponentManager {
   }
 
   public SlimefunReloadedComponent getComponentByNamespace(String nameSpace) {
+    Preconditions.checkArgument(nameSpace != null, "Expected namespace, received null");
     Iterator it = components.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry pair = (Map.Entry) it.next();
