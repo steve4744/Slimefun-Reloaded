@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.util.chat;
 
+import com.google.common.base.Preconditions;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -23,7 +24,9 @@ public final class ChatInput {
    * @param handler	A callback to invoke when the Player has entered some text
    */
   public static void waitForPlayer(Plugin plugin, Player p, Consumer<String> handler) {
-    Utils.requireNonNull(plugin, p, handler);
+    Preconditions.checkArgument(plugin != null, "Expected Plugin, received null");
+    Preconditions.checkArgument(p != null, "Expected Player, received null");
+    Preconditions.checkArgument(handler != null, "Expected Consumer<String>, received null");
     waitForPlayer(plugin, p, s -> true, handler);
   }
 
@@ -36,7 +39,10 @@ public final class ChatInput {
    * @param handler	A callback to invoke when the Player has entered some text
    */
   public static void waitForPlayer(Plugin plugin, Player p, Predicate<String> predicate, Consumer<String> handler) {
-    Utils.requireNonNull(plugin, p, predicate, handler);
+    Preconditions.checkArgument(plugin != null, "Expected Plugin, received null");
+    Preconditions.checkArgument(p != null, "Expected Player, received null");
+    Preconditions.checkArgument(predicate != null, "Expected Predicate<String>, receieve null");
+    Preconditions.checkArgument(handler != null, "Expected Consumer<String>, received null");
     if (listener == null) {
       listener = new ChatInputListener(plugin);
     }
@@ -63,7 +69,9 @@ public final class ChatInput {
    * @param handler	A callback to invoke when the Player has entered some text
    */
   public static void waitForPlayer(Plugin plugin, Player p, BiConsumer<Player, String> handler) {
-    Utils.requireNonNull(plugin, p, handler);
+    Preconditions.checkArgument(plugin != null, "Expected Plugin, received null");
+    Preconditions.checkArgument(p != null, "Expected Player, received null");
+    Preconditions.checkArgument(handler != null, "Expected Consumer<String>, received null");
     waitForPlayer(plugin, p, s -> true, handler);
   }
 
@@ -76,7 +84,10 @@ public final class ChatInput {
    * @param handler	A callback to invoke when the Player has entered some text
    */
   public static void waitForPlayer(Plugin plugin, Player p, Predicate<String> predicate, BiConsumer<Player, String> handler) {
-    Utils.requireNonNull(plugin, p, predicate, handler);
+    Preconditions.checkArgument(plugin != null, "Expected Plugin, received null");
+    Preconditions.checkArgument(p != null, "Expected Player, received null");
+    Preconditions.checkArgument(predicate != null, "Expected Predicate<String>, received null");
+    Preconditions.checkArgument(handler != null, "Expected BiConsumer<Player, String>, received null");
     if (listener == null) {
       listener = new ChatInputListener(plugin);
     }

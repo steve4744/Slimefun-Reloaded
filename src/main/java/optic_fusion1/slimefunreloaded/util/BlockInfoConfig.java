@@ -1,13 +1,14 @@
 package optic_fusion1.slimefunreloaded.util;
 
-import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import optic_fusion1.slimefunreloaded.Slimefun;
+
 import org.bukkit.configuration.file.FileConfiguration;
+
+import com.google.gson.GsonBuilder;
 
 public class BlockInfoConfig extends Config {
 
@@ -18,7 +19,7 @@ public class BlockInfoConfig extends Config {
   }
 
   public BlockInfoConfig(Map<String, String> data) {
-    super(Slimefun.getSlimefunReloaded(), null);
+    super(null, null);
     this.data = data;
   }
 
@@ -124,7 +125,7 @@ public class BlockInfoConfig extends Config {
   }
 
   @Override
-  public boolean createFile() {
+  public void createFile() {
     throw new UnsupportedOperationException();
   }
 

@@ -2,17 +2,22 @@ package optic_fusion1.slimefunreloaded.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
-public final class ReflectionUtils {
+@Deprecated
+public class ReflectionUtils {
 
-  private static final Map<Class<?>, Class<?>> conversion = new HashMap<>();
   private static Method handle_player, handle_world, handle_entity, handle_animals, sendPacket;
   private static Field player_connection;
+  private static final Map<Class<?>, Class<?>> conversion = new HashMap<Class<?>, Class<?>>();
+  private static String currentVersion;
 
   static {
     conversion.put(Byte.class, Byte.TYPE);
@@ -30,15 +35,152 @@ public final class ReflectionUtils {
       handle_entity = getClass(PackageName.OBC, "entity.CraftEntity").getMethod("getHandle");
       handle_animals = getClass(PackageName.OBC, "entity.CraftAnimals").getMethod("getHandle");
       player_connection = getClass(PackageName.NMS, "EntityPlayer").getField("playerConnection");
-      sendPacket = getMethod(getClass(PackageName.NMS, "PlayerConnection"), "sendPacket", getClass(PackageName.NMS, "Packet"));
+      sendPacket = getMethod(getClass(PackageName.NMS, "PlayerConnection"), "sendPacket");
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  private ReflectionUtils() {
+  /**
+   * Returns a certain Method in the specified Class
+   *
+   * @param c The Class in which the Method is in
+   * @param method The Method you are looking for
+   * @return The found Method
+   */
+  public static Method getMethod(Class<?> c, String method) {
+    for (Method m : c.getMethods()) {
+      if (m.getName().equals(method)) {
+        return m;
+      }
+    }
+    return null;
   }
 
+  /**
+   * Returns the Method with certain Parameters
+   *
+   * @param c The Class in which the Method is in
+   * @param method The Method you are looking for
+   * @param paramTypes The Types of the Parameters
+   * @return The found Method
+   */
+  public static Method getMethod(Class<?> c, String method, Class<?>... paramTypes) {
+    Class<?>[] t = toPrimitiveTypeArray(paramTypes);
+    for (Method m : c.getMethods()) {
+      Class<?>[] types = toPrimitiveTypeArray(m.getParameterTypes());
+      if ((m.getName().equals(method)) && (equalsTypeArray(types, t))) {
+        return m;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns the Field of a Class
+   *
+   * @param c The Class conating this Field
+   * @param field The name of the Field you are looking for
+   * @return The found Field
+   *
+   * @throws Exception
+   */
+  public static Field getField(Class<?> c, String field) throws Exception {
+    return c.getDeclaredField(field);
+  }
+
+  /**
+   * Modifies a Field in an Object
+   *
+   * @param object The Object containing the Field
+   * @param field The Name of that Field
+   * @param value The Value for that Field
+   */
+  public static void setFieldValue(Object object, String field, Object value) throws Exception {
+    Field f = getField(object.getClass(), field);
+    f.setAccessible(true);
+    f.set(object, value);
+  }
+
+  /**
+   * Returns the Value of a Field in an Object
+   *
+   * @param object The Object containing the Field
+   * @param field The Name of that Field
+   * @return The Value of a Field
+   */
+  public static Object getFieldValue(Object object, String field) throws Exception {
+    Field f = getField(object.getClass(), field);
+    f.setAccessible(true);
+    return f.get(object);
+  }
+
+  /**
+   * Converts the Classes to a Primitive Type Array in order to be used as paramaters
+   *
+   * @param classes The Types you want to convert
+   * @return An Array of primitive Types
+   */
+  public static Class<?>[] toPrimitiveTypeArray(Class<?>... classes) {
+    int a = classes != null ? classes.length : 0;
+    Class<?>[] types = new Class[a];
+    for (int i = 0; i < a; i++) {
+      types[i] = conversion.containsKey(classes[i]) ? conversion.get(classes[i]) : classes[i];
+    }
+    return types;
+  }
+
+  /**
+   * Converts the Classes of the specified Objects to a Primitive Type Array in order to be used as paramaters
+   *
+   * @param objects The Types you want to convert
+   * @return An Array of primitive Types
+   */
+  public static Class<?>[] toPrimitiveTypeArray(Object... objects) {
+    int a = objects != null ? objects.length : 0;
+    Class<?>[] types = new Class[a];
+    for (int i = 0; i < a; i++) {
+      types[i] = conversion.containsKey(objects[i].getClass()) ? conversion.get(objects[i].getClass()) : objects[i].getClass();
+    }
+    return types;
+  }
+
+  /**
+   * Returns the Constructor of a Class with the specified Parameters
+   *
+   * @param c The Class containing the Constructor
+   * @param paramTypes The Parameters for that Constructor
+   * @return The Constructor for that Class
+   */
+  public static Constructor<?> getConstructor(Class<?> c, Class<?>... paramTypes) {
+    Class<?>[] t = toPrimitiveTypeArray(paramTypes);
+    for (Constructor<?> con : c.getConstructors()) {
+      Class<?>[] types = toPrimitiveTypeArray(con.getParameterTypes());
+      if (equalsTypeArray(types, t)) {
+        return con;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Shortcut for NMS Classes
+   *
+   * @param name The Name of the Class you are looking for
+   * @return The Class with that name in the NMS Package
+   */
+  public static Class<?> getClass(String name) throws Exception {
+    return getClass(PackageName.NMS, name);
+  }
+
+  /**
+   * Returns an Instance of the NMS class for your Object
+   *
+   * @param type The Type of NMS Class you want to get
+   * @param object The Object you want to get the Handle of
+   * @return An Instance of the NMS class of your Object
+   * @throws Exception
+   */
   public static Object getHandle(CraftObject type, Object object) throws Exception {
     switch (type) {
       case PLAYER:
@@ -54,187 +196,161 @@ public final class ReflectionUtils {
     }
   }
 
-  public static Class<?> getClass(PackageName pkg, String name) {
-    return getClass(pkg.toPackage() + getVersion() + "." + name);
+  /**
+   * Sends a Packet to the specified Player
+   *
+   * @param p The Player you want to send the Packet to
+   * @param packet The Packet you want to send
+   * @throws Exception
+   */
+  public static void sendPacket(Player p, Object packet) throws Exception {
+    try {
+      sendPacket.invoke(player_connection.get(getHandle(CraftObject.PLAYER, p)), packet);
+    } catch (NullPointerException x) {
+      x.printStackTrace();
+      System.err.println("Packet Method: " + sendPacket);
+      System.err.println("Player Connection: " + player_connection);
+      System.err.println("Player Handle: " + getHandle(CraftObject.PLAYER, p));
+      System.err.println("Packet: " + packet);
+    }
   }
 
-  public static Class<?> getNMSClass(String name) {
-    return getClass("net.minecraft.server." + getVersion() + "." + name);
+  /**
+   * Returns a Class inside a Class
+   *
+   * @param path The Package in which the Class can be found in
+   * @param name The Name of the Class your Inner class is located in
+   * @param subname The Name of the inner Class you are looking for
+   * @return The Class in your specified Class
+   */
+  public static Class<?> getInnerClass(PackageName path, String name, String subname) throws Exception {
+    return getClass(path, name + "$" + subname);
   }
 
-  public static Class<?> getCraftClass(String name) {
-    return getClass("org.bukkit.craftbukkit." + getVersion() + "." + name);
+  /**
+   * Returns an OBC/NMS Class via Reflection
+   *
+   * @param path The Types of the Package you are targeting
+   * @param name The Name of the Class you are looking for
+   * @return The Class in that Package
+   */
+  public static Class<?> getClass(PackageName path, String name) throws Exception {
+    return Class.forName(new StringBuilder().append(path.toPackage()).append(getVersion()).append(".").append(name).toString());
   }
 
+  /**
+   * Returns an OBC/NMS Class via Reflection
+   *
+   * @param path The Types of the Package you are targeting
+   * @param names The Names of the Classes you are looking for
+   * @return The Class in that Package
+   */
+  public static Class<?> tryClass(PackageName path, String... names) throws Exception {
+    for (String name : names) {
+      try {
+        Class<?> c = Class.forName(new StringBuilder().append(path.toPackage()).append(getVersion()).append(".").append(name).toString());
+        return c;
+      } catch (ClassNotFoundException x) {
+      }
+    }
+//    System.err.println("[CS-CoreLib - Reflection] Could not find Class(es): \"" + ListUtils.toString(names) + "\"");
+    return null;
+  }
+
+  /**
+   * Returns a Class's field via Reflection
+   *
+   * @param c The class you are targeting
+   * @param names The Names of the fields you are looking for
+   * @return The field in that class
+   */
+  public static Field tryField(Class<?> c, String... names) throws Exception {
+    for (String name : names) {
+      try {
+        Field f = c.getDeclaredField(name);
+        if (f != null) {
+          return f;
+        }
+      } catch (NoSuchFieldException x) {
+      }
+    }
+//    System.err.println("[CS-CoreLib - Reflection] Could not find Field(s): \"" + ListUtils.toString(names) + "\" in Class " + c.getName());
+    return null;
+  }
+
+  /**
+   * Modifies a Field in an Object
+   *
+   * @param object The Object containing the Field
+   * @param value The Value for that Field
+   * @param names The Names of the fields you are looking for
+   */
+  public static void trySetField(Object object, Object value, String... names) throws Exception {
+    Class<?> c = object.getClass();
+    for (String name : names) {
+      try {
+        Field f = getField(c, name);
+        f.setAccessible(true);
+        f.set(object, value);
+      } catch (Exception x) {
+      }
+    }
+//    System.err.println("[CS-CoreLib - Reflection] Could not find Field(s): \"" + ListUtils.toString(names) + "\" in Class " + c.getName());
+  }
+
+  /**
+   * Returns a Class's Method via Reflection
+   *
+   * @param c The class you are targeting
+   * @param names The Names of the methods you are looking for
+   * @param params The Parameters of your Method
+   * @return The field in that class
+   */
+  public static Method tryMethod(Class<?> c, String[] names, Class<?>... params) throws Exception {
+    for (String name : names) {
+      try {
+        Method m = getMethod(c, name, params);
+        if (m != null) {
+          return m;
+        }
+      } catch (Exception x) {
+      }
+    }
+//    System.err.println("[CS-CoreLib - Reflection] Could not find Method(s): \"" + ListUtils.toString(names) + "\" in Class " + c.getName());
+    return null;
+  }
+
+  /**
+   * Returns the formatted Server Version usable for Reflection
+   *
+   * @return The formatted Server Version
+   */
   public static String getVersion() {
-    try {
-      return Bukkit.getServer().getClass().getPackage().getName().substring(23);
-    } catch (Exception e) {
+    if (currentVersion == null) {
+      currentVersion = Bukkit.getServer().getClass().getPackage().getName().substring(Bukkit.getServer().getClass().getPackage().getName().lastIndexOf(".") + 1);
     }
-    return "Couldn't get the version used";
+    return currentVersion;
   }
 
-  public static String getRawVersion() {
-    try {
-      String pkg = Bukkit.getServer().getClass().getPackage().getName();
-      return pkg.substring(pkg.lastIndexOf('.') + 1);
-    } catch (Exception e) {
-    }
-    return "Couldn't get the version used";
-  }
+  public static boolean isVersion(String... prefixes) {
+    String version = getVersion();
 
-  public static String getNMSVersion() {
-    return "net.minecraft.server." + getRawVersion() + ".";
-  }
-
-  public static boolean isVersion(String... versions) {
-    String nmsVersion = getVersion();
-    for (String version : versions) {
-      if (version.equals(nmsVersion)) {
+    for (String prefix : prefixes) {
+      if (version.startsWith(prefix)) {
         return true;
       }
     }
+
     return false;
   }
 
-  public static Class<?> wrapperToPrimitive(Class<?> clazz) {
-    if (clazz == Boolean.class) {
-      return Boolean.TYPE;
-    }
-    if (clazz == Integer.class) {
-      return Integer.TYPE;
-    }
-    if (clazz == Double.class) {
-      return Double.TYPE;
-    }
-    if (clazz == Float.class) {
-      return Float.TYPE;
-    }
-    if (clazz == Long.class) {
-      return Long.TYPE;
-    }
-    if (clazz == Short.class) {
-      return Short.TYPE;
-    }
-    if (clazz == Byte.class) {
-      return Byte.TYPE;
-    }
-    if (clazz == Void.class) {
-      return Void.TYPE;
-    }
-    if (clazz == Character.class) {
-      return Character.TYPE;
-    }
-    return clazz;
-  }
-
-  public static Class<?>[] toParamTypes(Object... params) {
-    Class<?>[] classes = new Class[params.length];
-    for (int i = 0; i < params.length; ++i) {
-      classes[i] = wrapperToPrimitive(params[i].getClass());
-    }
-    return classes;
-  }
-
-  @SuppressWarnings("unchecked")
-  public static Enum<?> getEnum(String enumFullName) {
-    String[] x = enumFullName.split("\\.(?=[^\\.]+$)");
-    if (x.length == 2) {
-      String enumClassName = x[0];
-      String enumName = x[1];
-      Class enumClass = getClass(enumClassName);
-      if (enumClass.isEnum()) {
-        return Enum.valueOf(enumClass, enumName);
-      }
-    }
-    return null;
-  }
-
-  public static Class<?> getClass(String name) {
-    try {
-      return Class.forName(name);
-    } catch (ClassNotFoundException e) {
-      return null;
-    }
-  }
-
-  public static void setValue(Object instance, String fieldName, Object value) {
-    try {
-      Field field = instance.getClass().getDeclaredField(fieldName);
-      field.setAccessible(true);
-      field.set(instance, value);
-    } catch (IllegalAccessException
-     | IllegalArgumentException
-     | NoSuchFieldException
-     | SecurityException e) {
-    }
-  }
-
-  @SuppressWarnings("deprecation")
-  public static Object getValue(Object o, String fieldName) {
-    try {
-      Field field = o.getClass().getDeclaredField(fieldName);
-      if (!field.isAccessible()) {
-        field.setAccessible(true);
-      }
-      return field.get(o);
-    } catch (IllegalAccessException
-     | IllegalArgumentException
-     | NoSuchFieldException
-     | SecurityException e) {
-      return null;
-    }
-  }
-
-  public static Object callMethod(Object object, String method, Object... params) {
-    try {
-      Class<?> clazz = object.getClass();
-      Method m = clazz.getDeclaredMethod(method, toParamTypes(params));
-      m.setAccessible(true);
-      return m.invoke(object, params);
-    } catch (IllegalAccessException
-     | IllegalArgumentException
-     | NoSuchMethodException
-     | SecurityException
-     | InvocationTargetException e) {
-      return null;
-    }
-  }
-
-  public static Method getMethod(Class o, String methodName, Class<?>... params) {
-    try {
-      Method method = o.getMethod(methodName, params);
-      if (!method.isAccessible()) {
-        method.setAccessible(true);
-      }
-      return method;
-    } catch (NoSuchMethodException | SecurityException e) {
-      for (Method method : o.getDeclaredMethods()) {
-        if (method.getName().equals(methodName)) {
-          return method;
-        }
-      }
-      return null;
-    }
-  }
-
-  public static Field getField(Field field) {
-    field.setAccessible(true);
-    return field;
-  }
-
-  public static <T> Constructor<T> getConstructor(Class<T> c, Class<?>... paramTypes) {
-    Class<?>[] t = toPrimitiveTypeArray(paramTypes);
-    for (Constructor<?> constructor : c.getConstructors()) {
-      Class<?>[] types = toPrimitiveTypeArray(constructor.getParameterTypes());
-
-      if (equalsTypeArray(types, t)) {
-        return (Constructor<T>) constructor;
-      }
-    }
-    return null;
-  }
-
+  /**
+   * Compares multiple Type Arrays
+   *
+   * @param a The first Array for comparison
+   * @param o All following Arrays you want to compare
+   * @return Whether they equal each other
+   */
   private static boolean equalsTypeArray(Class<?>[] a, Class<?>... o) {
     if (a.length != o.length) {
       return false;
@@ -247,12 +363,29 @@ public final class ReflectionUtils {
     return true;
   }
 
-  public static Class<?>[] toPrimitiveTypeArray(Object... objects) {
-    int a = objects != null ? objects.length : 0;
-    Class<?>[] types = new Class[a];
-    for (int i = 0; i < a; i++) {
-      types[i] = conversion.containsKey(objects[i].getClass()) ? conversion.get(objects[i].getClass()) : objects[i].getClass();
+  /**
+   * Returns all Enum Constants in an Enum
+   *
+   * @param c The Enum you are targeting
+   * @return An ArrayList of all Enum Constants in that Enum
+   */
+  public static List<?> getEnumConstants(Class<?> c) {
+    return Arrays.asList(c.getEnumConstants());
+  }
+
+  /**
+   * Returns a specific Enum Constant in an Enum
+   *
+   * @param c The Enum you are targeting
+   * @param name The Name of the Constant you are targeting
+   * @return The found Enum Constant
+   */
+  public static Object getEnumConstant(Class<?> c, String name) {
+    for (Object o : c.getEnumConstants()) {
+      if (o.toString().equals(name)) {
+        return o;
+      }
     }
-    return types;
+    return null;
   }
 }

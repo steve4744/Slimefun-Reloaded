@@ -72,7 +72,7 @@ public class RecipeType {
   }
 
   public SlimefunReloadedComponent getMachine() {
-    return COMPONENT_MANAGER.getComponentByNamespace(machine);
+    return COMPONENT_MANAGER.getComponentByKey(machine);
   }
 
   public static List<ItemStack> getRecipeInputs(SlimefunReloadedComponent machine) {

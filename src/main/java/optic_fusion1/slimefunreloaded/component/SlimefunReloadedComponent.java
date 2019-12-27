@@ -51,7 +51,7 @@ public abstract class SlimefunReloadedComponent implements Keyed {
     this.recipeType = recipeType;
     this.recipe = recipe.clone();
     String componentKey = key.getKey();
-    if (COMPONENT_MANAGER.getComponents().containsKey(componentKey)) {
+    if (COMPONENT_MANAGER.getComponentByKey(componentKey) != null) {
       throw new IllegalArgumentException("ID \"" + componentKey + "\" already exists");
     }
     if (this.recipe.length < 9) {
@@ -96,6 +96,9 @@ public abstract class SlimefunReloadedComponent implements Keyed {
       } else {
         this.state = ComponentState.DISABLED;
       }
+    }
+    if (Slimefun.getSlimefunReloaded().isPrintOutLoading()) {
+      Slimefun.getLogger().log(Level.INFO, "Loaded Item \"{0}\"", key.getKey());
     }
   }
 

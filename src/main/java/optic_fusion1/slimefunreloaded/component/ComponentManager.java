@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.base.Preconditions;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.logging.Level;
 import optic_fusion1.slimefunreloaded.Slimefun;
@@ -15,11 +16,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class ComponentManager {
 
-  private final Map<String, SlimefunReloadedComponent> components = new HashMap<>();
-  private final Map<String, SlimefunReloadedComponent> enabledComponents = new HashMap<>();
-  private final List<TickableComponent<? extends SlimefunReloadedComponent>> tickables = new ArrayList<>(32);
+  private Map<String, SlimefunReloadedComponent> components = new HashMap<>();
+  private Map<String, SlimefunReloadedComponent> enabledComponents = new HashMap<>();
+  private List<TickableComponent<? extends SlimefunReloadedComponent>> tickables = new ArrayList<>(32);
 
-  @SuppressWarnings("unchecked")
   public void registerComponent(SlimefunReloadedComponent component) {
     Preconditions.checkArgument(component != null, "Cannot register null component");
     Preconditions.checkArgument(component.getKey() != null, "Component must not have a null key");
@@ -31,9 +31,6 @@ public class ComponentManager {
 
     if (component instanceof TickableComponent) {
       this.tickables.add((TickableComponent<? extends SlimefunReloadedComponent>) component);
-    }
-    if (Slimefun.getSlimefunReloaded().isPrintOutLoading()) {
-      Slimefun.getLogger().log(Level.INFO, "Loaded Item \"{0}\"", component.getKey());
     }
   }
 
@@ -61,13 +58,13 @@ public class ComponentManager {
     return null;
   }
 
-  public SlimefunReloadedComponent getComponentByNamespace(String nameSpace) {
-    Preconditions.checkArgument(nameSpace != null, "Expected namespace, received null");
+  public SlimefunReloadedComponent getComponentByKey(String key) {
+    Preconditions.checkArgument(key != null, "Expected String, received null");
     Iterator it = components.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry pair = (Map.Entry) it.next();
       SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
-      if (component.getKey().getNamespace().equals(nameSpace)) {
+      if (component.getKey().getKey().toLowerCase().equals(key.toLowerCase())) {
         return component;
       }
       it.remove();
@@ -85,24 +82,11 @@ public class ComponentManager {
   }
 
   public Map<String, SlimefunReloadedComponent> getEnabledComponents() {
-    return components;
+    return enabledComponents;
   }
 
   public void addEnabledComponent(SlimefunReloadedComponent component) {
     enabledComponents.put(component.getID(), component);
-  }
-
-  public List<String> getComponentNames() {
-    List<String> names = new ArrayList<>();
-    Iterator it = components.entrySet().iterator();
-    while (it.hasNext()) {
-      Map.Entry pair = (Map.Entry) it.next();
-      SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
-      NamespacedKey key = component.getKey();
-      names.add(key.getKey() + ":" + key.getNamespace());
-      it.remove();
-    }
-    return names;
   }
 
 }

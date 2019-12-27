@@ -20,14 +20,6 @@ public final class Utils {
     return YamlConfiguration.loadConfiguration(new BufferedReader(new InputStreamReader(input, "UTF-8")));
   }
 
-  public static void requireNonNull(Object... objects) {
-    for (int i = 0; i < objects.length; i++) {
-      if (objects[i] == null) {
-        throw new NullPointerException("Array Number " + i + " is null");
-      }
-    }
-  }
-
   public static void consumeItem(ItemStack item, boolean replaceConsumables) {
     consumeItem(item, 1, replaceConsumables);
   }
@@ -46,6 +38,15 @@ public final class Utils {
       } else {
         item.setAmount(item.getAmount() - amount);
       }
+    }
+  }
+  
+  public static boolean isInteger(String string){
+    try{
+      int i = Integer.valueOf(string);
+      return true;
+    }catch(Exception e){
+      return false;
     }
   }
 

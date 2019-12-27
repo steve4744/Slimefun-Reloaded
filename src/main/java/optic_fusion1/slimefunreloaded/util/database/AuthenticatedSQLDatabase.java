@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.util.database;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public abstract class AuthenticatedSQLDatabase<T extends AuthenticatedSQLDatabas
     this.callback = callback;
     this.queries = new HashSet<>();
 
-    Config cfg = new Config(plugin, getType() + ".yml");
+    Config cfg = new Config(new File(plugin.getDataFolder(), getType() + ".yml"));
     cfg.setDefaultValue("host", "localhost");
     cfg.setDefaultValue("port", getDefaultPort());
     cfg.setDefaultValue("username", "root");

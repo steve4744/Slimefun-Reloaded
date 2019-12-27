@@ -2,34 +2,32 @@ package optic_fusion1.slimefunreloaded.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import org.apache.commons.lang.math.RandomUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
+@Deprecated
 public class Config {
 
-  private File file;
-
-  protected FileConfiguration fileConfig;
+  File file;
+  FileConfiguration config;
 
   /**
    * Creates a new Config Object for the config.yml File of the specified Plugin
@@ -37,18 +35,8 @@ public class Config {
    * @param plugin The Instance of the Plugin, the config.yml is referring to
    */
   public Config(Plugin plugin) {
-    Objects.requireNonNull(plugin);
-    plugin.saveDefaultConfig();
-    this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), "config.yml");
-    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
-    fileConfig.options().copyDefaults(true);
-  }
-
-  public Config(Plugin plugin, String name) {
-    Utils.requireNonNull(plugin, name);
-    this.file = new File("plugins/" + plugin.getName().replace(" ", "_"), name);
-    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
-    fileConfig.options().copyDefaults(true);
+    file = new File("plugins/" + plugin.getDescription().getName().replace(" ", "_") + "/config.yml");
+    config = YamlConfiguration.loadConfiguration(file);
   }
 
   /**
@@ -57,10 +45,8 @@ public class Config {
    * @param file The File for which the Config object is created for
    */
   public Config(File file) {
-    Objects.requireNonNull(file);
     this.file = file;
-    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
-    fileConfig.options().copyDefaults(true);
+    config = YamlConfiguration.loadConfiguration(file);
   }
 
   /**
@@ -70,10 +56,8 @@ public class Config {
    * @param config The FileConfiguration
    */
   public Config(File file, FileConfiguration config) {
-    Utils.requireNonNull(file, config);
     this.file = file;
-    this.fileConfig = config;
-    config.options().copyDefaults(true);
+    this.config = config;
   }
 
   /**
@@ -82,10 +66,17 @@ public class Config {
    * @param path The Path of the File which the Config object is created for
    */
   public Config(String path) {
-    Objects.requireNonNull(path);
-    this.file = new File(path);
-    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
-    fileConfig.options().copyDefaults(true);
+    file = new File(path);
+    config = YamlConfiguration.loadConfiguration(file);
+  }
+
+  /**
+   * Returns the File the Config is handling
+   *
+   * @return The File this Config is handling
+   */
+  public File getFile() {
+    return file;
   }
 
   /**
@@ -94,12 +85,11 @@ public class Config {
    * @return The converted FileConfiguration Object
    */
   public FileConfiguration getConfiguration() {
-    return this.fileConfig;
+    return config;
   }
 
   protected void store(String path, Object value) {
-    Objects.requireNonNull(path);
-    this.fileConfig.set(path, value);
+    config.set(path, value);
   }
 
   /**
@@ -109,37 +99,46 @@ public class Config {
    * @param value The Value for that Path
    */
   public void setValue(String path, Object value) {
-    Objects.requireNonNull(path);
     if (value == null) {
-      this.store(path, value);
+      store(path, value);
+      store(path + "_extra", null);
     } else if (value instanceof Inventory) {
-      this.store(path + ".size", ((Inventory) value).getSize());
       for (int i = 0; i < ((Inventory) value).getSize(); i++) {
-        this.store(path + "." + i, ((Inventory) value).getItem(i));
+        setValue(path + "." + i, ((Inventory) value).getItem(i));
       }
     } else if (value instanceof Date) {
-      this.store(path, String.valueOf(((Date) value).getTime()));
+      store(path, String.valueOf(((Date) value).getTime()));
     } else if (value instanceof Long) {
-      this.store(path, String.valueOf(value));
+      store(path, String.valueOf(value));
     } else if (value instanceof UUID) {
-      this.store(path, value.toString());
+      store(path, value.toString());
     } else if (value instanceof Sound) {
-      this.store(path, String.valueOf(value));
+      store(path, String.valueOf(value));
+    } else if (value instanceof ItemStack) {
+      store(path, new ItemStack((ItemStack) value));
+      try {
+        if (((ItemStack) value).hasItemMeta() && ((ItemStack) value).getItemMeta() instanceof SkullMeta) {
+          store(path + "_extra.custom-skull", CustomSkull.getTexture((ItemStack) value));
+          store(path + "_extra.custom-skullOwner", CustomSkull.getName((ItemStack) value));
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     } else if (value instanceof Location) {
-      this.store(path + ".x", ((Location) value).getX());
-      this.store(path + ".y", ((Location) value).getY());
-      this.store(path + ".z", ((Location) value).getZ());
-      this.store(path + ".pitch", ((Location) value).getPitch());
-      this.store(path + ".yaw", ((Location) value).getYaw());
-      this.store(path + ".world", ((Location) value).getWorld().getName());
+      setValue(path + ".x", ((Location) value).getX());
+      setValue(path + ".y", ((Location) value).getY());
+      setValue(path + ".z", ((Location) value).getZ());
+      setValue(path + ".pitch", ((Location) value).getPitch());
+      setValue(path + ".yaw", ((Location) value).getYaw());
+      setValue(path + ".world", ((Location) value).getWorld().getName());
     } else if (value instanceof Chunk) {
-      this.store(path + ".x", ((Chunk) value).getX());
-      this.store(path + ".z", ((Chunk) value).getZ());
-      this.store(path + ".world", ((Chunk) value).getWorld().getName());
+      setValue(path + ".x", ((Chunk) value).getX());
+      setValue(path + ".z", ((Chunk) value).getZ());
+      setValue(path + ".world", ((Chunk) value).getWorld().getName());
     } else if (value instanceof World) {
-      this.store(path, ((World) value).getName());
+      store(path, ((World) value).getName());
     } else {
-      this.store(path, value);
+      store(path, value);
     }
   }
 
@@ -148,9 +147,8 @@ public class Config {
    */
   public void save() {
     try {
-      fileConfig.save(file);
+      config.save(file);
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -160,11 +158,9 @@ public class Config {
    * @param file The File you are saving this Config to
    */
   public void save(File file) {
-    Objects.requireNonNull(file);
     try {
-      fileConfig.save(file);
+      config.save(file);
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -175,22 +171,8 @@ public class Config {
    * @param value The Value for that Path
    */
   public void setDefaultValue(String path, Object value) {
-    Objects.requireNonNull(path);
     if (!contains(path)) {
       setValue(path, value);
-    }
-  }
-
-  @SuppressWarnings("unchecked")
-  public <T> T getOrSetDefault(String path, T value) {
-    Objects.requireNonNull(path);
-    Object val = getValue(path);
-
-    if (value.getClass().isInstance(val)) {
-      return (T) val;
-    } else {
-      setValue(path, value);
-      return value;
     }
   }
 
@@ -201,10 +183,9 @@ public class Config {
    * @return True/false
    */
   public boolean contains(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.contains(path);
+    return config.contains(path);
   }
-
+  
   /**
    * Returns the Object at the specified Path
    *
@@ -212,14 +193,7 @@ public class Config {
    * @return The Value at that Path
    */
   public Object getValue(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.get(path);
-  }
-
-  public <T> Optional<T> getValueAs(Class<T> c, String path) {
-    Utils.requireNonNull(c, path);
-    Object obj = getValue(path);
-    return c.isInstance(obj) ? Optional.of(c.cast(obj)) : Optional.empty();
+    return config.get(path);
   }
 
   /**
@@ -229,8 +203,50 @@ public class Config {
    * @return The ItemStack at that Path
    */
   public ItemStack getItem(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.getItemStack(path);
+    ItemStack item = config.getItemStack(path);
+    if (item == null) {
+      return null;
+    }
+    try {
+      if (item.hasItemMeta() && item.getItemMeta() instanceof SkullMeta) {
+        if (contains(path + "_extra.custom-skull")) {
+          item = CustomSkull.getItem((ItemStack) item, getString(path + "_extra.custom-skull"));
+        }
+        if (contains(path + "_extra.custom-skullOwner") && !((ItemStack) item).getItemMeta().hasDisplayName()) {
+          ItemMeta im = ((ItemStack) item).getItemMeta();
+          im.setDisplayName(ChatColor.RESET + getString(path + "_extra.custom-skullOwner") + "'s Head");
+          ((ItemStack) item).setItemMeta(im);
+        }
+      } else {
+        store(path + "_extra.custom-skull", null);
+        store(path + "_extra.custom-skullOwner", null);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return item;
+  }
+
+  /**
+   * Returns a randomly chosen String from an ArrayList at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return A randomly chosen String from the ArrayList at that Path
+   */
+  @Deprecated
+  public String getRandomStringfromList(String path) {
+    return getStringList(path).get(RandomUtils.nextInt(getStringList(path).size()));
+  }
+
+  /**
+   * Returns a randomly chosen Integer from an ArrayList at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return A randomly chosen Integer from the ArrayList at that Path
+   */
+  @Deprecated
+  public int getRandomIntfromList(String path) {
+    return getIntList(path).get(RandomUtils.nextInt(getIntList(path).size()));
   }
 
   /**
@@ -240,8 +256,7 @@ public class Config {
    * @return The String at that Path
    */
   public String getString(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.getString(path);
+    return config.getString(path);
   }
 
   /**
@@ -251,8 +266,7 @@ public class Config {
    * @return The Integer at that Path
    */
   public int getInt(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.getInt(path);
+    return config.getInt(path);
   }
 
   /**
@@ -262,8 +276,7 @@ public class Config {
    * @return The Boolean at that Path
    */
   public boolean getBoolean(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.getBoolean(path);
+    return config.getBoolean(path);
   }
 
   /**
@@ -273,8 +286,23 @@ public class Config {
    * @return The StringList at that Path
    */
   public List<String> getStringList(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.getStringList(path);
+    return config.getStringList(path);
+  }
+
+  /**
+   * Returns the ItemList at the specified Path
+   *
+   * @param path The path in the Config File
+   * @return The ItemList at that Path
+   */
+  public List<ItemStack> getItemList(String path) {
+    List<ItemStack> list = new ArrayList<ItemStack>();
+    for (String key : getKeys(path)) {
+      if (!key.endsWith("_extra")) {
+        list.add(getItem(path + "." + key));
+      }
+    }
+    return list;
   }
 
   /**
@@ -284,24 +312,17 @@ public class Config {
    * @return The IntegerList at that Path
    */
   public List<Integer> getIntList(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.getIntegerList(path);
+    return config.getIntegerList(path);
   }
 
   /**
    * Recreates the File of this Config
-   *
-   * @return Returns if the file was successfully created
    */
-  public boolean createFile() {
+  public void createFile() {
     try {
-      if (!file.exists()) {
-        return this.file.createNewFile();
-      }
+      file.createNewFile();
     } catch (IOException e) {
-      e.printStackTrace();
     }
-    return false;
   }
 
   /**
@@ -311,7 +332,6 @@ public class Config {
    * @return The Float at that Path
    */
   public float getFloat(String path) {
-    Objects.requireNonNull(path);
     return Float.valueOf(String.valueOf(getValue(path)));
   }
 
@@ -322,7 +342,6 @@ public class Config {
    * @return The Long at that Path
    */
   public long getLong(String path) {
-    Objects.requireNonNull(path);
     return Long.valueOf(String.valueOf(getValue(path)));
   }
 
@@ -333,7 +352,6 @@ public class Config {
    * @return The Sound at that Path
    */
   public Sound getSound(String path) {
-    Objects.requireNonNull(path);
     return Sound.valueOf(getString(path));
   }
 
@@ -344,7 +362,6 @@ public class Config {
    * @return The Date at that Path
    */
   public Date getDate(String path) {
-    Objects.requireNonNull(path);
     return new Date(getLong(path));
   }
 
@@ -355,7 +372,6 @@ public class Config {
    * @return The Chunk at that Path
    */
   public Chunk getChunk(String path) {
-    Objects.requireNonNull(path);
     return Bukkit.getWorld(getString(path + ".world")).getChunkAt(getInt(path + ".x"), getInt(path + ".z"));
   }
 
@@ -366,7 +382,6 @@ public class Config {
    * @return The UUID at that Path
    */
   public UUID getUUID(String path) {
-    Objects.requireNonNull(path);
     return UUID.fromString(getString(path));
   }
 
@@ -377,7 +392,6 @@ public class Config {
    * @return The World at that Path
    */
   public World getWorld(String path) {
-    Objects.requireNonNull(path);
     return Bukkit.getWorld(getString(path));
   }
 
@@ -388,8 +402,7 @@ public class Config {
    * @return The Double at that Path
    */
   public double getDouble(String path) {
-    Objects.requireNonNull(path);
-    return fileConfig.getDouble(path);
+    return config.getDouble(path);
   }
 
   /**
@@ -399,16 +412,40 @@ public class Config {
    * @return The Location at that Path
    */
   public Location getLocation(String path) {
-    Objects.requireNonNull(path);
-    return new Location(
-     Bukkit.getWorld(
-      getString(path + ".world")),
-     getDouble(path + ".x"),
-     getDouble(path + ".y"),
-     getDouble(path + ".z"),
-     getFloat(path + ".yaw"),
-     getFloat(path + ".pitch")
-    );
+    if (contains(path + ".pitch")) {
+      return new Location(
+       Bukkit.getWorld(
+        getString(path + ".world")),
+       getDouble(path + ".x"),
+       getDouble(path + ".y"),
+       getDouble(path + ".z"),
+       getFloat(path + ".yaw"),
+       getFloat(path + ".pitch")
+      );
+    } else {
+      return new Location(
+       Bukkit.getWorld(
+        getString(path + ".world")),
+       getDouble(path + ".x"),
+       getDouble(path + ".y"),
+       getDouble(path + ".z")
+      );
+    }
+  }
+
+  @Deprecated
+  public void setLocation(String path, Location location) {
+    setValue(path + ".x", location.getX());
+    setValue(path + ".y", location.getY());
+    setValue(path + ".z", location.getZ());
+    setValue(path + ".world", location.getWorld().getName());
+  }
+
+  @Deprecated
+  public void setInventory(String path, Inventory inventory) {
+    for (int i = 0; i < inventory.getSize(); i++) {
+      setValue(path + "." + i, inventory.getItem(i));
+    }
   }
 
   /**
@@ -420,30 +457,10 @@ public class Config {
    * @return The generated Inventory
    */
   public Inventory getInventory(String path, int size, String title) {
-    Utils.requireNonNull(path, size, title);
-    Inventory inventory = Bukkit.createInventory(null, size, ChatColor.translateAlternateColorCodes('&', title));
+    Inventory inventory = Bukkit.createInventory(null, size, title);
     for (int i = 0; i < size; i++) {
       inventory.setItem(i, getItem(path + "." + i));
     }
-    return inventory;
-  }
-
-  /**
-   * Gets the Contents of an Inventory at the specified Path
-   *
-   * @param path The path in the Config File
-   * @param title The title of the inventory, this can accept &amp; for color codes.
-   * @return The generated Inventory
-   */
-  public Inventory getInventory(String path, String title) {
-    Utils.requireNonNull(path, title);
-    int size = getInt(path + ".size");
-    Inventory inventory = Bukkit.createInventory(null, size, ChatColor.translateAlternateColorCodes('&', title));
-
-    for (int i = 0; i < size; i++) {
-      inventory.setItem(i, getItem(path + "." + i));
-    }
-
     return inventory;
   }
 
@@ -453,7 +470,7 @@ public class Config {
    * @return All Paths in this Config
    */
   public Set<String> getKeys() {
-    return fileConfig.getKeys(false);
+    return config.getKeys(false);
   }
 
   /**
@@ -463,23 +480,24 @@ public class Config {
    * @return All Sub-Paths of the specified Path
    */
   public Set<String> getKeys(String path) {
-    Objects.requireNonNull(path);
-    ConfigurationSection section = fileConfig.getConfigurationSection(path);
-    return section == null ? new HashSet<>() : section.getKeys(false);
+    return config.getConfigurationSection(path).getKeys(false);
   }
 
   /**
    * Reloads the Configuration File
    */
   public void reload() {
-    this.fileConfig = YamlConfiguration.loadConfiguration(this.file);
+    config = YamlConfiguration.loadConfiguration(file);
   }
 
-  public File getFile() {
-    return file;
-  }
+  public <T> T getOrSetDefault(String path, T value) {
+    Object val = getValue(path);
 
-  public FileConfiguration getFileConfiguration() {
-    return fileConfig;
+    if (value.getClass().isInstance(val)) {
+      return (T) val;
+    } else {
+      setValue(path, value);
+      return value;
+    }
   }
 }

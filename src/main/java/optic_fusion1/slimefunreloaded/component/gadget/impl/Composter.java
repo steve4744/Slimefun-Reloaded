@@ -60,7 +60,7 @@ public class Composter extends SlimefunReloadedGadget {
       if (id != null && id.equals(getID())) {
         if (player.hasPermission("slimefunreloaded.inventory.bypass") || Slimefun.getProtectionManager().hasPermission(player, clickedBlock, ProtectableAction.ACCESS_INVENTORIES)) {
           ItemStack input = player.getInventory().getItemInMainHand();
-          SlimefunReloadedComponent machine = Slimefun.getComponentManager().getComponentByNamespace(id);
+          SlimefunReloadedComponent machine = Slimefun.getComponentManager().getComponentByKey(id);
           for (ItemStack convert : RecipeType.getRecipeInputs(machine)) {
             if (convert != null && input.isSimilar(convert)) {
               ItemStack removing = input.clone();

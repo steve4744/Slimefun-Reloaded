@@ -3,7 +3,3 @@ main: optic_fusion1.slimefunreloaded.SlimefunReloaded
 version: ${project.version}
 author: Optic_Fusion1
 api-version: 1.14
-
-commands:
-  debug:
-    description: Debug command

@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.util;
 
+import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,7 +30,6 @@ import com.google.gson.JsonPrimitive;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
-import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenu;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
@@ -176,9 +176,8 @@ public class BlockStorage {
         }
       }
     }
-
     Slimefun.getWorlds().put(world.getName(), this);
-    for (File file : new File("plugins/SlimefunReloaded/data-storage-stored-inventories").listFiles()) {
+    for (File file : new File("plugins/SlimefunReloaded/data-storage/stored-inventories").listFiles()) {
       if (file.getName().startsWith(w.getName()) && file.getName().endsWith(".sfi")) {
         Location l = deserializeLocation(file.getName().replace(".sfi", ""));
         Config cfg = new Config(file);
@@ -198,7 +197,7 @@ public class BlockStorage {
       }
     }
 
-    for (File file : new File("data-storage/SlimefunReloaded/universal-inventories").listFiles()) {
+    for (File file : new File("plugins/SlimefunReloaded/data-storage/universal-inventories").listFiles()) {
       if (file.getName().endsWith(".sfi")) {
         Config cfg = new Config(file);
         BlockMenuPreset preset = BlockMenuPreset.getPreset(cfg.getString("preset"));
@@ -299,10 +298,9 @@ public class BlockStorage {
   }
 
   public static void store(Block block, ItemStack item) {
-    SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByItem(item);
-    if (component != null) {
-      addBlockInfo(block, "id", component.getID(), true);
-    }
+    Preconditions.checkArgument(block != null, "Expected Block, received null instead");
+    Preconditions.checkArgument(item != null, "Expected ItemStack, received null instead");
+    addBlockInfo(block, "id", COMPONENT_MANAGER.getComponentByItem(item).getID(), true);
   }
 
   public static void store(Block block, String item) {
@@ -321,7 +319,7 @@ public class BlockStorage {
     if (!hasBlockInfo(block)) {
       return null;
     } else {
-      final SlimefunReloadedComponent item = COMPONENT_MANAGER.getComponentByNamespace(getLocationInfo(block.getLocation(), "id"));
+      final SlimefunReloadedComponent item = COMPONENT_MANAGER.getComponentByKey(getLocationInfo(block.getLocation(), "id"));
       clearBlockInfo(block);
       if (item == null) {
         return null;
@@ -398,6 +396,9 @@ public class BlockStorage {
   }
 
   public static void addBlockInfo(Location l, String key, String value, boolean updateTicker) {
+    Preconditions.checkArgument(l != null, "Expected location, received null");
+    Preconditions.checkArgument(key != null, "Expected Key, received null");
+    Preconditions.checkArgument(value != null, "Expected Value, receieved null");
     Config cfg = hasBlockInfo(l) ? getLocationInfo(l) : new BlockInfoConfig();
     cfg.setValue(key, value);
     setBlockInfo(l, cfg, updateTicker);
@@ -417,6 +418,8 @@ public class BlockStorage {
   }
 
   public static void setBlockInfo(Location l, Config cfg, boolean updateTicker) {
+    Preconditions.checkArgument(l != null, "Expected Location, received null");
+    Preconditions.checkArgument(cfg != null, "Expected Config, receieved null");
     BlockStorage storage = getStorage(l.getWorld());
     storage.storage.put(l, cfg);
     if (BlockMenuPreset.isInventory(cfg.getString("id"))) {
@@ -533,7 +536,7 @@ public class BlockStorage {
     cfg.setValue(serializeLocation(l), value);
 
     if (updateTicker) {
-      SlimefunReloadedComponent item = COMPONENT_MANAGER.getComponentByNamespace(key);
+      SlimefunReloadedComponent item = COMPONENT_MANAGER.getComponentByKey(key);
       if (item != null && item.isTicking()) {
         String chunkString = locationToChunkString(l);
         if (value != null) {
@@ -558,7 +561,7 @@ public class BlockStorage {
     if (!hasBlockInfo(l)) {
       return null;
     }
-    return COMPONENT_MANAGER.getComponentByNamespace(getLocationInfo(l, "id"));
+    return COMPONENT_MANAGER.getComponentByKey(getLocationInfo(l, "id"));
   }
 
   public static String checkID(Block block) {

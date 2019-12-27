@@ -25,7 +25,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import optic_fusion1.slimefunreloaded.GPS.GPSNetwork;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.category.CategoryRegistery;
-import optic_fusion1.slimefunreloaded.command.DebugCommand;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
 import optic_fusion1.slimefunreloaded.component.ComponentState;
@@ -36,6 +35,7 @@ import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 import optic_fusion1.slimefunreloaded.listener.ItemUseListener;
 import optic_fusion1.slimefunreloaded.listener.PlayerQuitListener;
+import optic_fusion1.slimefunreloaded.listener.ToolListener;
 import optic_fusion1.slimefunreloaded.listener.WorldListener;
 import optic_fusion1.slimefunreloaded.metrics.MetricsLite;
 import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
@@ -79,9 +79,9 @@ public class SlimefunReloaded extends JavaPlugin {
   private final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
   private final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
   private final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
-  private final ComponentManager COMPONENT_MANAGER = new ComponentManager();
-  private final CategoryManager CATEGORY_MANAGER = new CategoryManager();
-  private final ResearchManager RESEARCH_MANAGER = new ResearchManager();
+  private ComponentManager COMPONENT_MANAGER;
+  private CategoryManager CATEGORY_MANAGER;
+  private ResearchManager RESEARCH_MANAGER;
 
   private GPSNetwork gps;
   private ProtectionManager protectionManager;
@@ -152,11 +152,19 @@ public class SlimefunReloaded extends JavaPlugin {
     setupItemSettings();
     loadDescriptions();
     logger.info("Loading Researches...");
+    RESEARCH_MANAGER = new ResearchManager();
     ResearchRegistry.registerResearches();
+    logger.log(Level.INFO, "Loaded {0} Researches", RESEARCH_MANAGER.getResearches().size());
     logger.info("Loading categories...");
+    CATEGORY_MANAGER = new CategoryManager();
     CategoryRegistery.registerCategories();
+    logger.log(Level.INFO, "Loaded {0} Categories", CATEGORY_MANAGER.getCategories().size());
     logger.info("Loading components...");
+    COMPONENT_MANAGER = new ComponentManager();
     ComponentRegistry.registerComponents();
+    logger.log(Level.INFO, "Loaded {0} Components ({1} Components are enabled)", new Object[]{COMPONENT_MANAGER.getComponents().size(), COMPONENT_MANAGER.getEnabledComponents().size()});
+    System.out.println("Components: " + COMPONENT_MANAGER.getComponents().size());
+    System.out.println("Enabled Components: " + COMPONENT_MANAGER.getEnabledComponents().size());
     setupMisc();
     addWikiPages();
     textureService.setup(COMPONENT_MANAGER.getComponents());
@@ -165,13 +173,66 @@ public class SlimefunReloaded extends JavaPlugin {
     registerListener(new WorldListener());
     registerListener(new PlayerQuitListener());
     registerListener(new ItemUseListener());
+    registerListener(new ToolListener());
 
-    //TEMP DEBUG COMMAND
-    Bukkit.getPluginCommand("debug").setExecutor(new DebugCommand());
+    // Initiating various Stuff and all Items with a slightly delay (0ms after the Server finished loading)
+    Slimefun.runSync(() -> {
+      recipeSnapshot = new RecipeSnapshot(this);
+      protectionManager = new ProtectionManager(getServer());
+//      MiscSetup.loadItems(settings);
+
+      for (World world : Bukkit.getWorlds()) {
+        new BlockStorage(world);
+      }
+
+//      if (SlimefunItem.getByID("ANCIENT_ALTAR") != null) {
+//        new AncientAltarListener((SlimefunPlugin) instance);
+//      }
+    }, 0);
   }
 
   @Override
   public void onDisable() {
+    Bukkit.getScheduler().cancelTasks(this);
+//    if(ticker != null){
+//      //Finishes all started movements/removals of block data
+//      ticker.halt();
+//      ticker.run();
+//    }
+    PlayerProfile.iterator().forEachRemaining(profile -> {
+      if (profile.isDirty()) {
+        profile.save();
+      }
+    });
+
+    for (World world : Bukkit.getWorlds()) {
+      BlockStorage storage = BlockStorage.getStorage(world);
+      if (storage == null) {
+        logger.severe("Couldn't save Slimefun Reloaded Blocks for World " + world.getName());
+      } else {
+        storage.save(true);
+      }
+    }
+    for (UniversalBlockMenu menu : universalInventories.values()) {
+      menu.save();
+    }
+//    SlimefunReloadedBackup.start();
+    /*
+		// Prevent Memory Leaks
+		AContainer.processing = null;
+		AContainer.progress = null;
+		
+		AGenerator.processing = null;
+		AGenerator.progress = null;
+		
+		AReactor.processing = null;
+		AReactor.progress = null;
+
+		instance = null;
+     */
+    for (Player p : Bukkit.getOnlinePlayers()) {
+      p.closeInventory();
+    }
   }
 
   private void registerListener(Listener listener) {
@@ -187,7 +248,7 @@ public class SlimefunReloaded extends JavaPlugin {
       JsonObject json = element.getAsJsonObject();
 
       for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
-        SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByNamespace(entry.getKey());
+        SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByKey(entry.getKey());
 
         if (component != null) {
 //          component.addWikipage(entry.getValue().getAsString());
@@ -199,7 +260,7 @@ public class SlimefunReloaded extends JavaPlugin {
   }
 
   private void setupMisc() {
-    SlimefunReloadedComponent talisman = COMPONENT_MANAGER.getComponentByNamespace("COMMON_TALISMAN");
+    SlimefunReloadedComponent talisman = COMPONENT_MANAGER.getComponentByKey("COMMON_TALISMAN");
     if (talisman != null && (boolean) getItemValue(talisman.getID(), "recipe-requires-nether-stars")) {
       talisman.setRecipe(new ItemStack[]{SlimefunReloadedItems.MAGIC_LUMP_2, SlimefunReloadedItems.GOLD_8K, SlimefunReloadedItems.MAGIC_LUMP_2, null, new ItemStack(Material.NETHER_STAR), null, SlimefunReloadedItems.MAGIC_LUMP_2, SlimefunReloadedItems.GOLD_8K, SlimefunReloadedItems.MAGIC_LUMP_2});
     }

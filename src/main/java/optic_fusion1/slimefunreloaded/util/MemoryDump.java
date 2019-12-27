@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.util;
 
+import com.google.common.base.Preconditions;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
@@ -23,9 +24,9 @@ public class MemoryDump {
   }
 
   public MemoryDump(String file, Predicate<String> includeNamespaces, Object... objects) throws FileNotFoundException {
-    Utils.requireNonNull(file, includeNamespaces);
+    Preconditions.checkArgument(file != null, "Expected String, received null");
+    Preconditions.checkArgument(includeNamespaces != null, "Expected Predicate<String>, received null");
     namespaces = includeNamespaces;
-
     if (objects.length == 0) {
       throw new IllegalArgumentException("You need to provide at least one Object!");
     }
@@ -48,7 +49,9 @@ public class MemoryDump {
   }
 
   private void dump(PrintStream stream, String prefix, String name, Object obj) {
-    Utils.requireNonNull(stream, prefix, name);
+    Preconditions.checkArgument(stream != null, "Expected PrintString, received null");
+    Preconditions.checkArgument(prefix != null, "Expected Prefix, received null");
+    Preconditions.checkArgument(name != null, "Expected Name, received null");
     if (obj == null) {
       stream.println(prefix + "null");
     } else if (hashes.add(obj.hashCode())) {

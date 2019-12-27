@@ -90,7 +90,7 @@ public final class SkullItem {
       ItemStack item = new ItemStack(Material.PLAYER_HEAD);
 
       ItemMeta im = item.getItemMeta();
-      ReflectionUtils.setValue(im, "profile", profile);
+      ReflectionUtils.setFieldValue(im, "profile", profile);
       item.setItemMeta(im);
       return item;
     } catch (Exception x) {

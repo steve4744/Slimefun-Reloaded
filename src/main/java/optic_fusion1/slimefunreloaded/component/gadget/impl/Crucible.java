@@ -64,7 +64,7 @@ public class Crucible extends SlimefunReloadedGadget {
         if (player.hasPermission("slimefunreloaded.inventory.bypass") || Slimefun.getProtectionManager().hasPermission(player, clickedBlock.getLocation(), ProtectableAction.ACCESS_INVENTORIES)) {
           ItemStack input = player.getInventory().getItemInMainHand();
           Block block = clickedBlock.getRelative(BlockFace.UP);
-          SlimefunReloadedComponent component = Slimefun.getComponentManager().getComponentByNamespace(id);
+          SlimefunReloadedComponent component = Slimefun.getComponentManager().getComponentByKey(id);
           for (ItemStack convert : RecipeType.getRecipeInputs(component)) {
             if (input.isSimilar(convert)) {
               //e.setCancelled(true);

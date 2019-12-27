@@ -1,6 +1,6 @@
 package optic_fusion1.slimefunreloaded.util;
 
-import java.util.Collection;
+import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
@@ -13,7 +13,7 @@ public class CustomTextureService {
   private final Config config;
 
   public CustomTextureService(Plugin plugin) {
-    this.config = new Config(plugin, "item-models.yml");
+    this.config = new Config(new File(plugin.getDataFolder(), "item-models.yml"));
   }
 
   public void setup(Map<String, SlimefunReloadedComponent> components) {

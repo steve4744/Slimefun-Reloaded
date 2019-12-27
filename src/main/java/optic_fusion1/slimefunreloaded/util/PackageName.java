@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.util;
 
+@Deprecated
 public enum PackageName {
 
   NMS("net.minecraft.server."),

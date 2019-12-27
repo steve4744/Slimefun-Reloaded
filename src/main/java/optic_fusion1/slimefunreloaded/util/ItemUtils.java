@@ -21,9 +21,9 @@ public final class ItemUtils {
 
   static {
     try {
-      copy = ReflectionUtils.getCraftClass("inventory.CraftItemStack").getMethod("asNMSCopy", ItemStack.class);
-      getName = ReflectionUtils.getMethod(ReflectionUtils.getNMSClass("ItemStack"), "getName");
-      toString = ReflectionUtils.getMethod(ReflectionUtils.getNMSClass("IChatBaseComponent"), "getString");
+      copy = ReflectionUtils.getClass(PackageName.OBC, "inventory.CraftItemStack").getMethod("asNMSCopy", ItemStack.class);
+      getName = ReflectionUtils.getClass(PackageName.NMS, "ItemStack").getMethod("getName");
+      toString = ReflectionUtils.getClass(PackageName.NMS, "IChatBaseComponent").getMethod("getString");
     } catch (Exception x) {
       x.printStackTrace();
     }
