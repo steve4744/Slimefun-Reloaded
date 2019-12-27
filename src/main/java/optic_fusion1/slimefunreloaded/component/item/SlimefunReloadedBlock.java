@@ -1,11 +1,12 @@
 package optic_fusion1.slimefunreloaded.component.item;
 
-import java.util.List;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.component.UnregisterReason;
 import org.bukkit.NamespacedKey;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class SlimefunReloadedBlock extends SlimefunReloadedItem {
@@ -22,12 +23,10 @@ public class SlimefunReloadedBlock extends SlimefunReloadedItem {
     super(key, category, item, recipeType, recipe, recipeOutput);
   }
 
-  public boolean onBlockPlace(BlockPlaceEvent e, ItemStack item) {
-    return false;
+  public void onBlockPlace(Player player, Block block, SlimefunReloadedComponent item) {
   }
 
-  public boolean onBlockBreak(BlockBreakEvent e, ItemStack item, int fortune, List<ItemStack> drops) {
-    return false;
+  public boolean onBlockBreak(Player player, Block block, SlimefunReloadedComponent item, UnregisterReason reason) {
+    return true;
   }
-
 }
