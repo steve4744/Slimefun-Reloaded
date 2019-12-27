@@ -35,7 +35,7 @@ public class ResearchManager {
 
   public void addResearch(Research research, SlimefunReloadedComponent... components) {
     NamespacedKey key = research.getKey();
-    if (!researchWithKeyExists(key.getKey()) && !researchWithNamespaceExists(key.getNamespace())) {
+    if (!researchWithKeyExists(key.getKey())) {
       research.addComponents(components);
       this.researches.add(research);
     }
@@ -96,7 +96,7 @@ public class ResearchManager {
     Preconditions.checkArgument(playerUniqueId != null, "Cannot remove null player from research");
     this.researching.remove(playerUniqueId);
   }
-  
+
   public List<String> getResearchNames() {
     List<String> names = new ArrayList<>();
     Iterator it = researches.iterator();

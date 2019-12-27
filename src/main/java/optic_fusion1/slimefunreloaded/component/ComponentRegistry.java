@@ -2076,7 +2076,7 @@ new GrindStone().register();
   }
 
   public static void register(SlimefunReloadedComponent component) {
-    COMPONENT_MANAGER.registerComponent(component);
+    COMPONENT_MANAGER.addComponent(component);
   }
 
 }

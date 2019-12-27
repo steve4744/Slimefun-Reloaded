@@ -20,7 +20,7 @@ public class ComponentManager {
   private Map<String, SlimefunReloadedComponent> enabledComponents = new HashMap<>();
   private List<TickableComponent<? extends SlimefunReloadedComponent>> tickables = new ArrayList<>(32);
 
-  public void registerComponent(SlimefunReloadedComponent component) {
+  public void addComponent(SlimefunReloadedComponent component) {
     Preconditions.checkArgument(component != null, "Cannot register null component");
     Preconditions.checkArgument(component.getKey() != null, "Component must not have a null key");
     if (components.containsKey(component.getKey().toString())) {
@@ -28,7 +28,6 @@ public class ComponentManager {
       return;
     }
     this.components.put(component.getKey().toString(), component);
-
     if (component instanceof TickableComponent) {
       this.tickables.add((TickableComponent<? extends SlimefunReloadedComponent>) component);
     }
