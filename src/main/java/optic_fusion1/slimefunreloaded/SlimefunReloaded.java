@@ -163,8 +163,6 @@ public class SlimefunReloaded extends JavaPlugin {
     COMPONENT_MANAGER = new ComponentManager();
     ComponentRegistry.registerComponents();
     logger.log(Level.INFO, "Loaded {0} Components ({1} Components are enabled)", new Object[]{COMPONENT_MANAGER.getComponents().size(), COMPONENT_MANAGER.getEnabledComponents().size()});
-    System.out.println("Components: " + COMPONENT_MANAGER.getComponents().size());
-    System.out.println("Enabled Components: " + COMPONENT_MANAGER.getEnabledComponents().size());
     setupMisc();
     addWikiPages();
     textureService.setup(COMPONENT_MANAGER.getComponents());
