@@ -85,7 +85,13 @@ public class ComponentManager {
   }
 
   public void addEnabledComponent(SlimefunReloadedComponent component) {
-    enabledComponents.put(component.getID(), component);
+    Preconditions.checkArgument(component != null, "Cannot register null component");
+    Preconditions.checkArgument(component.getKey() != null, "Component must not have a null key");
+    if (enabledComponents.containsKey(component.getKey().toString())) {
+      Slimefun.getLogger().log(Level.WARNING, "Component with key {0} already enabled", component.getKey());
+      return;
+    }
+    this.enabledComponents.put(component.getKey().toString(), component);
   }
 
 }
