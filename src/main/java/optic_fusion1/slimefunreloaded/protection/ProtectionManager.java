@@ -2,6 +2,7 @@ package optic_fusion1.slimefunreloaded.protection;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import optic_fusion1.slimefunreloaded.protection.modules.PreciousStonesProtectio
 import optic_fusion1.slimefunreloaded.protection.modules.RedProtectProtectionModule;
 import optic_fusion1.slimefunreloaded.protection.modules.TownyProtectionModule;
 import optic_fusion1.slimefunreloaded.protection.modules.WorldGuardProtectionModule;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
@@ -178,6 +180,22 @@ public final class ProtectionManager {
         logger.log(Level.SEVERE, "An Error occured while logging for the Protection Module: \"" + module.getName() + "\"", x);
       }
     }
+  }
+
+  public boolean canBuild(UUID uuid, Block b) {
+    return this.canBuild(uuid, b, false);
+  }
+
+  public boolean canAccessChest(UUID uuid, Block b) {
+    return this.canAccessChest(uuid, b, false);
+  }
+
+  public boolean canBuild(UUID uuid, Block b, boolean message) {
+    return hasPermission(Bukkit.getOfflinePlayer(uuid), b.getLocation(), ProtectableAction.PLACE_BLOCK);
+  }
+
+  public boolean canAccessChest(UUID uuid, Block b, boolean message) {
+    return hasPermission(Bukkit.getOfflinePlayer(uuid), b.getLocation(), ProtectableAction.ACCESS_INVENTORIES);
   }
 
 }

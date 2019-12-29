@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.base.Preconditions;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.logging.Level;
 import optic_fusion1.slimefunreloaded.Slimefun;
 
@@ -45,28 +43,20 @@ public class ComponentManager {
 
   public SlimefunReloadedComponent getComponentByItem(ItemStack item) {
     Preconditions.checkArgument(item != null, "Expected ItemStack, received null");
-    Iterator it = components.entrySet().iterator();
-    while (it.hasNext()) {
-      Map.Entry pair = (Map.Entry) it.next();
-      SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
-      if (item.isSimilar(component.getItem())) {
+    for(SlimefunReloadedComponent component : components.values()){
+      if(item.isSimilar(component.getItem())){
         return component;
       }
-      it.remove();
     }
     return null;
   }
 
   public SlimefunReloadedComponent getComponentByKey(String key) {
     Preconditions.checkArgument(key != null, "Expected String, received null");
-    Iterator it = components.entrySet().iterator();
-    while (it.hasNext()) {
-      Map.Entry pair = (Map.Entry) it.next();
-      SlimefunReloadedComponent component = (SlimefunReloadedComponent) pair.getValue();
-      if (component.getKey().getKey().toLowerCase().equals(key.toLowerCase())) {
+    for (SlimefunReloadedComponent component : components.values()) {
+      if(component.getKey().getKey().toLowerCase().equals(key.toLowerCase())){
         return component;
       }
-      it.remove();
     }
     return null;
   }

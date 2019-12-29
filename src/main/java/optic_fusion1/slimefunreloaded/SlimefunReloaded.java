@@ -79,9 +79,9 @@ public class SlimefunReloaded extends JavaPlugin {
   private final Config RESEARCHES_CONFIG = new Config(new File(DATA_FOLDER, "Researches.yml"));
   private final Config ITEMS_CONFIG = new Config(new File(DATA_FOLDER, "Items.yml"));
   private final Config WHITELIST_CONFIG = new Config(new File(DATA_FOLDER, "whitelist.yml"));
-  private ComponentManager COMPONENT_MANAGER;
-  private CategoryManager CATEGORY_MANAGER;
-  private ResearchManager RESEARCH_MANAGER;
+  private ComponentManager COMPONENT_MANAGER = new ComponentManager();
+  private CategoryManager CATEGORY_MANAGER = new CategoryManager();
+  private ResearchManager RESEARCH_MANAGER = new ResearchManager();
 
   private GPSNetwork gps;
   private ProtectionManager protectionManager;
@@ -152,15 +152,12 @@ public class SlimefunReloaded extends JavaPlugin {
     setupItemSettings();
     loadDescriptions();
     logger.info("Loading Researches...");
-    RESEARCH_MANAGER = new ResearchManager();
     ResearchRegistry.registerResearches();
     logger.log(Level.INFO, "Loaded {0} Researches", RESEARCH_MANAGER.getResearches().size());
     logger.info("Loading categories...");
-    CATEGORY_MANAGER = new CategoryManager();
     CategoryRegistery.registerCategories();
     logger.log(Level.INFO, "Loaded {0} Categories", CATEGORY_MANAGER.getCategories().size());
     logger.info("Loading components...");
-    COMPONENT_MANAGER = new ComponentManager();
     ComponentRegistry.registerComponents();
     logger.log(Level.INFO, "Loaded {0} Components ({1} Components are enabled)", new Object[]{COMPONENT_MANAGER.getComponents().size(), COMPONENT_MANAGER.getEnabledComponents().size()});
     setupMisc();
@@ -178,11 +175,9 @@ public class SlimefunReloaded extends JavaPlugin {
       recipeSnapshot = new RecipeSnapshot(this);
       protectionManager = new ProtectionManager(getServer());
 //      MiscSetup.loadItems(settings);
-
-      for (World world : Bukkit.getWorlds()) {
+      Bukkit.getWorlds().forEach((world) -> {
         new BlockStorage(world);
-      }
-
+      });
 //      if (SlimefunItem.getByID("ANCIENT_ALTAR") != null) {
 //        new AncientAltarListener((SlimefunPlugin) instance);
 //      }
@@ -203,17 +198,17 @@ public class SlimefunReloaded extends JavaPlugin {
       }
     });
 
-    for (World world : Bukkit.getWorlds()) {
+    Bukkit.getWorlds().forEach((world) -> {
       BlockStorage storage = BlockStorage.getStorage(world);
       if (storage == null) {
         logger.severe("Couldn't save Slimefun Reloaded Blocks for World " + world.getName());
       } else {
         storage.save(true);
       }
-    }
-    for (UniversalBlockMenu menu : universalInventories.values()) {
+    });
+    universalInventories.values().forEach((menu) -> {
       menu.save();
-    }
+    });
 //    SlimefunReloadedBackup.start();
     /*
 		// Prevent Memory Leaks
