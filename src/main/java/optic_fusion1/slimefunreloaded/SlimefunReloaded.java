@@ -52,6 +52,7 @@ import optic_fusion1.slimefunreloaded.util.I18n;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.ReflectionUtils;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
+import optic_fusion1.slimefunreloaded.util.TickerTask;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -68,7 +69,7 @@ public class SlimefunReloaded extends JavaPlugin {
 
   private final CustomItemDataService itemDataService = new CustomItemDataService(this, "slimefunreloaded_item");
   private final CustomTextureService textureService = new CustomTextureService(this);
-//    private TickerTask ticker;
+  private TickerTask ticker;
   private final File DATA_FOLDER = new File("plugins/SlimefunReloaded");
   private final File DATABASE_FOLDER = new File(DATA_FOLDER, "data-storage/Players");
   private final File PATH_BLOCKS = new File(DATA_FOLDER, "data-storage/stored-blocks");
@@ -182,16 +183,30 @@ public class SlimefunReloaded extends JavaPlugin {
 //        new AncientAltarListener((SlimefunPlugin) instance);
 //      }
     }, 0);
+
+    ticker = new TickerTask();
+
+//    autoSavingService.start(this, config.getInt("options.auto-save-delay-in-minutes"));
+
+    // Starting all ASYNC Tasks
+    getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
+      try {
+        ticker.run();
+      } catch (Exception x) {
+        getLogger().log(Level.SEVERE, "An Exception was caught while ticking the Block Tickers Task for Slimefun v" + Slimefun.getVersion(), x);
+        ticker.abortTick();
+      }
+    }, 100L, CONFIG.getInt("URID.custom-ticker-delay"));
   }
 
   @Override
   public void onDisable() {
     Bukkit.getScheduler().cancelTasks(this);
-//    if(ticker != null){
-//      //Finishes all started movements/removals of block data
-//      ticker.halt();
-//      ticker.run();
-//    }
+    if (ticker != null) {
+      //Finishes all started movements/removals of block data
+      ticker.halt();
+      ticker.run();
+    }
     PlayerProfile.iterator().forEachRemaining(profile -> {
       if (profile.isDirty()) {
         profile.save();
@@ -763,4 +778,8 @@ public class SlimefunReloaded extends JavaPlugin {
     Bukkit.getScheduler().runTaskLater(this, r, delay);
   }
 
+  public TickerTask getTicker(){
+    return ticker;
+  }
+  
 }

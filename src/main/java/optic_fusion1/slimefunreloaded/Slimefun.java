@@ -24,6 +24,7 @@ import optic_fusion1.slimefunreloaded.util.Config;
 import optic_fusion1.slimefunreloaded.util.CustomItemDataService;
 import optic_fusion1.slimefunreloaded.util.CustomTextureService;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
+import optic_fusion1.slimefunreloaded.util.TickerTask;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -246,6 +247,10 @@ public final class Slimefun {
 
   public static void runSync(Runnable r, long delay) {
     plugin.runSync(r, delay);
+  }
+  
+  public static TickerTask getTicker(){
+    return plugin.getTicker();
   }
 
 }

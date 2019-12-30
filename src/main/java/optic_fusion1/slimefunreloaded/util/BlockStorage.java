@@ -465,7 +465,7 @@ public class BlockStorage {
   }
 
   public static void clearBlockInfo(Location l, boolean destroy) {
-//    Slimefun.getTicker().delete.put(l, destroy);
+    Slimefun.getTicker().delete.put(l, destroy);
   }
 
   public static void _integrated_removeBlockInfo(Location l, boolean destroy) {
@@ -498,7 +498,7 @@ public class BlockStorage {
   }
 
   public static void moveBlockInfo(Location from, Location to) {
-//    Slimefun.getTicker().move.put(from, to);
+    Slimefun.getTicker().move.put(from, to);
   }
 
   public static void _integrated_moveLocationInfo(Location from, Location to) {
