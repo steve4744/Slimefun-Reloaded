@@ -25,6 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import optic_fusion1.slimefunreloaded.GPS.GPSNetwork;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.category.CategoryRegistery;
+import optic_fusion1.slimefunreloaded.command.ComponentCommand;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.ComponentRegistry;
 import optic_fusion1.slimefunreloaded.component.ComponentState;
@@ -197,6 +198,8 @@ public class SlimefunReloaded extends JavaPlugin {
         ticker.abortTick();
       }
     }, 100L, CONFIG.getInt("URID.custom-ticker-delay"));
+    
+    Bukkit.getPluginCommand("component").setExecutor(new ComponentCommand());
   }
 
   @Override

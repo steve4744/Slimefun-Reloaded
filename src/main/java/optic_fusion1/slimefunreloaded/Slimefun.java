@@ -248,8 +248,8 @@ public final class Slimefun {
   public static void runSync(Runnable r, long delay) {
     plugin.runSync(r, delay);
   }
-  
-  public static TickerTask getTicker(){
+
+  public static TickerTask getTicker() {
     return plugin.getTicker();
   }
 

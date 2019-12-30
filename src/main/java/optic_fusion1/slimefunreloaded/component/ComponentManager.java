@@ -8,6 +8,7 @@ import java.util.Map;
 import com.google.common.base.Preconditions;
 import java.util.logging.Level;
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.util.Paginator;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +18,12 @@ public class ComponentManager {
   private Map<String, SlimefunReloadedComponent> components = new HashMap<>();
   private Map<String, SlimefunReloadedComponent> enabledComponents = new HashMap<>();
   private List<TickableComponent<? extends SlimefunReloadedComponent>> tickables = new ArrayList<>(32);
-
+//  private Paginator paginator = new Paginator();
+//
+//  public ComponentManager(){
+//    paginator.setTitle("=== Components ===");
+//  }
+//  
   public void addComponent(SlimefunReloadedComponent component) {
     Preconditions.checkArgument(component != null, "Cannot register null component");
     Preconditions.checkArgument(component.getKey() != null, "Component must not have a null key");
@@ -29,6 +35,7 @@ public class ComponentManager {
     if (component instanceof TickableComponent) {
       this.tickables.add((TickableComponent<? extends SlimefunReloadedComponent>) component);
     }
+//    paginator.add(component.getKey().toString());
   }
 
   public SlimefunReloadedComponent getComponent(NamespacedKey key) {
@@ -83,5 +90,9 @@ public class ComponentManager {
     }
     this.enabledComponents.put(component.getKey().toString(), component);
   }
-
+//
+//  public Paginator getPaginator(){
+//    return paginator;
+//  }
+  
 }
