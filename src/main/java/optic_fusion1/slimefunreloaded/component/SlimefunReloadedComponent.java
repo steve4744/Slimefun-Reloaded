@@ -21,6 +21,7 @@ import org.bukkit.World;
  * Represents a base for all slimefun components in the mod including items, blocks and multiblocks.
  *
  * @author Parker "Choco" Hawke
+ * //TODO: Finish & clean this class up see me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem for the Slimefun equivalent of this class
  */
 public abstract class SlimefunReloadedComponent implements Keyed {
 

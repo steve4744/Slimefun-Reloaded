@@ -6,12 +6,12 @@ import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 
+//TODO: Finish & clean this class up see me.mrCookieSlime.Slimefun.Setup.ResearchSetup for the Slimefun equivalent of this class
 public final class ResearchRegistry {
 
   private static final ResearchManager RESEARCH_MANAGER = Slimefun.getResearchManager();
   private static final SlimefunReloaded PLUGIN = Slimefun.getSlimefunReloaded();
 
-  //TODO: Add items
   public static void registerResearches() {
     register(new Research(new NamespacedKey(PLUGIN, "Walking_Sticks"), 1));
     register(new Research(new NamespacedKey(PLUGIN, "Portalable_Crafter"), 1));

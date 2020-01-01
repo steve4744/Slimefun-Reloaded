@@ -19,6 +19,7 @@ import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.Config;
 
+//TODO: Finish & clean this class up see me.mrCookieSlime.Slimefun.Objects.Research for the Slimefun equivalent of this class
 public class Research implements Keyed {
 
   private int cost;
