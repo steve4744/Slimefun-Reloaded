@@ -1,21 +1,26 @@
 package optic_fusion1.slimefunreloaded.category.type;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.util.PlayerProfile;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class LockedCategory extends Category {
 
   private List<Category> parents = new ArrayList<>();
 
-  public LockedCategory(String name, ItemStack item, Category... parents) {
-    this(name, item, 3, parents);
+  public LockedCategory(NamespacedKey key, ItemStack itemStack, Category... parents) {
+    this(key, itemStack, 3, parents);
   }
 
-  public LockedCategory(String name, ItemStack item, int tier, Category... parents) {
-    super(name, item, tier);
+  public LockedCategory(NamespacedKey key, ItemStack item, int tier, Category... parents) {
+    super(key, item, tier);
     this.parents = Arrays.asList(parents);
   }
 
@@ -24,34 +29,33 @@ public class LockedCategory extends Category {
   }
 
   public void addParent(Category category) {
-    Objects.requireNonNull(category);
+    Preconditions.checkArgument(category != null, "Expected Category, received null");
     if (category == this) {
-      throw new IllegalArgumentException("Category '" + this.getItem().getItemMeta().getDisplayName() + "' cannot be a parent of itself.");
+      throw new IllegalArgumentException("Category '" + getItem().getItemMeta().getDisplayName() + "' cannot be a parent of itself.");
     }
-    this.parents.add(category);
   }
 
-  public void removeParent(Category category){
-    Objects.requireNonNull(category);
-    this.parents.remove(category);
+  public void removeParent(Category category) {
+    Preconditions.checkArgument(category != null, "Expected Category, received null");
+    parents.remove(category);
   }
-  
-//  @SuppressWarnings("deprecation")
-//  public boolean hasUnlocked(Player p) {
-//    return hasUnlocked(p, PlayerProfile.get(p));
-//  }
-//
-//  public boolean hasUnlocked(Player p, PlayerProfile profile) {
-//    for (Category category : parents) {
-//      for (SlimefunReloadedItem item : category.getItems()) {
-//        if (Slimefun.isEnabled(p, item, false)
-//         && Slimefun.hasPermission(p, item, false)
-//         && item.getResearch() != null
-//         && !profile.hasUnlocked(item.getResearch())) {
-//          return false;
-//        }
-//      }
-//    }
-//    return true;
-//  }
+
+  public boolean hasUnlocked(Player player) {
+    return hasUnlocked(player, PlayerProfile.get(player));
+  }
+
+  public boolean hasUnlocked(Player player, PlayerProfile profile) {
+    for (Category category : parents) {
+      for (SlimefunReloadedComponent component : category.getComponents()) {
+        if (Slimefun.isEnabled(player, component, false)
+         && Slimefun.hasPermission(player, component, false)
+         && component.getResearch() != null
+         && !profile.hasUnlocked(component.getResearch())) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
 }

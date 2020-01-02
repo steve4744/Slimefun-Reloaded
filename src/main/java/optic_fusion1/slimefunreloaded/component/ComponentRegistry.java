@@ -73,7 +73,7 @@ public final class ComponentRegistry {
 
   public static void registerComponents() {
     //Weapon Registery
-    Category WEAPONS = CATEGORY_MANAGER.getCategoryByName("WEAPONS");
+    Category WEAPONS = CATEGORY_MANAGER.getCategoryByKey("WEAPONS");
     registerSimpleSlimefunReloadedItem("grandmas_walking_stick", WEAPONS, SlimefunReloadedItems.GRANDMAS_WALKING_STICK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, new ItemStack(Material.OAK_LOG), null, null, new ItemStack(Material.OAK_LOG), null, null, new ItemStack(Material.OAK_LOG), null});
     registerSimpleSlimefunReloadedItem("grandpas_walking_stick", WEAPONS, SlimefunReloadedItems.GRANDPAS_WALKING_STICK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.LEATHER), new ItemStack(Material.OAK_LOG), new ItemStack(Material.LEATHER), null, new ItemStack(Material.OAK_LOG), null, null, new ItemStack(Material.OAK_LOG), null});
     registerSimpleSlimefunReloadedItem("sword_of_beheading", WEAPONS, SlimefunReloadedItems.SWORD_OF_BEHEADING, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, new ItemStack(Material.EMERALD), null, SlimefunReloadedItems.MAGIC_LUMP_2, new ItemStack(Material.EMERALD), SlimefunReloadedItems.MAGIC_LUMP_2, null, new ItemStack(Material.BLAZE_ROD), null}, new String[]{"chance.PLAYER", "chance.SKELETON", "chance.WITHER_SKELETON", "chance.ZOMBIE", "chance.CREEPER"}, new Integer[]{70, 40, 25, 40, 40});
@@ -82,7 +82,7 @@ public final class ComponentRegistry {
     registerSoulboundItem("soulbound_sword", WEAPONS, (SlimefunReloadedItemStack) SlimefunReloadedItems.SOULBOUND_SWORD, new ItemStack[]{null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null, null, new ItemStack(Material.DIAMOND_SWORD), null, null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null});
     registerSoulboundItem("soulbound_bow", WEAPONS, (SlimefunReloadedItemStack) SlimefunReloadedItems.SOULBOUND_BOW, new ItemStack[]{null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null, null, new ItemStack(Material.DIAMOND_PICKAXE), null, null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null});
     //Portable Registery
-    Category PORTABLE = CATEGORY_MANAGER.getCategoryByName("PORTABLE");
+    Category PORTABLE = CATEGORY_MANAGER.getCategoryByKey("PORTABLE");
     register(new PortableCrafter(new NamespacedKey(plugin, "portable_crafter"), PORTABLE, (SlimefunReloadedItemStack) SlimefunReloadedItems.PORTABLE_CRAFTER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.BOOK), new ItemStack(Material.CRAFTING_TABLE), null, null, null, null, null, null, null}));
     register(new PortableDustbin(new NamespacedKey(plugin, "portable_dustbin"), PORTABLE, (SlimefunReloadedItemStack) SlimefunReloadedItems.PORTABLE_DUSTBIN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT), null, new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT)}));
     register(new Rag(new NamespacedKey(plugin, "rag"), PORTABLE, (SlimefunReloadedItemStack) SlimefunReloadedItems.RAG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH, new ItemStack(Material.STRING), null, new ItemStack(Material.STRING), SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH}));
@@ -99,7 +99,7 @@ public final class ComponentRegistry {
     registerBackpack("backpack_cooler", PORTABLE, (SlimefunReloadedItemStack) SlimefunReloadedItems.COOLER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.ALUMINUM_INGOT, SlimefunReloadedItems.COOLING_UNIT, SlimefunReloadedItems.ALUMINUM_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT}, 27);
     register(new SoulboundBackpack(new NamespacedKey(plugin, "backpack_soulbound"), PORTABLE, (SlimefunReloadedItemStack) SlimefunReloadedItems.BOUND_BACKPACK, null, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_2, null, SlimefunReloadedItems.ENDER_LUMP_2, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, SlimefunReloadedItems.WOVEN_BACKPACK, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, SlimefunReloadedItems.ENDER_LUMP_2, null, SlimefunReloadedItems.ENDER_LUMP_2}, 36));
     //FOOD Registery
-    Category FOOD = CATEGORY_MANAGER.getCategoryByName("FOOD");
+    Category FOOD = CATEGORY_MANAGER.getCategoryByKey("FOOD");
     register(new FortuneCookie(new NamespacedKey(plugin, "fortune_cookie"), FOOD, (SlimefunReloadedItemStack) SlimefunReloadedItems.FORTUNE_COOKIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.COOKIE), new ItemStack(Material.PAPER), null, null, null, null, null, null, null}));
     register(new DietCookie(new NamespacedKey(plugin, "diet_cookie"), FOOD, (SlimefunReloadedItemStack) SlimefunReloadedItems.DIET_COOKIE, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{new ItemStack(Material.COOKIE), SlimefunReloadedItems.ELYTRA_SCALE, null, null, null, null, null, null, null}));
     registerMeatJerky("beef_jerky", FOOD, (SlimefunReloadedItemStack) SlimefunReloadedItems.BEEF_JERKY, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.SALT, new ItemStack(Material.COOKED_BEEF), null, null, null, null, null, null, null});
@@ -117,7 +117,7 @@ public final class ComponentRegistry {
     registerJuice("sweet_berry_juice", FOOD, (SlimefunReloadedItemStack) SlimefunReloadedItems.SWEET_BERRY_JUICE, RecipeType.JUICER, new ItemStack[]{new ItemStack(Material.SWEET_BERRIES), null, null, null, null, null, null, null, null});
     registerJuice("golden_apple_juice", FOOD, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLDEN_APPLE_JUICE, RecipeType.JUICER, new ItemStack[]{new ItemStack(Material.GOLDEN_APPLE), null, null, null, null, null, null, null, null});
     //MACHINES_1 Registery
-    Category MACHINES_1 = CATEGORY_MANAGER.getCategoryByName("MACHINES_1");
+    Category MACHINES_1 = CATEGORY_MANAGER.getCategoryByKey("MACHINES_1");
     registerSimpleSlimefunReloadedItem("output_chest", MACHINES_1, (SlimefunReloadedItemStack) SlimefunReloadedItems.OUTPUT_CHEST, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.LEAD_INGOT, new ItemStack(Material.HOPPER), SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.LEAD_INGOT, new ItemStack(Material.CHEST), SlimefunReloadedItems.LEAD_INGOT, null, SlimefunReloadedItems.LEAD_INGOT, null});
     registerSimpleSlimefunReloadedItem("ignition_chamber", MACHINES_1, (SlimefunReloadedItemStack) SlimefunReloadedItems.IGNITION_CHAMBER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, new ItemStack(Material.FLINT_AND_STEEL), SlimefunReloadedItems.ELECTRIC_MOTOR, SlimefunReloadedItems.STEEL_PLATE, SlimefunReloadedItems.ELECTRIC_MOTOR, null, new ItemStack(Material.HOPPER), null});
     /*
@@ -259,7 +259,7 @@ public final class ComponentRegistry {
 		.register(true);
      */
     //LUMPS_AND_MAGIC Registery
-    Category LUMPS_AND_MAGIC = CATEGORY_MANAGER.getCategoryByName("LUMPS_AND_MAGIC");
+    Category LUMPS_AND_MAGIC = CATEGORY_MANAGER.getCategoryByKey("LUMPS_AND_MAGIC");
     registerSimpleSlimefunReloadedItem("magic_lump_1", LUMPS_AND_MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.MAGIC_LUMP_1, RecipeType.GRIND_STONE, new ItemStack[]{new ItemStack(Material.NETHER_WART), null, null, null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.MAGIC_LUMP_1, 2));
     registerSimpleSlimefunReloadedItem("magic_lump_2", LUMPS_AND_MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.MAGIC_LUMP_2, RecipeType.GRIND_STONE, new ItemStack[]{SlimefunReloadedItems.MAGIC_LUMP_1, SlimefunReloadedItems.MAGIC_LUMP_1, null, SlimefunReloadedItems.MAGIC_LUMP_1, SlimefunReloadedItems.MAGIC_LUMP_1, null, null, null, null});
     registerSimpleSlimefunReloadedItem("magic_lump_3", LUMPS_AND_MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.MAGIC_LUMP_3, RecipeType.GRIND_STONE, new ItemStack[]{SlimefunReloadedItems.MAGIC_LUMP_2, SlimefunReloadedItems.MAGIC_LUMP_2, null, SlimefunReloadedItems.MAGIC_LUMP_2, SlimefunReloadedItems.MAGIC_LUMP_2, null, null, null, null});
@@ -288,7 +288,7 @@ public final class ComponentRegistry {
     registerSimpleSlimefunReloadedItem("rune_rainbow", LUMPS_AND_MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.RUNE_RAINBOW, RecipeType.ANCIENT_ALTAR, new ItemStack[]{new ItemStack(Material.RED_DYE), SlimefunReloadedItems.MAGIC_LUMP_3, new ItemStack(Material.CYAN_DYE), new ItemStack(Material.WHITE_WOOL), SlimefunReloadedItems.RUNE_ENDER, new ItemStack(Material.WHITE_WOOL), new ItemStack(Material.YELLOW_DYE), SlimefunReloadedItems.ENDER_LUMP_3, new ItemStack(Material.MAGENTA_DYE)});
     register(new SoulboundRune(new NamespacedKey(plugin, "rune_soulbound"), LUMPS_AND_MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.RUNE_SOULBOUND, RecipeType.ANCIENT_ALTAR, new ItemStack[]{SlimefunReloadedItems.MAGIC_LUMP_3, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, SlimefunReloadedItems.MAGIC_LUMP_3, SlimefunReloadedItems.ENDER_LUMP_3, SlimefunReloadedItems.RUNE_ENDER, SlimefunReloadedItems.ENDER_LUMP_3, SlimefunReloadedItems.MAGIC_LUMP_3, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, SlimefunReloadedItems.MAGIC_LUMP_3}));
     //MAGIC Registery
-    Category MAGIC = CATEGORY_MANAGER.getCategoryByName("MAGIC");
+    Category MAGIC = CATEGORY_MANAGER.getCategoryByKey("MAGICAL_GADGETS");
     register(new InfusedHopper(new NamespacedKey(plugin, "infused_hopper"), MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.INFUSED_HOPPER, RecipeType.ANCIENT_ALTAR, new ItemStack[]{new ItemStack(Material.OBSIDIAN), SlimefunReloadedItems.RUNE_EARTH, new ItemStack(Material.HOPPER), SlimefunReloadedItems.RUNE_ENDER, SlimefunReloadedItems.INFUSED_MAGNET, SlimefunReloadedItems.RUNE_ENDER, new ItemStack(Material.HOPPER), SlimefunReloadedItems.RUNE_EARTH, new ItemStack(Material.OBSIDIAN)}));
     register(new EnderBackpack(new NamespacedKey(plugin, "ender_backpack"), MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENDER_BACKPACK, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.LEATHER), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.LEATHER), new ItemStack(Material.CHEST), new ItemStack(Material.LEATHER), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.LEATHER), SlimefunReloadedItems.ENDER_LUMP_2}));
     register(new MagicEyeOfEnder(new NamespacedKey(plugin, "magic_eye_of_ender"), MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.MAGIC_EYE_OF_ENDER, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.ENDER_PEARL), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.ENDER_EYE), new ItemStack(Material.ENDER_PEARL), SlimefunReloadedItems.ENDER_LUMP_2, new ItemStack(Material.ENDER_PEARL), SlimefunReloadedItems.ENDER_LUMP_2}));
@@ -329,7 +329,7 @@ public final class ComponentRegistry {
 
      */
     //MagicArmor Registery
-    Category MAGIC_ARMOR = CATEGORY_MANAGER.getCategoryByName("MAGIC_ARMOR");
+    Category MAGIC_ARMOR = CATEGORY_MANAGER.getCategoryByKey("MAGIC_ARMOR");
     registerSimpleSlimefunReloadedItem("ender_helmet", MAGIC_ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENDER_HELMET, RecipeType.ARMOR_FORGE, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_1, new ItemStack(Material.ENDER_EYE), SlimefunReloadedItems.ENDER_LUMP_1, new ItemStack(Material.OBSIDIAN), null, new ItemStack(Material.OBSIDIAN), null, null, null});
     registerSimpleSlimefunReloadedItem("ender_chestplate", MAGIC_ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENDER_CHESTPLATE, RecipeType.ARMOR_FORGE, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_1, null, SlimefunReloadedItems.ENDER_LUMP_1, new ItemStack(Material.OBSIDIAN), new ItemStack(Material.ENDER_EYE), new ItemStack(Material.OBSIDIAN), new ItemStack(Material.OBSIDIAN), new ItemStack(Material.OBSIDIAN), new ItemStack(Material.OBSIDIAN)});
     registerSimpleSlimefunReloadedItem("ender_leggings", MAGIC_ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENDER_LEGGINGS, RecipeType.ARMOR_FORGE, new ItemStack[]{SlimefunReloadedItems.ENDER_LUMP_1, new ItemStack(Material.ENDER_EYE), SlimefunReloadedItems.ENDER_LUMP_1, new ItemStack(Material.OBSIDIAN), null, new ItemStack(Material.OBSIDIAN), new ItemStack(Material.OBSIDIAN), null, new ItemStack(Material.OBSIDIAN)});
@@ -349,7 +349,7 @@ public final class ComponentRegistry {
     registerSoulboundItem("soulbound_leggings", MAGIC_ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.SOULBOUND_LEGGINGS, new ItemStack[]{null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null, null, new ItemStack(Material.DIAMOND_LEGGINGS), null, null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null});
     registerSoulboundItem("soulbound_boots", MAGIC_ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.SOULBOUND_BOOTS, new ItemStack[]{null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null, null, new ItemStack(Material.DIAMOND_BOOTS), null, null, SlimefunReloadedItems.ESSENCE_OF_AFTERLIFE, null});
     //TECH_MISC Registery
-    Category TECH_MISC = CATEGORY_MANAGER.getCategoryByName("TECH_MISC");
+    Category TECH_MISC = CATEGORY_MANAGER.getCategoryByKey("TECHNICAL_COMPONENTS");
     registerSimpleSlimefunReloadedItem("basic_circuit_board", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, RecipeType.MOB_DROP, new ItemStack[]{null, null, null, null, new CustomItem(new ItemStack(Material.POPPY), "&a&oIron Golem"), null, null, null, null});
     registerSimpleSlimefunReloadedItem("advanced_circuit_board", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.ADVANCED_CIRCUIT_BOARD, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.REDSTONE_BLOCK), SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, new ItemStack(Material.REDSTONE_BLOCK), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.LAPIS_BLOCK)});
     registerSimpleSlimefunReloadedItem("battery", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.BATTERY, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, new ItemStack(Material.REDSTONE), null, SlimefunReloadedItems.ZINC_INGOT, SlimefunReloadedItems.SULFATE, SlimefunReloadedItems.COPPER_INGOT, SlimefunReloadedItems.ZINC_INGOT, SlimefunReloadedItems.SULFATE, SlimefunReloadedItems.COPPER_INGOT});
@@ -369,7 +369,7 @@ public final class ComponentRegistry {
     registerSimpleSlimefunReloadedItem("reactor_coolant_cell", TECH_MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.REACTOR_COOLANT_CELL, new RecipeType(SlimefunReloadedItems.FREEZER), new ItemStack[]{new ItemStack(Material.BLUE_ICE), null, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("nether_ice_coolant_cell", MAGIC, (SlimefunReloadedItemStack) SlimefunReloadedItems.NETHER_ICE_COOLANT_CELL, new RecipeType(SlimefunReloadedItems.HEATED_PRESSURE_CHAMBER), new ItemStack[]{SlimefunReloadedItems.ENRICHED_NETHER_ICE, null, null, null, null, null, null, null, null});
     //RESOURCE Registery
-    Category RESOURCES = CATEGORY_MANAGER.getCategoryByName("RESOURCES");
+    Category RESOURCES = CATEGORY_MANAGER.getCategoryByKey("RESOURCES");
     register(new ReplacingItem(new NamespacedKey(plugin, "synthetic_diamond"), RESOURCES, SlimefunReloadedItems.SYNTHETIC_DIAMOND, RecipeType.PRESSURE_CHAMBER, new ItemStack[]{SlimefunReloadedItems.CARBON_CHUNK, null, null, null, null, null, null, null, null}));
     registerSimpleSlimefunReloadedItem("carbonado", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.CARBONADO, RecipeType.PRESSURE_CHAMBER, new ItemStack[]{SlimefunReloadedItems.RAW_CARBONADO, null, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("iron_dust", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.IRON_DUST, RecipeType.ORE_CRUSHER, new ItemStack[]{new ItemStack(Material.IRON_ORE), null, null, null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.IRON_DUST, (boolean) Slimefun.getItemValue("ORE_CRUSHER", "double-ores") ? 2 : 1));
@@ -419,7 +419,7 @@ public final class ComponentRegistry {
     //SlimefunReloadedItems.setRadioactive(SlimefunReloadedItems.PLUTONIUM);
     registerSimpleSlimefunReloadedItem("boosted_uranium", RESOURCES, (SlimefunReloadedItemStack) SlimefunReloadedItems.BOOSTED_URANIUM, RecipeType.HEATED_PRESSURE_CHAMBER, new ItemStack[]{SlimefunReloadedItems.PLUTONIUM, SlimefunReloadedItems.URANIUM, null, null, null, null, null, null, null});
     //TOOLS Registery
-    Category TOOLS = CATEGORY_MANAGER.getCategoryByName("TOOLS");
+    Category TOOLS = CATEGORY_MANAGER.getCategoryByKey("TOOLS");
     register(new GoldPan(new NamespacedKey(plugin, "gold_pan"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.GOLD_PAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.STONE), new ItemStack(Material.BOWL), new ItemStack(Material.STONE), new ItemStack(Material.STONE), new ItemStack(Material.STONE), new ItemStack(Material.STONE)}));
     register(new NetherGoldPan(new NamespacedKey(plugin, "nether_gold_pan"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.NETHER_GOLD_PAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.NETHER_BRICK), SlimefunReloadedItems.GOLD_PAN, new ItemStack(Material.NETHER_BRICK), new ItemStack(Material.NETHER_BRICK), new ItemStack(Material.NETHER_BRICK), new ItemStack(Material.NETHER_BRICK)}));
     register(new GrapplingHook(new NamespacedKey(plugin, "grappling_hook"), TOOLS, (SlimefunReloadedItemStack) SlimefunReloadedItems.GRAPPLING_HOOK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, SlimefunReloadedItems.HOOK, null, SlimefunReloadedItems.CHAIN, null, SlimefunReloadedItems.CHAIN, null, null}, new String[]{"despawn-seconds"}, new Object[]{60}));
@@ -446,7 +446,7 @@ public final class ComponentRegistry {
 		.register(true);
      */
     //MISC Registery
-    Category MISC = CATEGORY_MANAGER.getCategoryByName("MISC");
+    Category MISC = CATEGORY_MANAGER.getCategoryByKey("MISC");
     registerSimpleSlimefunReloadedItem("sifted_ore", MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.SIFTED_ORE, RecipeType.GOLD_PAN, new ItemStack[]{new ItemStack(Material.GRAVEL), null, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("wheat_flour", MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.WHEAT_FLOUR, RecipeType.GRIND_STONE, new ItemStack[]{new ItemStack(Material.WHEAT), null, null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("steel_plate", MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.STEEL_PLATE, RecipeType.COMPRESSOR, new ItemStack[]{new CustomItem(SlimefunReloadedItems.STEEL_INGOT, 8), null, null, null, null, null, null, null, null});
@@ -477,7 +477,7 @@ public final class ComponentRegistry {
     registerSimpleSlimefunReloadedItem("apple_organic_food", MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.APPLE_ORGANIC_FOOD, new RecipeType(SlimefunReloadedItems.FOOD_FABRICATOR), new ItemStack[]{SlimefunReloadedItems.CAN, new ItemStack(Material.APPLE), null, null, null, null, null, null, null});
     registerSimpleSlimefunReloadedItem("sweet_berries_organic_food", MISC, (SlimefunReloadedItemStack) SlimefunReloadedItems.SWEET_BERRIES_ORGANIC_FOOD, new RecipeType(SlimefunReloadedItems.FOOD_FABRICATOR), new ItemStack[]{SlimefunReloadedItems.CAN, new ItemStack(Material.SWEET_BERRIES), null, null, null, null, null, null, null});
     //TECH Registery
-    Category TECH = CATEGORY_MANAGER.getCategoryByName("TECH");
+    Category TECH = CATEGORY_MANAGER.getCategoryByKey("TECHNICAL_GADGETS");
     registerSimpleSlimefunReloadedItem("parachute", TECH, (SlimefunReloadedItemStack) SlimefunReloadedItems.PARACHUTE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CLOTH, SlimefunReloadedItems.CHAIN, null, SlimefunReloadedItems.CHAIN, null, null, null});
     /*
 		new HologramProjector(TECH, (SlimefunReloadedItemStack) SlimefunReloadedItems.HOLOGRAM_PROJECTOR, RecipeType.ENHANCED_CRAFTING_TABLE,
@@ -493,7 +493,7 @@ public final class ComponentRegistry {
 		.register(true);
      */
     //ELECTRICITY Registery
-    Category ELECTRICITY = CATEGORY_MANAGER.getCategoryByName("ELECTRICITY");
+    Category ELECTRICITY = CATEGORY_MANAGER.getCategoryByKey("ELECTRICITY");
     /*
          new EnergyRegulator(ELECTRICITY, (SlimefunReloadedItemStack) SlimefunReloadedItems.ENERGY_REGULATOR, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {SlimefunReloadedItems.SILVER_INGOT, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.SILVER_INGOT, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.ELECTRIC_MOTOR, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.SILVER_INGOT, SlimefunReloadedItems.DAMASCUS_STEEL_INGOT, SlimefunReloadedItems.SILVER_INGOT})
@@ -1746,13 +1746,13 @@ public final class ComponentRegistry {
 
      */
     //ArmorPiece Registery
-    Category ARMOR = CATEGORY_MANAGER.getCategoryByName("ARMOR");
+    Category ARMOR = CATEGORY_MANAGER.getCategoryByKey("ARMOR");
     registerSlimefunReloadedArmorPiece("scuba_helmet", ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.SCUBA_HELMET, RecipeType.ARMOR_FORGE, new ItemStack[]{new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.BLACK_WOOL), new ItemStack(Material.GLASS_PANE), new ItemStack(Material.BLACK_WOOL), null, null, null}, new PotionEffect[]{new PotionEffect(PotionEffectType.WATER_BREATHING, 300, 1)});
     registerSlimefunReloadedArmorPiece("hazmatsuit_chestplate", ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.HAZMATSUIT_CHESTPLATE, RecipeType.ARMOR_FORGE, new ItemStack[]{new ItemStack(Material.ORANGE_WOOL), null, new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.BLACK_WOOL), new ItemStack(Material.BLACK_WOOL), new ItemStack(Material.BLACK_WOOL)}, new PotionEffect[]{new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 300, 1)});
     registerSlimefunReloadedArmorPiece("hazmatsuit_leggings", ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.HAZMATSUIT_LEGGINGS, RecipeType.ARMOR_FORGE, new ItemStack[]{new ItemStack(Material.BLACK_WOOL), new ItemStack(Material.BLACK_WOOL), new ItemStack(Material.BLACK_WOOL), new ItemStack(Material.ORANGE_WOOL), null, new ItemStack(Material.ORANGE_WOOL), new ItemStack(Material.ORANGE_WOOL), null, new ItemStack(Material.ORANGE_WOOL)}, new PotionEffect[]{});
     registerSlimefunReloadedArmorPiece("rubber_boots", ARMOR, (SlimefunReloadedItemStack) SlimefunReloadedItems.RUBBER_BOOTS, RecipeType.ARMOR_FORGE, new ItemStack[]{null, null, null, new ItemStack(Material.BLACK_WOOL), null, new ItemStack(Material.BLACK_WOOL), new ItemStack(Material.BLACK_WOOL), null, new ItemStack(Material.BLACK_WOOL)}, new PotionEffect[]{});
     //Christmas Registery
-    Category CHRISTMAS = CATEGORY_MANAGER.getCategoryByName("CHRISTMAS");
+    Category CHRISTMAS = CATEGORY_MANAGER.getCategoryByKey("CHRISTMAS");
     registerSimpleSlimefunReloadedItem("christmas_milk", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_MILK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.MILK_BUCKET), new ItemStack(Material.GLASS_BOTTLE), null, null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_MILK, 4));
     registerSimpleSlimefunReloadedItem("christmas_chocolate_milk", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_CHOCOLATE_MILK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.CHRISTMAS_MILK, new ItemStack(Material.COCOA_BEANS), null, null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_CHOCOLATE_MILK, 2));
     registerSimpleSlimefunReloadedItem("christmas_egg_nog", CHRISTMAS, SlimefunReloadedItems.CHRISTMAS_EGG_NOG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{SlimefunReloadedItems.CHRISTMAS_MILK, new ItemStack(Material.EGG), null, null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_EGG_NOG, 2));
@@ -1787,7 +1787,7 @@ public final class ComponentRegistry {
 
      */
     //Easter Registery
-    Category EASTER = CATEGORY_MANAGER.getCategoryByName("EASTER");
+    Category EASTER = CATEGORY_MANAGER.getCategoryByKey("EASTER");
     registerSimpleSlimefunReloadedItem("easter_carrot_pie", EASTER, SlimefunReloadedItems.EASTER_CARROT_PIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.SUGAR), new ItemStack(Material.CARROT), new ItemStack(Material.EGG), null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.EASTER_CARROT_PIE, 2));
     registerSimpleSlimefunReloadedItem("easter_apple_pie", EASTER, SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{new ItemStack(Material.SUGAR), new ItemStack(Material.APPLE), new ItemStack(Material.EGG), null, null, null, null, null, null}, new CustomItem(SlimefunReloadedItems.CHRISTMAS_APPLE_PIE, 2));
     register(new EasterEgg(new NamespacedKey(plugin, "easter_egg"), EASTER, (SlimefunReloadedItemStack) SlimefunReloadedItems.EASTER_EGG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, null, null, new ItemStack(Material.LIME_DYE), new ItemStack(Material.EGG), new ItemStack(Material.PURPLE_DYE), null, null, null}, new CustomItem(SlimefunReloadedItems.EASTER_EGG, 2)));

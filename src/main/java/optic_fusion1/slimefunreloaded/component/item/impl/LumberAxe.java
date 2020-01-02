@@ -4,6 +4,7 @@ import java.util.List;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
 import optic_fusion1.slimefunreloaded.util.block.Vein;
@@ -13,6 +14,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class LumberAxe extends SlimefunReloadedItem {
@@ -22,7 +24,7 @@ public class LumberAxe extends SlimefunReloadedItem {
   }
 
   @Override
-  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock, List<ItemStack> drops, int fortune) {
+  public void onBlockBreak(BlockBreakEvent event, Player player, Block brokenBlock, ItemStack item, int fortune, SlimefunReloadedComponent component) {
     if (Tag.LOGS.getValues().contains(brokenBlock.getType())) {
       List<Block> logs = Vein.find(brokenBlock, 100, b -> Tag.LOGS.getValues().contains(b.getType()));
 

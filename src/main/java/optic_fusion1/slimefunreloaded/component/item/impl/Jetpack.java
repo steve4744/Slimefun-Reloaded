@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Jetpack extends DamagableChargableItem {
 
-  private static final Category CATEGORY = Slimefun.getCategoryManager().getCategoryByName("TECH");
+  private static final Category CATEGORY = Slimefun.getCategoryManager().getCategoryByKey("TECHNICAL_GADGETS");
   private double speed;
 
   public Jetpack(NamespacedKey key, ItemStack item, ItemStack[] recipe, double speed) {

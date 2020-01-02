@@ -1,68 +1,66 @@
 package optic_fusion1.slimefunreloaded.category.type;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import com.google.common.collect.ImmutableList;
-
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import org.bukkit.Keyed;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+public class Category implements Keyed {
 
-public class Category {
-
-  private String name;
-  private ItemStack item;
-  private List<SlimefunReloadedComponent> components = new ArrayList<>();
+  private NamespacedKey key;
+  private ItemStack itemStack;
   private int tier;
-  private boolean enabled = true;
+  private List<SlimefunReloadedComponent> components = new ArrayList<>();
+  private boolean isEnabled;
 
-  public Category(String name, ItemStack item) {
-    this(name, item, 3);
-  }
-
-  public Category(String name, ItemStack item, int tier) {
-    this.name = name;
-    this.item = item;
-    ItemMeta meta = item.getItemMeta();
+  public Category(NamespacedKey key, ItemStack item, int tier) {
+    this.key = key;
+    this.itemStack = item;
+    ItemMeta meta = itemStack.getItemMeta();
     meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-    this.item.setItemMeta(meta);
+    this.itemStack.setItemMeta(meta);
     this.tier = tier;
+    this.isEnabled = true;
   }
 
-  public void add(SlimefunReloadedComponent component) {
-    this.components.add(component);
+  @Override
+  public NamespacedKey getKey() {
+    return key;
   }
 
   public ItemStack getItem() {
-    return item;
-  }
-
-  public List<SlimefunReloadedComponent> getComponents() {
-    return ImmutableList.copyOf(components);
+    return itemStack;
   }
 
   public int getTier() {
     return tier;
   }
 
-  public String getName() {
-    return name;
+  public boolean isEnabled() {
+    return isEnabled;
+  }
+
+  public void setEnabled(boolean isEnabled) {
+    this.isEnabled = isEnabled;
+  }
+
+  public void add(SlimefunReloadedComponent... components) {
+    this.components.addAll(Arrays.asList(components));
+  }
+
+  public List<SlimefunReloadedComponent> getComponents() {
+    return Collections.unmodifiableList(components);
   }
 
   @Override
   public String toString() {
-    return "Slimefun Reloaded Category {name=" + name + ",itemdisplayname=" + item.getItemMeta().getDisplayName() + ",tier=" + tier + "}";
-  }
-
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(boolean isEnabled) {
-    this.enabled = isEnabled;
+    return "Slimefun Reloaded Category {key=" + key + ",itemdisplayname=" + itemStack.getItemMeta().getDisplayName() + ",tier" + tier + "}";
   }
 
 }

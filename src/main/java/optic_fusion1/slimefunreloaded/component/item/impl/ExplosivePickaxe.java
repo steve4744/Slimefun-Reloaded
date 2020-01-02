@@ -18,6 +18,7 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ExplosivePickaxe extends SlimefunReloadedItem implements DamageableItem {
@@ -42,7 +43,7 @@ public class ExplosivePickaxe extends SlimefunReloadedItem implements Damageable
   }
 
   @Override
-  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock, List<ItemStack> drops, int fortune) {
+  public void onBlockBreak(BlockBreakEvent event, Player player, Block brokenBlock, ItemStack item, int fortune, SlimefunReloadedComponent component) {
     World world = brokenBlock.getWorld();
     world.createExplosion(brokenBlock.getLocation(), 0.0F);
     world.playSound(brokenBlock.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 0.3F, 1F);
@@ -62,6 +63,8 @@ public class ExplosivePickaxe extends SlimefunReloadedItem implements Damageable
             SlimefunReloadedComponent sfItem = BlockStorage.check(b);
             boolean allow = false;
 
+            
+            
             /*if (sfItem != null && !(sfItem instanceof HandledBlock)) {
               if (Slimefun.getBlockHandlers().containsKey(sfItem.getID())) {
                 allow = Slimefun.getBlockHandlers().get(sfItem.getID()).onBreak(player, brokenBlock, sfItem, UnregisterReason.PLAYER_BREAK);
@@ -71,7 +74,8 @@ public class ExplosivePickaxe extends SlimefunReloadedItem implements Damageable
               }
             } else if (b.getType() == Material.PLAYER_HEAD) {
               b.breakNaturally();
-            } else */if (b.getType().name().endsWith("_SHULKER_BOX")) {
+            } else */
+            if (b.getType().name().endsWith("_SHULKER_BOX")) {
               b.breakNaturally();
             } else {
               for (ItemStack drop : b.getDrops()) {

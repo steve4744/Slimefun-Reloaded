@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class EnchancedFurnace extends SimpleSlimefunReloadedItem implements TickableComponent {
 
-  private static final Category MACHINES_1 = Slimefun.getCategoryManager().getCategoryByName("Machines_1");
+  private static final Category MACHINES_1 = Slimefun.getCategoryManager().getCategoryByKey("MACHINES_1");
   private final int speed;
   private final int efficiency;
   private final int fortune;

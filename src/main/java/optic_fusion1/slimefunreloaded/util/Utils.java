@@ -20,32 +20,11 @@ public final class Utils {
     return YamlConfiguration.loadConfiguration(new BufferedReader(new InputStreamReader(input, "UTF-8")));
   }
 
-  public static void consumeItem(ItemStack item, boolean replaceConsumables) {
-    consumeItem(item, 1, replaceConsumables);
-  }
-
-  public static void consumeItem(ItemStack item, int amount, boolean replaceConsumables) {
-    Objects.requireNonNull(item, "Required item, received null instead");
-    if (item.getType() != Material.AIR && item.getAmount() > 0) {
-      if (MaterialCollections.getAllFilledBuckets().contains(item.getType()) && replaceConsumables) {
-        item.setType(Material.BUCKET);
-        item.setAmount(1);
-      } else if (item.getType() == Material.POTION && replaceConsumables) {
-        item.setType(Material.GLASS_BOTTLE);
-        item.setAmount(1);
-      } else if (item.getAmount() <= amount) {
-        item.setAmount(0);
-      } else {
-        item.setAmount(item.getAmount() - amount);
-      }
-    }
-  }
-  
-  public static boolean isInteger(String string){
-    try{
+  public static boolean isInteger(String string) {
+    try {
       int i = Integer.valueOf(string);
       return true;
-    }catch(Exception e){
+    } catch (Exception e) {
       return false;
     }
   }

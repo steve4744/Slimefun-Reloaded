@@ -17,7 +17,7 @@ public class SlimefunReloadedTalisman extends SlimefunReloadedItem {
   protected final boolean cancel;
   protected final PotionEffect[] effects;
   protected final int chance;
-  private static final Category TALISMANS_1 = Slimefun.getCategoryManager().getCategoryByName("Talismans_1");
+  private static final Category TALISMANS_1 = Slimefun.getCategoryManager().getCategoryByKey("TALISMANS_1");
   private static final SlimefunReloaded PLUGIN = Slimefun.getSlimefunReloaded();
 
   public SlimefunReloadedTalisman(String namespace, SlimefunReloadedItemStack item, ItemStack[] recipe, boolean consumable, boolean cancelEvent, String messageSuffix, PotionEffect... effects) {

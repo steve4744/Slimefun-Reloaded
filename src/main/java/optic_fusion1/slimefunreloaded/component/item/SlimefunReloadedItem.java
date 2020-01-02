@@ -8,11 +8,12 @@ import org.bukkit.inventory.ItemStack;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
-import optic_fusion1.slimefunreloaded.util.Utils;
+import optic_fusion1.slimefunreloaded.util.ItemUtils;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
@@ -92,13 +93,14 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
   /**
    * Called when a player breaks a block.
    *
+   * @param event the event
    * @param player the player
    * @param brokenBlock the block
    * @param item the item
-   * @param drops the block drops
    * @param fortune the item fortune level
+   * @param component the component
    */
-  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock, List<ItemStack> drops, int fortune) {
+  public void onBlockBreak(BlockBreakEvent event, Player player, Block brokenBlock, ItemStack item, int fortune, SlimefunReloadedComponent component) {
   }
 
   /**
@@ -116,7 +118,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    *
    * The items will be removed from the slot, if the slot does not hold enough items, it will be replaced with null. Note that this does not check whether there are enough Items present, if you specify a bigger amount than present, it will simply set the Item to null.
    *
-   * If replaceConsumables is true, the following things will not be replaced with 'null': null null null   {@code Buckets -> new ItemStack(Material.BUCKET)}
+   * If replaceConsumables is true, the following things will not be replaced with 'null': null null null null null null null   {@code Buckets -> new ItemStack(Material.BUCKET)}
 	 * {@code Potions -> new ItemStack(Material.GLASS_BOTTLE)}
    *
    * @param item	The Item to consume
@@ -124,7 +126,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    * @param replaceConsumables	Whether Items should be replaced with their "empty" version
    */
   public static void consumeItem(ItemStack item, int amount, boolean replaceConsumables) {
-    Utils.consumeItem(item, amount, replaceConsumables);
+    ItemUtils.consumeItem(item, amount, replaceConsumables);
   }
 
 }

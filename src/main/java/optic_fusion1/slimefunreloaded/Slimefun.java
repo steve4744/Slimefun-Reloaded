@@ -18,6 +18,7 @@ import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
 import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
+import optic_fusion1.slimefunreloaded.service.BlockDataService;
 import optic_fusion1.slimefunreloaded.util.BlockInfoConfig;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.Config;
@@ -252,5 +253,13 @@ public final class Slimefun {
   public static TickerTask getTicker() {
     return plugin.getTicker();
   }
+  
+  public static BlockDataService getBlockDataService(){
+    return plugin.getBlockDataService();
+  }
 
+  public static List<UUID> getCancelPlace(){
+    return plugin.getCancelPlace();
+  }
+  
 }

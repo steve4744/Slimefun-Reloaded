@@ -10,9 +10,9 @@ import optic_fusion1.slimefunreloaded.SlimefunReloaded;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
 import optic_fusion1.slimefunreloaded.util.I18n;
+import optic_fusion1.slimefunreloaded.util.ItemUtils;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import optic_fusion1.slimefunreloaded.util.StringUtils;
-import optic_fusion1.slimefunreloaded.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -113,7 +113,7 @@ public class AncientAltarListener implements Listener {
                   consumed.add(catalyst);
 
                   if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
-                    Utils.consumeItem(e.getPlayer().getInventory().getItemInMainHand(), false);
+                    ItemUtils.consumeItem(e.getPlayer().getInventory().getItemInMainHand(), false);
                   }
 
                   Bukkit.getScheduler().scheduleSyncDelayedTask(Slimefun.getSlimefunReloaded(), new RitualAnimation(altars, b, b.getLocation().add(0.5, 1.3, 0.5), result, pedestals, consumed), 10L);
@@ -186,7 +186,7 @@ public class AncientAltarListener implements Listener {
     ItemStack stack = new CustomItem(hand, 1);
 
     if (p.getGameMode() != GameMode.CREATIVE) {
-      Utils.consumeItem(hand, false);
+      ItemUtils.consumeItem(hand, false);
     }
 
     String nametag = StringUtils.formatItemName(stack, false);

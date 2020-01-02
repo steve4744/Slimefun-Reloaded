@@ -1,5 +1,6 @@
 package optic_fusion1.slimefunreloaded.category;
 
+import com.google.common.base.Preconditions;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,11 +13,15 @@ public class CategoryManager {
   private List<Category> categories = new ArrayList<>();
   private CategorySorter categorySorter = new CategorySorter();
 
-  public boolean categoryExists(String name) {
-    return categories.stream().anyMatch((category) -> (category.getName().equals(name)));
+  public boolean categoryWithKeyExists(String key) {
+    return categories.stream().anyMatch((category) -> (category.getKey().getKey().toLowerCase().equals(key.toLowerCase())));
   }
 
-  public List<Category> getAllEnabledCategories() {
+  public List<Category> getCategories() {
+    return categories;
+  }
+
+  public List<Category> getEnabledCategories() {
     List<Category> enabledCategories = new ArrayList<>();
     categories.stream().filter((category) -> (category.isEnabled())).forEachOrdered((category) -> {
       enabledCategories.add(category);
@@ -25,8 +30,8 @@ public class CategoryManager {
   }
 
   public void addCategory(Category category) {
-    if (!categoryExists(category.getName())) {
-      Collections.sort(categories, categorySorter);
+    Preconditions.checkArgument(category != null, "Expected Category, received null");
+    if (!categoryWithKeyExists(category.getKey().getKey())) {
       if (category instanceof SeasonalCategory) {
         if (((SeasonalCategory) category).isUnlocked()) {
           categories.add(category);
@@ -38,10 +43,6 @@ public class CategoryManager {
     }
   }
 
-  public List<Category> getCategories() {
-    return Collections.unmodifiableList(categories);
-  }
-
   public Category getCategoryByItem(ItemStack item) {
     for (Category category : categories) {
       if (category.getItem().isSimilar(item)) {
@@ -51,21 +52,13 @@ public class CategoryManager {
     return null;
   }
 
-  public Category getCategoryByName(String name) {
-    for (Category category : categories) {
-      if (category.getName().equals(name)) {
+  public Category getCategoryByKey(String key){
+    for(Category category : categories){
+      if(category.getKey().getKey().toLowerCase().equals(key.toLowerCase())){
         return category;
       }
     }
     return null;
   }
-
-  public List<String> getCategoryNames() {
-    List<String> names = new ArrayList<>();
-    for(Category category : categories){
-      names.add(category.getName());
-    }
-    return names;
-  }
-
+  
 }

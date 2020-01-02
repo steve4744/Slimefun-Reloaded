@@ -4,6 +4,7 @@ import java.util.List;
 import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.component.item.interfaces.DamageableItem;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
@@ -15,6 +16,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ExplosiveShovel extends SlimefunReloadedItem implements DamageableItem {
@@ -35,7 +37,7 @@ public class ExplosiveShovel extends SlimefunReloadedItem implements DamageableI
   }
 
   @Override
-  public void onBlockBreak(Player player, ItemStack item, Block brokenBlock, List<ItemStack> drops, int fortune) {
+  public void onBlockBreak(BlockBreakEvent event, Player player, Block brokenBlock, ItemStack item, int fortune, SlimefunReloadedComponent component) {
     brokenBlock.getWorld().createExplosion(brokenBlock.getLocation(), 0.0F);
     brokenBlock.getWorld().playSound(brokenBlock.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 0.3F, 1F);
 

@@ -71,11 +71,11 @@ public final class InvUtils {
       ItemStack item = inv.getItem(slot);
       if (item != null && predicate.test(item)) {
         if (item.getAmount() + removed >= amount) {
-          Utils.consumeItem(item, amount - removed, replaceConsumables);
+          ItemUtils.consumeItem(item, amount - removed, replaceConsumables);
           return true;
         } else if (item.getAmount() > 0) {
           removed += item.getAmount();
-          Utils.consumeItem(item, item.getAmount(), replaceConsumables);
+          ItemUtils.consumeItem(item, item.getAmount(), replaceConsumables);
         }
       }
     }

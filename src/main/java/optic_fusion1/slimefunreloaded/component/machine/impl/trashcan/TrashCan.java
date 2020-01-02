@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public class TrashCan extends SlimefunReloadedMachine<TrashCanState> {
 
   public TrashCan(SlimefunReloaded plugin) {
-    super(new NamespacedKey(plugin, "TrashCan"), Slimefun.getCategoryManager().getCategoryByName("Cargo"), (SlimefunReloadedItemStack) SlimefunReloadedItems.TRASH_CAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, SlimefunReloadedItems.PORTABLE_DUSTBIN, null, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.CARGO_MOTOR, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT});
+    super(new NamespacedKey(plugin, "TrashCan"), Slimefun.getCategoryManager().getCategoryByKey("CARGO"), (SlimefunReloadedItemStack) SlimefunReloadedItems.TRASH_CAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{null, SlimefunReloadedItems.PORTABLE_DUSTBIN, null, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.CARGO_MOTOR, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT, SlimefunReloadedItems.LEAD_INGOT, SlimefunReloadedItems.ALUMINUM_INGOT});
   }
 
   @Override

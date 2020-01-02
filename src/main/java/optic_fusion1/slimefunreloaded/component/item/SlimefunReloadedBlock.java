@@ -26,18 +26,12 @@ public class SlimefunReloadedBlock extends SlimefunReloadedItem {
     super(key, category, item, recipeType, recipe, recipeOutput);
   }
 
-  public void onBlockPlace(Player player, Block block, SlimefunReloadedComponent item) {
-  }
-
-  public boolean onBlockPlace(BlockPlaceEvent e, ItemStack item) {
+  public boolean onBlockPlace(BlockPlaceEvent e, ItemStack item, Player player, Block block, SlimefunReloadedComponent component) {
     return false;
   }
 
-  public boolean onBlockBreak(Player player, Block block, SlimefunReloadedComponent item, UnregisterReason reason) {
-    return true;
-  }
-
-  public boolean onBlockBreak(BlockBreakEvent e, ItemStack item, int fortune, List<ItemStack> drops) {
+  public boolean onBlockBreak(BlockBreakEvent event, Player player, Block brokenBlock, ItemStack item, int fortune, SlimefunReloadedComponent component, UnregisterReason reason) {
     return false;
   }
+
 }

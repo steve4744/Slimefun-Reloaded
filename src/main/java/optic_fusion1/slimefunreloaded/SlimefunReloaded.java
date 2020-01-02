@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +44,7 @@ import optic_fusion1.slimefunreloaded.protection.ProtectionManager;
 import optic_fusion1.slimefunreloaded.recipe.RecipeSnapshot;
 import optic_fusion1.slimefunreloaded.research.ResearchManager;
 import optic_fusion1.slimefunreloaded.research.ResearchRegistry;
+import optic_fusion1.slimefunreloaded.service.BlockDataService;
 import optic_fusion1.slimefunreloaded.updater.Updater;
 import optic_fusion1.slimefunreloaded.util.BlockInfoConfig;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
@@ -118,6 +120,8 @@ public class SlimefunReloaded extends JavaPlugin {
   public final Set<UUID> elevatorUsers = new HashSet<>();
   public final Map<String, SlimefunReloadedComponent> itemIDs = new HashMap<>();
   private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
+  private BlockDataService blockDataService = new BlockDataService(this, "slimefunreloaded_block");
+  private final List<UUID> cancelPlace = new ArrayList<>();
 
   @Override
   public void onEnable() {
@@ -188,7 +192,6 @@ public class SlimefunReloaded extends JavaPlugin {
     ticker = new TickerTask();
 
 //    autoSavingService.start(this, config.getInt("options.auto-save-delay-in-minutes"));
-
     // Starting all ASYNC Tasks
     getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
       try {
@@ -198,7 +201,7 @@ public class SlimefunReloaded extends JavaPlugin {
         ticker.abortTick();
       }
     }, 100L, CONFIG.getInt("URID.custom-ticker-delay"));
-    
+
     Bukkit.getPluginCommand("component").setExecutor(new ComponentCommand());
   }
 
@@ -781,8 +784,16 @@ public class SlimefunReloaded extends JavaPlugin {
     Bukkit.getScheduler().runTaskLater(this, r, delay);
   }
 
-  public TickerTask getTicker(){
+  public TickerTask getTicker() {
     return ticker;
+  }
+
+  public BlockDataService getBlockDataService(){
+    return blockDataService;
+  }
+  
+  public List<UUID> getCancelPlace(){
+    return cancelPlace;
   }
   
 }

@@ -1,23 +1,24 @@
 package optic_fusion1.slimefunreloaded.category.type;
 
 import java.util.Calendar;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
 public class SeasonalCategory extends Category {
 
   private int month = -1;
 
-  public SeasonalCategory(String name, ItemStack item, int month) {
-    this(name, item, 3, month);
+  public SeasonalCategory(NamespacedKey key, ItemStack itemStack, int month) {
+    this(key, itemStack, 3, month);
   }
 
-  public SeasonalCategory(String name, ItemStack item, int tier, int month) {
-    super(name, item, tier);
-    this.month = month - 1;
+  public SeasonalCategory(NamespacedKey key, ItemStack item, int tier, int month) {
+    super(key, item, tier);
+    this.month = month;
   }
 
   public int getMonth() {
-    return this.month;
+    return month;
   }
 
   public boolean isUnlocked() {
@@ -27,4 +28,5 @@ public class SeasonalCategory extends Category {
     Calendar calendar = Calendar.getInstance();
     return month == calendar.get(Calendar.MONTH);
   }
+
 }
