@@ -10,20 +10,20 @@ import org.bukkit.inventory.ItemStack;
 public class Jetpack extends DamagableChargableItem {
 
   private static final Category CATEGORY = Slimefun.getCategoryManager().getCategoryByKey("TECHNICAL_GADGETS");
-  private double speed;
+  private double thrust;
 
-  public Jetpack(NamespacedKey key, ItemStack item, ItemStack[] recipe, double speed) {
+  public Jetpack(NamespacedKey key, ItemStack item, ItemStack[] recipe, double thrust) {
     super(key, CATEGORY, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, "Jetpack");
-    this.speed = speed;
+    this.thrust = thrust;
   }
 
-  public Jetpack(NamespacedKey key, ItemStack item, ItemStack[] recipe, String[] keys, Object[] values, double speed) {
+  public Jetpack(NamespacedKey key, ItemStack item, ItemStack[] recipe, String[] keys, Object[] values, double thrust) {
     super(key, CATEGORY, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, keys, values, "Jetpack");
-    this.speed = speed;
+    this.thrust = thrust;
   }
 
-  public double getSpeed() {
-    return speed;
+  public double getThrust() {
+    return thrust;
   }
 
 }

@@ -14,7 +14,6 @@ public final class InvUtils {
    * This field represents a static and final instance of {@link MenuClickHandler} that prevents clicks.
    */
 //  public static final MenuClickHandler EMPTY_CLICK = (p, slot, item, cursor, action) -> false;
-
   private InvUtils() {
   }
 
@@ -77,6 +76,23 @@ public final class InvUtils {
           removed += item.getAmount();
           ItemUtils.consumeItem(item, item.getAmount(), replaceConsumables);
         }
+      }
+    }
+
+    return false;
+  }
+
+  public static boolean containsSimilarItem(Inventory inventory, ItemStack itemStack, boolean checkLore) {
+    if (inventory == null || itemStack == null) {
+      return false;
+    }
+
+    for (ItemStack is : inventory.getStorageContents()) {
+      if (is == null || is.getType() == Material.AIR) {
+        continue;
+      }
+      if(is.isSimilar(itemStack)){
+        return true;
       }
     }
 
