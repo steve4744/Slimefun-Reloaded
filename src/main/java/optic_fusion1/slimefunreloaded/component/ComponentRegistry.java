@@ -52,7 +52,7 @@ import optic_fusion1.slimefunreloaded.component.item.impl.StormStaff;
 import optic_fusion1.slimefunreloaded.component.item.impl.Vitamins;
 import optic_fusion1.slimefunreloaded.component.item.impl.WaterStaff;
 import optic_fusion1.slimefunreloaded.component.item.impl.WindStaff;
-import optic_fusion1.slimefunreloaded.component.machine.impl.EnchancedFurnace;
+import optic_fusion1.slimefunreloaded.component.machine.impl.EnhancedFurnace;
 import optic_fusion1.slimefunreloaded.util.CustomItem;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItemStack;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
@@ -2010,7 +2010,7 @@ new GrindStone().register();
   }
 
   public static void registerEnhancedFurnace(String namespace, ItemStack item, ItemStack[] recipe, int speed, int efficiency, int fortune) {
-    register(new EnchancedFurnace(new NamespacedKey(plugin, namespace), item, recipe, speed, efficiency, fortune));
+    register(new EnhancedFurnace(new NamespacedKey(plugin, namespace), item, recipe, speed, efficiency, fortune));
   }
 
   public static void registerJuice(String namespace, Category category, ItemStack item, RecipeType type,

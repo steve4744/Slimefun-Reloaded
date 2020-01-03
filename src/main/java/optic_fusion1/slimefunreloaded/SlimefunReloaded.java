@@ -36,6 +36,9 @@ import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 import optic_fusion1.slimefunreloaded.listener.ArmorListener;
+import optic_fusion1.slimefunreloaded.listener.BackpackListener;
+import optic_fusion1.slimefunreloaded.listener.CoolerListener;
+import optic_fusion1.slimefunreloaded.listener.FurnaceListener;
 import optic_fusion1.slimefunreloaded.listener.ItemListener;
 import optic_fusion1.slimefunreloaded.listener.ItemPickupListener;
 import optic_fusion1.slimefunreloaded.listener.ItemUseListener;
@@ -181,6 +184,9 @@ public class SlimefunReloaded extends JavaPlugin {
     registerListener(new ItemListener());
     registerListener(new ItemPickupListener());
     registerListener(new ArmorListener());
+    registerListener(new BackpackListener());
+    registerListener(new CoolerListener());
+    registerListener(new FurnaceListener());
     // Initiating various Stuff and all Items with a slightly delay (0ms after the Server finished loading)
     Slimefun.runSync(() -> {
       recipeSnapshot = new RecipeSnapshot(this);

@@ -14,14 +14,14 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Furnace;
 import org.bukkit.inventory.ItemStack;
 
-public class EnchancedFurnace extends SimpleSlimefunReloadedItem implements TickableComponent {
+public class EnhancedFurnace extends SimpleSlimefunReloadedItem implements TickableComponent {
 
   private static final Category MACHINES_1 = Slimefun.getCategoryManager().getCategoryByKey("MACHINES_1");
   private final int speed;
   private final int efficiency;
   private final int fortune;
 
-  public EnchancedFurnace(NamespacedKey key, ItemStack item, ItemStack[] recipe, int speed, int efficiency, int fortune) {
+  public EnhancedFurnace(NamespacedKey key, ItemStack item, ItemStack[] recipe, int speed, int efficiency, int fortune) {
     super(key, MACHINES_1, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
     this.speed = speed - 1;
     this.efficiency = efficiency - 1;
