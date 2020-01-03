@@ -35,6 +35,9 @@ import optic_fusion1.slimefunreloaded.component.item.VanillaItem;
 import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
+import optic_fusion1.slimefunreloaded.listener.ArmorListener;
+import optic_fusion1.slimefunreloaded.listener.ItemListener;
+import optic_fusion1.slimefunreloaded.listener.ItemPickupListener;
 import optic_fusion1.slimefunreloaded.listener.ItemUseListener;
 import optic_fusion1.slimefunreloaded.listener.PlayerQuitListener;
 import optic_fusion1.slimefunreloaded.listener.ToolListener;
@@ -175,7 +178,9 @@ public class SlimefunReloaded extends JavaPlugin {
     registerListener(new PlayerQuitListener());
     registerListener(new ItemUseListener());
     registerListener(new ToolListener());
-
+    registerListener(new ItemListener());
+    registerListener(new ItemPickupListener());
+    registerListener(new ArmorListener());
     // Initiating various Stuff and all Items with a slightly delay (0ms after the Server finished loading)
     Slimefun.runSync(() -> {
       recipeSnapshot = new RecipeSnapshot(this);
@@ -788,12 +793,12 @@ public class SlimefunReloaded extends JavaPlugin {
     return ticker;
   }
 
-  public BlockDataService getBlockDataService(){
+  public BlockDataService getBlockDataService() {
     return blockDataService;
   }
-  
-  public List<UUID> getCancelPlace(){
+
+  public List<UUID> getCancelPlace() {
     return cancelPlace;
   }
-  
+
 }
