@@ -25,27 +25,31 @@ public class GearListener implements Listener {
   public void onToggleSneak(PlayerToggleSneakEvent event) {
     if (event.isSneaking()) {
       Player player = event.getPlayer();
-      SlimefunReloadedComponent chestplate = componentManager.getComponentByItem(player.getInventory().getChestplate());
-      SlimefunReloadedComponent boots = componentManager.getComponentByItem(player.getInventory().getBoots());
-      if (chestplate != null) {
-        if (chestplate instanceof Jetpack) {
-          if (Slimefun.hasUnlocked(player, chestplate, true)) {
-            double thrust = ((Jetpack) chestplate).getThrust();
-            if (thrust > 0.2) {
-              JetpackTask task = new JetpackTask(player, thrust);
-              task.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(Slimefun.getSlimefunReloaded(), task, 0L, 3L));
+      if (player.getInventory().getChestplate() != null) {
+        SlimefunReloadedComponent chestplate = componentManager.getComponentByItem(player.getInventory().getChestplate());
+        if (chestplate != null) {
+          if (chestplate instanceof Jetpack) {
+            if (Slimefun.hasUnlocked(player, chestplate, true)) {
+              double thrust = ((Jetpack) chestplate).getThrust();
+              if (thrust > 0.2) {
+                JetpackTask task = new JetpackTask(player, thrust);
+                task.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(Slimefun.getSlimefunReloaded(), task, 0L, 3L));
+              }
             }
+          } else if (chestplate.getID().equals("PARACHUTE") && Slimefun.hasUnlocked(player, chestplate, true)) {
+            ParachuteTask task = new ParachuteTask(player);
+            task.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(Slimefun.getSlimefunReloaded(), task, 0L, 3L));
           }
         }
-      } else if (chestplate.getID().equals("PARACHUTE") && Slimefun.hasUnlocked(player, chestplate, true)) {
-        ParachuteTask task = new ParachuteTask(player);
-        task.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(Slimefun.getSlimefunReloaded(), task, 0L, 3L));
       }
-      if (boots != null && boots instanceof JetBoots && Slimefun.hasUnlocked(player, boots, true)) {
-        double speed = ((JetBoots) boots).getSpeed();
-        if (speed > 0.2) {
-          JetBootsTask task = new JetBootsTask(player, speed);
-          task.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(Slimefun.getSlimefunReloaded(), task, 0L, 2L));
+      if (player.getInventory().getBoots() != null) {
+        SlimefunReloadedComponent boots = componentManager.getComponentByItem(player.getInventory().getBoots());
+        if (boots != null && boots instanceof JetBoots && Slimefun.hasUnlocked(player, boots, true)) {
+          double speed = ((JetBoots) boots).getSpeed();
+          if (speed > 0.2) {
+            JetBootsTask task = new JetBootsTask(player, speed);
+            task.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(Slimefun.getSlimefunReloaded(), task, 0L, 2L));
+          }
         }
       }
       if (InvUtils.containsSimilarItem(player.getInventory(), SlimefunReloadedItems.INFUSED_MAGNET, true)) {

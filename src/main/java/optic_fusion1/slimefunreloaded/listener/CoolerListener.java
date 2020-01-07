@@ -21,7 +21,7 @@ public class CoolerListener implements Listener {
     Player player = (Player) event.getEntity();
     if (event.getFoodLevel() < player.getFoodLevel()) {
       for (ItemStack itemStack : player.getInventory().getContents()) {
-        if (itemStack.isSimilar(SlimefunReloadedItems.COOLER)) {
+        if (itemStack != null && itemStack.isSimilar(SlimefunReloadedItems.COOLER)) {
           BackpackInventory backpack = PlayerProfile.getBackpack(itemStack);
           if (backpack != null) {
             Inventory inventory = backpack.getInventory();

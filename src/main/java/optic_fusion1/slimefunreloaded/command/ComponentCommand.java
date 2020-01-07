@@ -1,9 +1,8 @@
 package optic_fusion1.slimefunreloaded.command;
 
 import optic_fusion1.slimefunreloaded.Slimefun;
+import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
-import optic_fusion1.slimefunreloaded.util.Paginator;
-import optic_fusion1.slimefunreloaded.util.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -68,6 +67,10 @@ public class ComponentCommand implements CommandExecutor {
       player.getInventory().addItem(item);
       player.sendMessage("You have been given 1 " + component.getID());
       return true;
+    }
+    if(args[0].equalsIgnoreCase("amount")){
+      ComponentManager componentManager = Slimefun.getComponentManager();
+      player.sendMessage("Components: " + componentManager.getComponents().size() + "(" + componentManager.getEnabledComponents().size() + ")");
     }
     return true;
   }

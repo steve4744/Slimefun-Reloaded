@@ -24,6 +24,7 @@ public class ComponentManager {
 //    paginator.setTitle("=== Components ===");
 //  }
 //  
+
   public void addComponent(SlimefunReloadedComponent component) {
     Preconditions.checkArgument(component != null, "Cannot register null component");
     Preconditions.checkArgument(component.getKey() != null, "Component must not have a null key");
@@ -50,8 +51,13 @@ public class ComponentManager {
 
   public SlimefunReloadedComponent getComponentByItem(ItemStack item) {
     Preconditions.checkArgument(item != null, "Expected ItemStack, received null");
-    for(SlimefunReloadedComponent component : components.values()){
-      if(item.isSimilar(component.getItem())){
+    for (SlimefunReloadedComponent component : components.values()) {
+      if (item.isSimilar(component.getItem())) {
+        return component;
+      }
+    }
+    for (SlimefunReloadedComponent component : enabledComponents.values()) {
+      if (item.isSimilar(component.getItem())) {
         return component;
       }
     }
@@ -61,7 +67,12 @@ public class ComponentManager {
   public SlimefunReloadedComponent getComponentByKey(String key) {
     Preconditions.checkArgument(key != null, "Expected String, received null");
     for (SlimefunReloadedComponent component : components.values()) {
-      if(component.getKey().getKey().toLowerCase().equals(key.toLowerCase())){
+      if (component.getKey().getKey().toLowerCase().equals(key.toLowerCase())) {
+        return component;
+      }
+    }
+    for (SlimefunReloadedComponent component : enabledComponents.values()) {
+      if (component.getKey().getKey().toLowerCase().equals(key.toLowerCase())) {
         return component;
       }
     }
@@ -94,5 +105,5 @@ public class ComponentManager {
 //  public Paginator getPaginator(){
 //    return paginator;
 //  }
-  
+
 }

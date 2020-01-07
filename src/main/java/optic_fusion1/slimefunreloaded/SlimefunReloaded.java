@@ -24,6 +24,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
 import optic_fusion1.slimefunreloaded.GPS.GPSNetwork;
+import optic_fusion1.slimefunreloaded.ancient_altar.AncientAltarListener;
 import optic_fusion1.slimefunreloaded.category.CategoryManager;
 import optic_fusion1.slimefunreloaded.category.CategoryRegistery;
 import optic_fusion1.slimefunreloaded.command.ComponentCommand;
@@ -193,6 +194,7 @@ public class SlimefunReloaded extends JavaPlugin {
     registerListener(new GuideOnJoinListener());
     registerListener(new NetworkListener());
     registerListener(new GearListener());
+    registerListener(new ToolListener());
     // Initiating various Stuff and all Items with a slightly delay (0ms after the Server finished loading)
     Slimefun.runSync(() -> {
       recipeSnapshot = new RecipeSnapshot(this);
@@ -201,9 +203,9 @@ public class SlimefunReloaded extends JavaPlugin {
       Bukkit.getWorlds().forEach((world) -> {
         new BlockStorage(world);
       });
-//      if (SlimefunItem.getByID("ANCIENT_ALTAR") != null) {
-//        new AncientAltarListener((SlimefunPlugin) instance);
-//      }
+      if(COMPONENT_MANAGER.getComponentByKey("ANCIENT_ALTAR") != null){
+        new AncientAltarListener(this);
+      } 
     }, 0);
 
     ticker = new TickerTask();
