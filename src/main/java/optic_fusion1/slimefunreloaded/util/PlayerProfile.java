@@ -29,6 +29,7 @@ public final class PlayerProfile {
   private Config cfg;
   private boolean dirty = false;
   private boolean markedForDeletion = false;
+  private Player player;
 
   private final Set<Research> researches = new HashSet<>();
   private final Map<Integer, BackpackInventory> backpacks = new HashMap<>();
@@ -42,6 +43,7 @@ public final class PlayerProfile {
   };
 
   private PlayerProfile(OfflinePlayer p) {
+    this.player = (Player) p;
     this.uuid = p.getUniqueId();
     this.name = p.getName();
 
@@ -100,7 +102,7 @@ public final class PlayerProfile {
   }
 
   public boolean hasUnlocked(Research research) {
-    return !research.isEnabled() || researches.contains(research);
+    return !research.isEnabled() || researches.contains(research) || player.hasPermission("sfr.cheat.unlockall");
   }
 
   public Set<Research> getResearches() {

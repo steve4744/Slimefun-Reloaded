@@ -39,7 +39,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 
-//TODO: Re-Add the onEntityExplode method
 public class ToolListener implements Listener {
 
   // Materials that require a Block under it, e.g. Pressure Plates

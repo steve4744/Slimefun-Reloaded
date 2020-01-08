@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
+import optic_fusion1.slimefunreloaded.event.ItemUseEvent;
 import optic_fusion1.slimefunreloaded.util.ItemUtils;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -118,7 +119,7 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    *
    * The items will be removed from the slot, if the slot does not hold enough items, it will be replaced with null. Note that this does not check whether there are enough Items present, if you specify a bigger amount than present, it will simply set the Item to null.
    *
-   * If replaceConsumables is true, the following things will not be replaced with 'null': null null null null null null null   {@code Buckets -> new ItemStack(Material.BUCKET)}
+   * If replaceConsumables is true, the following things will not be replaced with 'null': null null null null null null null null   {@code Buckets -> new ItemStack(Material.BUCKET)}
 	 * {@code Potions -> new ItemStack(Material.GLASS_BOTTLE)}
    *
    * @param item	The Item to consume
@@ -127,6 +128,9 @@ public abstract class SlimefunReloadedItem extends SlimefunReloadedComponent {
    */
   public static void consumeItem(ItemStack item, int amount, boolean replaceConsumables) {
     ItemUtils.consumeItem(item, amount, replaceConsumables);
+  }
+
+  public void onRightClick(ItemUseEvent event, ItemStack itemStack, Player player) {
   }
 
 }

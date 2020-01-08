@@ -132,6 +132,7 @@ public class SlimefunReloaded extends JavaPlugin {
   private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
   private BlockDataService blockDataService = new BlockDataService(this, "slimefunreloaded_block");
   private final List<UUID> cancelPlace = new ArrayList<>();
+  private final List<UUID> blocks = new ArrayList<>();
 
   @Override
   public void onEnable() {
@@ -203,9 +204,9 @@ public class SlimefunReloaded extends JavaPlugin {
       Bukkit.getWorlds().forEach((world) -> {
         new BlockStorage(world);
       });
-      if(COMPONENT_MANAGER.getComponentByKey("ANCIENT_ALTAR") != null){
+      if (COMPONENT_MANAGER.getComponentByKey("ANCIENT_ALTAR") != null) {
         new AncientAltarListener(this);
-      } 
+      }
     }, 0);
 
     ticker = new TickerTask();
@@ -712,11 +713,14 @@ public class SlimefunReloaded extends JavaPlugin {
   public boolean hasUnlocked(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
     if (isEnabled(player, component, sendMessage) && hasPermission(player, component, sendMessage)) {
       if (component.getResearch() == null) {
+        System.out.println("[Has Unlocked] Research is null, returning true");
         return true;
       } else if (PlayerProfile.get(player).hasUnlocked(component.getResearch())) {
+        System.out.println("[Has Unlocked] Player Profofile has unlocked Component Research");
         return true;
       } else {
         if (sendMessage && !(component instanceof VanillaItem)) {
+          System.out.println("[Has Unlocked] sending message");
           I18n.tl(player, "messages.not-researched");
           return false;
         }
@@ -727,12 +731,16 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public boolean hasPermission(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
     if (component == null) {
+      System.out.println("[Has Permission] Component is null, returning true");
       return true;
     } else if (component.getPermission().equalsIgnoreCase("")) {
+      System.out.println("[Has Permission] Component permission is empty, returning true");
       return true;
     } else if (player.hasPermission(component.getPermission())) {
+      System.out.println("[Has Permission] Player has permission " + component.getPermission() + " returning true");
       return true;
     } else {
+      System.out.println("[Has Permission] Returning false");
       if (sendMessage) {
         I18n.tl(player, "messages.no-permission");
       }
@@ -751,6 +759,7 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public boolean isEnabled(Player player, SlimefunReloadedComponent component, boolean sendMessage) {
     if (component.isDisabled()) {
+      System.out.println("[Is Enabled] Component is disabled, returning false");
       if (sendMessage) {
         I18n.tl(player, "messages.disabled-in-world");
       }
@@ -764,20 +773,24 @@ public class SlimefunReloaded extends JavaPlugin {
           WHITELIST_CONFIG.save();
         }
         if (WHITELIST_CONFIG.getBoolean(worldName + ".enabled-items." + component.getID())) {
+          System.out.println("[Is Enabled] " + component.getID() + " is enabled in " + worldName + " returning true");
           return true;
         } else {
+          System.out.println("[Is Enabled] " + component.getID() + " isn't enabled in " + worldName + " returning false");
           if (sendMessage) {
             I18n.tl(player, "messages.disabled-in-world");
           }
           return false;
         }
       } else {
+        System.out.println("[Is Enabled] " + worldName + " isn't enabled");
         if (sendMessage) {
           I18n.tl(player, "messages.disabled-in-world");
         }
         return false;
       }
     }
+    System.out.println("[Is Enabled] Returning true");
     return true;
   }
 
@@ -813,6 +826,10 @@ public class SlimefunReloaded extends JavaPlugin {
 
   public List<UUID> getCancelPlace() {
     return cancelPlace;
+  }
+  
+  public List<UUID> getBlocks(){
+    return blocks;
   }
 
 }

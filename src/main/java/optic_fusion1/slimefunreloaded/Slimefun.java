@@ -262,4 +262,8 @@ public final class Slimefun {
     return plugin.getCancelPlace();
   }
   
+  public static List<UUID> getBlocks(){
+    return plugin.getBlocks();
+  }
+  
 }
