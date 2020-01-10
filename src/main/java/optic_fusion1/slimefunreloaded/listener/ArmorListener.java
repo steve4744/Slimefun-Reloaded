@@ -4,6 +4,7 @@ import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.protection.ProtectableAction;
+import optic_fusion1.slimefunreloaded.util.ItemUtils;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -37,6 +38,9 @@ public class ArmorListener implements Listener {
     }
     if (event.getEntity() instanceof Player) {
       Player player = (Player) event.getEntity();
+      if(player.getInventory().getBoots() == null){
+        return;
+      }
       SlimefunReloadedComponent component = componentManager.getComponentByItem(player.getInventory().getBoots());
       if (component != null) {
         if (component.getID().equals("ENDER_BOOTS")
@@ -88,7 +92,7 @@ public class ArmorListener implements Listener {
       Block clickedBlock = event.getClickedBlock();
       if (clickedBlock != null && clickedBlock.getType() == Material.FARMLAND) {
         ItemStack itemStack = event.getPlayer().getInventory().getBoots();
-        if (itemStack != null && itemStack.isSimilar(SlimefunReloadedItems.FARMER_SHOES)) {
+        if (itemStack != null && ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.FARMER_SHOES, true)) {
           event.setCancelled(true);
         }
       }

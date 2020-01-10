@@ -37,6 +37,7 @@ import optic_fusion1.slimefunreloaded.hooks.SlimefunReloadedHooks;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 import optic_fusion1.slimefunreloaded.listener.ArmorListener;
+import optic_fusion1.slimefunreloaded.listener.AutonomousToolsListener;
 import optic_fusion1.slimefunreloaded.listener.BackpackListener;
 import optic_fusion1.slimefunreloaded.listener.CoolerListener;
 import optic_fusion1.slimefunreloaded.listener.FurnaceListener;
@@ -153,7 +154,7 @@ public class SlimefunReloaded extends JavaPlugin {
     Slimefun.setSlimefunReloaded(this);
     new I18n();
     logger.info("Loading files...");
-    a();
+    migrateData();
     cleanup();
     logger.info("loading config...");
     setupConfig();
@@ -182,20 +183,20 @@ public class SlimefunReloaded extends JavaPlugin {
     textureService.setup(COMPONENT_MANAGER.getComponents());
 
     //All Slimefun Reloaded Listeners
-    registerListener(new WorldListener());
-    registerListener(new PlayerQuitListener());
-    registerListener(new ItemUseListener());
-    registerListener(new ToolListener());
-    registerListener(new ItemListener());
-    registerListener(new ItemPickupListener());
     registerListener(new ArmorListener());
     registerListener(new BackpackListener());
     registerListener(new CoolerListener());
     registerListener(new FurnaceListener());
-    registerListener(new GuideOnJoinListener());
-    registerListener(new NetworkListener());
     registerListener(new GearListener());
+    registerListener(new GuideOnJoinListener());
+    registerListener(new ItemListener());
+    registerListener(new ItemPickupListener());
+    registerListener(new ItemUseListener());
+    registerListener(new NetworkListener());
+    registerListener(new PlayerQuitListener());
     registerListener(new ToolListener());
+    registerListener(new WorldListener());
+    registerListener(new AutonomousToolsListener());
     // Initiating various Stuff and all Items with a slightly delay (0ms after the Server finished loading)
     Slimefun.runSync(() -> {
       recipeSnapshot = new RecipeSnapshot(this);
@@ -458,8 +459,7 @@ public class SlimefunReloaded extends JavaPlugin {
     CONFIG = new Config(this);
   }
 
-  //TODO: GIVE THIS METHOD A BETTER NAME
-  private void a() {
+  private void migrateData() {
     File researches = new File("plugins/Slimefun/Researches.yml");
     if (researches.exists() && !RESEARCHES_CONFIG.getFile().exists()) {
       researches.renameTo(RESEARCHES_CONFIG.getFile());

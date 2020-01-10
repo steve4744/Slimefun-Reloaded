@@ -1,8 +1,12 @@
 package optic_fusion1.slimefunreloaded.util;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import optic_fusion1.slimefunreloaded.Slimefun;
 import optic_fusion1.slimefunreloaded.util.material.MaterialCollections;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -204,6 +208,124 @@ public final class ItemUtils {
         item.setAmount(item.getAmount() - amount);
       }
     }
+  }
+
+  public static boolean isItemSimilar(ItemStack item, ItemStack sfitem, boolean checkLore) {
+    if (item == null) {
+      return sfitem == null;
+    }
+    if (sfitem == null) {
+      return false;
+    }
+
+    if (item instanceof SlimefunReloadedItemStack && sfitem instanceof SlimefunReloadedItemStack) {
+      return ((SlimefunReloadedItemStack) item).getItemID().equals(((SlimefunReloadedItemStack) sfitem).getItemID());
+    }
+
+    if (item.getType() == sfitem.getType() && item.getAmount() >= sfitem.getAmount()) {
+      if (!item.hasItemMeta() && !sfitem.hasItemMeta()) {
+        return true;
+      } else {
+        ItemMeta itemMeta = item.getItemMeta();
+
+        if (sfitem instanceof SlimefunReloadedItemStack) {
+          Optional<String> id = Slimefun.getItemDataService().getItemData(itemMeta);
+
+          if (id.isPresent()) {
+            return id.get().equals(((SlimefunReloadedItemStack) sfitem).getItemID());
+          }
+
+          ImmutableItemMeta meta = ((SlimefunReloadedItemStack) sfitem).getImmutableMeta();
+
+          Optional<String> displayName = meta.getDisplayName();
+
+          if (itemMeta.hasDisplayName() && displayName.isPresent()) {
+            if (itemMeta.getDisplayName().equals(displayName.get())) {
+              Optional<List<String>> itemLore = meta.getLore();
+
+              if (checkLore) {
+                if (itemMeta.hasLore() && itemLore.isPresent()) {
+                  return equalsLore(itemMeta.getLore(), itemLore.get());
+                } else {
+                  return !itemMeta.hasLore() && !itemLore.isPresent();
+                }
+              } else {
+                return true;
+              }
+            } else {
+              return false;
+            }
+          } else if (!itemMeta.hasDisplayName() && !displayName.isPresent()) {
+            Optional<List<String>> itemLore = meta.getLore();
+
+            if (checkLore) {
+              if (itemMeta.hasLore() && itemLore.isPresent()) {
+                return equalsLore(itemMeta.getLore(), itemLore.get());
+              } else {
+                return !itemMeta.hasLore() && !itemLore.isPresent();
+              }
+            } else {
+              return true;
+            }
+          } else {
+            return false;
+          }
+        } else {
+          ItemMeta sfitemMeta = sfitem.getItemMeta();
+
+          if (itemMeta.hasDisplayName() && sfitemMeta.hasDisplayName()) {
+            if (itemMeta.getDisplayName().equals(sfitemMeta.getDisplayName())) {
+              if (checkLore) {
+                if (itemMeta.hasLore() && sfitemMeta.hasLore()) {
+                  return equalsLore(itemMeta.getLore(), sfitemMeta.getLore());
+                } else {
+                  return !itemMeta.hasLore() && !sfitemMeta.hasLore();
+                }
+              } else {
+                return true;
+              }
+            } else {
+              return false;
+            }
+          } else if (!itemMeta.hasDisplayName() && !sfitemMeta.hasDisplayName()) {
+            if (checkLore) {
+              if (itemMeta.hasLore() && sfitemMeta.hasLore()) {
+                return equalsLore(itemMeta.getLore(), sfitemMeta.getLore());
+              } else {
+                return !itemMeta.hasLore() && !sfitemMeta.hasLore();
+              }
+            } else {
+              return true;
+            }
+          } else {
+            return false;
+          }
+        }
+      }
+    } else {
+      return false;
+    }
+  }
+
+  private static boolean equalsLore(List<String> lore, List<String> lore2) {
+    StringBuilder string1 = new StringBuilder();
+    StringBuilder string2 = new StringBuilder();
+
+    String colors = ChatColor.YELLOW.toString() + ChatColor.YELLOW.toString() + ChatColor.GRAY.toString();
+
+    for (String string : lore) {
+      if (!string.equals(ChatColor.GRAY + "Soulbound") && !string.startsWith(colors)) {
+        string1.append("-NEW LINE-").append(string);
+      }
+    }
+
+    for (String string : lore2) {
+      if (!string.equals(ChatColor.GRAY + "Soulbound") && !string.startsWith(colors)) {
+        string2.append("-NEW LINE-").append(string);
+      }
+    }
+
+    return string1.toString().equals(string2.toString());
   }
 
 }

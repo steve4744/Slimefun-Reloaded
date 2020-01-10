@@ -1,6 +1,7 @@
 package optic_fusion1.slimefunreloaded.listener;
 
 import optic_fusion1.slimefunreloaded.util.BackpackInventory;
+import optic_fusion1.slimefunreloaded.util.ItemUtils;
 import optic_fusion1.slimefunreloaded.util.PlayerProfile;
 import optic_fusion1.slimefunreloaded.util.SlimefunReloadedItems;
 import org.bukkit.Material;
@@ -21,7 +22,7 @@ public class CoolerListener implements Listener {
     Player player = (Player) event.getEntity();
     if (event.getFoodLevel() < player.getFoodLevel()) {
       for (ItemStack itemStack : player.getInventory().getContents()) {
-        if (itemStack != null && itemStack.isSimilar(SlimefunReloadedItems.COOLER)) {
+        if (itemStack != null && ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.COOLER, true)) {
           BackpackInventory backpack = PlayerProfile.getBackpack(itemStack);
           if (backpack != null) {
             Inventory inventory = backpack.getInventory();

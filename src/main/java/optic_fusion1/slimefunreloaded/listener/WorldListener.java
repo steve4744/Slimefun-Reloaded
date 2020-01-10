@@ -27,11 +27,11 @@ public class WorldListener implements Listener {
   public void on(WorldUnloadEvent event) {
     World world = event.getWorld();
     BlockStorage storage = BlockStorage.getStorage(world);
-    if (storage != null) {
-      storage.save(true);
-    } else {
+    if (storage == null) {
       Slimefun.getLogger().log(Level.SEVERE, "Could not save Slimefun Reloaded Blocks for World \"{0}\"", world.getName());
+      return;
     }
+    storage.save(true);
   }
 
 }

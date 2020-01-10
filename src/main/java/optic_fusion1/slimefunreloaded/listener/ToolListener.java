@@ -58,6 +58,7 @@ public class ToolListener implements Listener {
   public void onBlockRegister(BlockPlaceEvent event) {
     Block placedBlock = event.getBlock();
     if (BlockStorage.hasBlockInfo(placedBlock)) {
+      System.out.println("[onBlockRegister] Has block info");
       event.setCancelled(true);
       return;
     }
@@ -65,21 +66,30 @@ public class ToolListener implements Listener {
     SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByItem(itemStack);
     if (component != null && !component.isDisabled() && !(component instanceof NotPlaceable)) {
       if (!Slimefun.hasUnlocked(event.getPlayer(), component, true)) {
+        System.out.println("[onBlockRegister] Has not unlocked");
         event.setCancelled(true);
         return;
       }
       BlockState blockState = event.getBlock().getState();
       if (blockState instanceof TileState) {
+        System.out.println("[onBlockRegister] setBlockData");
         Slimefun.getBlockDataService().setBlockData((TileState) blockState, component.getID());
       }
       BlockStorage.addBlockInfo(placedBlock, "id", component.getID(), true);
       if (component instanceof SlimefunReloadedBlock) {
+        System.out.println("[onBlockRegister] onBlockPlace (1)");
         ((SlimefunReloadedBlock) component).onBlockPlace(event, itemStack, event.getPlayer(), placedBlock, component);
       }
-
+      if (component instanceof SlimefunReloadedItem) {
+        System.out.println("[onBlockRegister] component is instanceof SlimefunReloadedItem (1)");
+      }
     } else {
       if (component != null && component instanceof SlimefunReloadedBlock) {
+        System.out.println("[onBlockRegister] onBlockPlace (2)");
         ((SlimefunReloadedBlock) component).onBlockPlace(event, itemStack, event.getPlayer(), placedBlock, component);
+      }
+      if (component instanceof SlimefunReloadedItem) {
+        System.out.println("[onBlockRegister] component is instanceof SlimefunReloadedItem (2)");
       }
     }
   }
@@ -88,55 +98,53 @@ public class ToolListener implements Listener {
   public void onBlockPlace(BlockPlaceEvent event) {
     ItemStack itemStack = event.getItemInHand();
     if (cancelPlace.remove(event.getPlayer().getUniqueId())) {
+      System.out.println("[onBlockPlace] canclPlace remove");
       event.setCancelled(true);
     }
     //Clean this up
-    if (itemStack.isSimilar(SlimefunReloadedItems.BASIC_CIRCUIT_BOARD)) {
+    if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.BASIC_CIRCUIT_BOARD, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.ADVANCED_CIRCUIT_BOARD)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.ADVANCED_CIRCUIT_BOARD, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.PORTABLE_CRAFTER)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.PORTABLE_CRAFTER, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.PORTABLE_DUSTBIN)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.PORTABLE_DUSTBIN, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.BACKPACK_SMALL)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.BACKPACK_SMALL, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.BACKPACK_MEDIUM)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.BACKPACK_MEDIUM, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.BACKPACK_LARGE)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.BACKPACK_LARGE, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.WOVEN_BACKPACK)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.WOVEN_BACKPACK, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.GILDED_BACKPACK)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.GILDED_BACKPACK, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.RADIANT_BACKPACK)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.RADIANT_BACKPACK, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.BOUND_BACKPACK)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.BOUND_BACKPACK, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.COOLER)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.COOLER, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.ENDER_BACKPACK)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.ENDER_BACKPACK, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.CARBON)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.CARBON, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.COMPRESSED_CARBON)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.COMPRESSED_CARBON, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.CARBON_CHUNK)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.CARBON_CHUNK, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.ANDROID_MEMORY_CORE)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.ANDROID_MEMORY_CORE, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.LAVA_CRYSTAL)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.LAVA_CRYSTAL, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.TINY_URANIUM)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.TINY_URANIUM, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.SMALL_URANIUM)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.BROKEN_SPAWNER, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.BROKEN_SPAWNER)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.GPS_MARKER_TOOL, true)) {
       event.setCancelled(true);
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.GPS_MARKER_TOOL)) {
-      event.setCancelled(true);
-      Slimefun.getGPSNetwork().addWaypoint(event.getPlayer(), event.getBlock().getLocation());
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.CHRISTMAS_PRESENT)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.CHRISTMAS_PRESENT, true)) {
       event.setCancelled(true);
       if (event.getPlayer().getGameMode() != GameMode.CREATIVE) {
         ItemUtils.consumeItem(itemStack, false);
@@ -157,22 +165,17 @@ public class ToolListener implements Listener {
       gifts.add(new ItemStack(Material.EMERALD));
 
       event.getBlockPlaced().getWorld().dropItemNaturally(event.getBlockPlaced().getLocation(), gifts.get(ThreadLocalRandom.current().nextInt(gifts.size())));
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.CARGO_INPUT)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.CARGO_INPUT, true)) {
       if (event.getBlock().getY() != event.getBlockAgainst().getY()) {
         I18n.tl(event.getPlayer(), "machines.CARGO_NODES.must-be-placed");
         event.setCancelled(true);
       }
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.CARGO_OUTPUT)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.CARGO_OUTPUT_ADVANCED, true)) {
       if (event.getBlock().getY() != event.getBlockAgainst().getY()) {
         I18n.tl(event.getPlayer(), "machines.CARGO_NODES.must-be-placed");
         event.setCancelled(true);
       }
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.CARGO_OUTPUT_ADVANCED)) {
-      if (event.getBlock().getY() != event.getBlockAgainst().getY()) {
-        I18n.tl(event.getPlayer(), "machines.CARGO_NODES.must-be-placed");
-        event.setCancelled(true);
-      }
-    } else if (itemStack.isSimilar(SlimefunReloadedItems.CT_IMPORT_BUS)) {
+    } else if (ItemUtils.isItemSimilar(itemStack, SlimefunReloadedItems.CT_IMPORT_BUS, true)) {
       if (event.getBlock().getY() != event.getBlockAgainst().getY()) {
         I18n.tl(event.getPlayer(), "machines.CARGO_NODES.must-be-placed");
         event.setCancelled(true);
@@ -201,9 +204,11 @@ public class ToolListener implements Listener {
       if (component != null && component instanceof SlimefunReloadedBlock) {
         allow = ((SlimefunReloadedBlock) component).onBlockBreak(event, event.getPlayer(), relativeBlock, itemStack, fortune, component, UnregisterReason.PLAYER_BREAK);
         if (!allow) {
+          System.out.println("[onBlockBreak] !allow (1)");
           event.setCancelled(true);
           return;
         }
+        System.out.println("[onBlockBreak] allow");
         relativeBlock.getWorld().dropItemNaturally(relativeBlock.getLocation(), BlockStorage.retrieve(relativeBlock));
         relativeBlock.setType(Material.AIR);
       }
@@ -221,9 +226,11 @@ public class ToolListener implements Listener {
     if (component != null && component instanceof SlimefunReloadedBlock) {
       allow = ((SlimefunReloadedBlock) component).onBlockBreak(event, event.getPlayer(), relativeBlock, itemStack, fortune, component, UnregisterReason.PLAYER_BREAK);
       if (!allow) {
+        System.out.println("[onBlockBreak] !allow (2)");
         event.setCancelled(true);
         return;
       }
+      System.out.println("[onBlockBreak] allow");
 //      drops.addAll(component.getDrops());
       BlockStorage.clearBlockInfo(event.getBlock());
     } else if (itemStack != null) {
@@ -235,7 +242,10 @@ public class ToolListener implements Listener {
         }
         fortune = (event.getBlock().getType() == Material.LAPIS_ORE ? 4 + random.nextInt(5) : 1) * (fortune + 1);
       }
-      ((SlimefunReloadedItem) component).onBlockBreak(event, event.getPlayer(), relativeBlock, itemStack, fortune, component);
+      SlimefunReloadedComponent handItem = COMPONENT_MANAGER.getComponentByItem(itemStack);
+      if (handItem != null && handItem instanceof SlimefunReloadedItem) {
+        ((SlimefunReloadedItem) handItem).onBlockBreak(event, event.getPlayer(), relativeBlock, itemStack, fortune, component);
+      }
     }
     if (!drops.isEmpty()) {
       event.getBlock().setType(Material.AIR);
@@ -262,9 +272,12 @@ public class ToolListener implements Listener {
           SlimefunReloadedComponent component = COMPONENT_MANAGER.getComponentByKey(id);
           success = ((SlimefunReloadedBlock) component).onBlockBreak(null, null, block, null, -1, component, UnregisterReason.EXPLODE);
           if (success) {
+            System.out.println("[onEntityExplode] success");
             BlockStorage.clearBlockInfo(block);
             block.setType(Material.AIR);
+            return;
           }
+          System.out.println("[onEntityExplode] !success");
         }
       }
     }
@@ -274,6 +287,7 @@ public class ToolListener implements Listener {
   public void onLiquidFlow(BlockFromToEvent event) {
     Block block = event.getToBlock();
     if (BlockStorage.checkID(block) != null) {
+      System.out.println("[onLiquidFlow] cancel event");
       event.setCancelled(true);
     }
   }
