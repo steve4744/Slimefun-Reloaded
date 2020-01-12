@@ -1,10 +1,11 @@
-package optic_fusion1.slimefunreloaded.component.item;
+package optic_fusion1.slimefunreloaded.component;
 
 import java.util.List;
 import optic_fusion1.slimefunreloaded.category.type.Category;
 import optic_fusion1.slimefunreloaded.component.RecipeType;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.UnregisterReason;
+import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

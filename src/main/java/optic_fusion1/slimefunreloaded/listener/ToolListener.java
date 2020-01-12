@@ -14,7 +14,7 @@ import optic_fusion1.slimefunreloaded.component.ComponentManager;
 import optic_fusion1.slimefunreloaded.component.NotPlaceable;
 import optic_fusion1.slimefunreloaded.component.SlimefunReloadedComponent;
 import optic_fusion1.slimefunreloaded.component.UnregisterReason;
-import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedBlock;
+import optic_fusion1.slimefunreloaded.component.SlimefunReloadedBlock;
 import optic_fusion1.slimefunreloaded.component.item.SlimefunReloadedItem;
 import optic_fusion1.slimefunreloaded.util.BlockStorage;
 import optic_fusion1.slimefunreloaded.util.CustomItem;

@@ -34,6 +34,7 @@ import optic_fusion1.slimefunreloaded.inventory.BlockMenu;
 import optic_fusion1.slimefunreloaded.inventory.BlockMenuPreset;
 import optic_fusion1.slimefunreloaded.inventory.UniversalBlockMenu;
 
+//TODO: Convert this to use the new Menu API
 public class BlockStorage {
 
   private static final String path_blocks = "plugins/SlimefunReloaded/data-storage/stored-blocks/";

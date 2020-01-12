@@ -7,6 +7,6 @@ import org.bukkit.event.block.BlockDispenseEvent;
 @FunctionalInterface
 public interface AutonomousMachineHandler{
 
-  boolean onBlockDispense(BlockDispenseEvent e, Block dispenser, Dispenser d, Block block, Block chest, SlimefunReloadedComponent machine);
+  boolean onBlockDispense(BlockDispenseEvent event, Block block, Dispenser dispenser, Block relativeBlock, Block chest, SlimefunReloadedComponent machine);
 
 }
